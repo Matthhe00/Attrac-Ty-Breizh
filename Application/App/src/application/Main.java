@@ -40,17 +40,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        
-        PasswordField passwordField = new PasswordField();
-        root.getChildren().add(passwordField);
-
-        
-        Button button = new Button();
-                button.setOnAction(event -> {
-                    System.out.println(passwordField.getText());
-                });
-                
-        button.setText("Salut");
-        root.getChildren().add(button);
     }
 }
