@@ -1,0 +1,41 @@
+.my-button {
+    -fx-background-color: #38B6FF;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-cursor: hand;
+}
+
+.my-button:hover {
+    -fx-background-color: #1f6892;
+    -fx-text-fill: white;
+}
+
+.my-label-ins {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-label-con {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-field-user-con {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #8f8e8e48;
+    -fx-background-radius: 15px;
+    -fx-padding: 10px 20px;
+}
+
+.my-field-user-con:placeholder {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+}
