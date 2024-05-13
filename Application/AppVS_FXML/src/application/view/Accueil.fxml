@@ -24,5 +24,6 @@
                </padding></Button>
         </buttons>
       </ButtonBar>
+      <Button layoutX="258.0" layoutY="245.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>
