@@ -1,7 +1,7 @@
--- Active: 1710626043643@@127.0.0.1@3306@bd_r206
+-- Active: 1716314718184@@127.0.0.1@3306@sae
 
 /* Question 1 : jointure */
--- Quels sont les aéroports et leur département ?
+-- Quels est le departement de chaque aeroport ?
 SELECT Aeroport.nom, Departement.nomDep
 FROM Departement
 JOIN Aeroport ON Departement.idDep = Aeroport.leDepartement
@@ -27,6 +27,13 @@ ORDER BY Commune.idCommune
 LIMIT 10;
 
 /* Question 4 : jointure externe */
+-- Quels sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
+SELECT c.nomCommune, d.nbMaison
+FROM Commune c
+LEFT JOIN DonneesAnnuelles d
+ON c.idCommune = d.laCommune
+WHERE d.lAnnee = 2020
+AND d.nbMaison > 50;
 
 
 /* Question 5 : sous-requête (avec IN) */
@@ -139,14 +146,11 @@ SELECT * FROM DepartementsPlusDeCentCommunes;
 
 
 /* Question 18 : vue (pour gérer des contraintes à proposer) */
+-- 
 
 
 /* Question 19 : vue (pour gérer des informations d´erivables à proposer) */
 
 
 /* Question 20 : vue (pour gérer des informations d´erivables à proposer) */
-
-
-
-
 
