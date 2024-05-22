@@ -1,4 +1,4 @@
--- Active: 1716314718184@@127.0.0.1@3306@sae
+-- Active: 1710626043643@@127.0.0.1@3306@bd_r206
 
 /* Question 1 : jointure */
 -- Quels est le departement de chaque aeroport ?
@@ -146,11 +146,17 @@ SELECT * FROM DepartementsPlusDeCentCommunes;
 
 
 /* Question 18 : vue (pour gérer des contraintes à proposer) */
--- 
 
 
-/* Question 19 : vue (pour gérer des informations d´erivables à proposer) */
+/* Question 19 : vue (pour gérer des informations dérivables à proposer) */
+-- Vue pour obtenir le nombre de maisons vendues par département
+CREATE OR REPLACE VIEW vue_nombre_maisons_par_departement AS
+SELECT d.nomDep AS Departement, SUM(da.nbMaison) AS NombreMaisonsVendues
+FROM Departement d
+JOIN Commune c ON d.idDep = c.leDepartement
+JOIN DonneesAnnuelles da ON c.idCommune = da.laCommune
+GROUP BY d.nomDep;
 
+SELECT * FROM vue_nombre_maisons_par_departement;
 
-/* Question 20 : vue (pour gérer des informations d´erivables à proposer) */
-
+/* Question 20 : vue (pour gérer des informations dérivables à proposer) */
