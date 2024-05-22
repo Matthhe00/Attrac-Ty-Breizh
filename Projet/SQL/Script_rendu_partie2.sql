@@ -256,7 +256,7 @@ HAVING COUNT(G.codeGare) > 0;
 
 /*
 COTES-D'ARMOR 43
-FINISTERE 24 
+FINISTERE 24
 ILLE-ET-VILAINE 49
 MORBIHAN 21
 
@@ -273,11 +273,22 @@ JOIN Commune C ON D.idDep = C.leDepartement
 GROUP BY D.nomDep
 HAVING COUNT(C.idCommune) > 300;
 
+/*
+COTES-D'ARMOR 2156415408
+ILLE-ET-VILAINE 8958225807
+
+2 tuples retournés
+*/
+
+--------------------------------------------------------------
+
 /* Question 15 : division normale */
 
 
 /* Question 16 : division exacte */
 
+
+--------------------------------------------------------------
 
 /* Question 17 : vue (pour gérer des contraintes à proposer)  */
 -- Vue pour obtenir les départements avec moins de 300 communes
@@ -303,6 +314,15 @@ GROUP BY C.nomCommune;
 
 SELECT * FROM CommunesAvecDeuxTypesDeGares;
 
+/*
+FINISTERE 277
+MORBIHAN 249
+
+2 tuples retournés
+*/
+
+--------------------------------------------------------------
+
 /* Question 19 : vue (pour gérer des informations dérivables à proposer) */
 -- Vue pour obtenir le nombre de maisons vendues par département
 CREATE OR REPLACE VIEW vue_nombre_maisons_par_departement AS
@@ -314,6 +334,17 @@ GROUP BY d.nomDep;
 
 SELECT * FROM vue_nombre_maisons_par_departement;
 
+/*
+COTES-D'ARMOR 35041
+FINISTERE 44094
+ILLE-ET-VILAINE 38801
+MORBIHAN 38296
+
+4 tuples retournés
+*/
+
+--------------------------------------------------------------
+
 /* Question 20 : vue (pour gérer des informations dérivables à proposer) */
 -- Vue pour obtenir le prix moyens des logements des communes
 CREATE OR REPLACE VIEW vue_prix_moyen_logements_communes AS
@@ -323,3 +354,15 @@ JOIN DonneesAnnuelles da ON c.idCommune = da.laCommune
 GROUP BY c.nomCommune;
 
 SELECT * FROM vue_prix_moyen_logements_communes;
+
+/*
+ALLINEUC 5.5000
+ANDEL 13.7500
+AUCALEUC 10.5000
+BEGARD 81.0000
+BELLE-ISLE-EN-TERRE 20.7500
+
+1199 tuples retournés
+*/
+
+--------------------------------------------------------------
