@@ -1,4 +1,17 @@
 -- Active: 1716314718184@@127.0.0.1@3306@sae
+/*
+
+Rendu partie BDD partie 2 : Requêtes et vues MySQL
+Groupe A1-2
+
+Membres du groupe :
+- Jules-Vachet Mattheo
+- Shell Yanis
+- Gauffeny Paul
+
+*/
+
+--------------------------------------------------------------
 
 /* Question 1 : jointure */
 -- Quels est le departement de chaque aeroport ?
