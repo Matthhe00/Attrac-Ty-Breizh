@@ -1,4 +1,4 @@
--- Active: 1710626043643@@127.0.0.1@3306@bd_r206
+-- Active: 1716314718184@@127.0.0.1@3306@sae
 
 /* Question 1 : jointure */
 -- Quels est le departement de chaque aeroport ?
@@ -146,7 +146,16 @@ SELECT * FROM DepartementsPlusDeCentCommunes;
 
 
 /* Question 18 : vue (pour gérer des contraintes à proposer) */
+-- Vue pour obtenir les communes ont les 2 types de gares
+CREATE OR REPLACE VIEW CommunesAvecDeuxTypesDeGares AS
+SELECT C.nomCommune
+FROM Commune C
+JOIN Gare G ON C.idCommune = G.laCommune
+WHERE G.estFret = TRUE
+AND G.estVoyageur = TRUE
+GROUP BY C.nomCommune;
 
+SELECT * FROM CommunesAvecDeuxTypesDeGares;
 
 /* Question 19 : vue (pour gérer des informations dérivables à proposer) */
 -- Vue pour obtenir le nombre de maisons vendues par département
@@ -160,3 +169,11 @@ GROUP BY d.nomDep;
 SELECT * FROM vue_nombre_maisons_par_departement;
 
 /* Question 20 : vue (pour gérer des informations dérivables à proposer) */
+-- Vue pour obtenir le prix moyens des logements des communes
+CREATE OR REPLACE VIEW vue_prix_moyen_logements_communes AS
+SELECT c.nomCommune AS Commune, AVG(da.nbMaison) AS PrixMoyenLogements
+FROM Commune c
+JOIN DonneesAnnuelles da ON c.idCommune = da.laCommune
+GROUP BY c.nomCommune;
+
+SELECT * FROM vue_prix_moyen_logements_communes;
