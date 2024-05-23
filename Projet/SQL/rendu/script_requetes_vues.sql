@@ -1,4 +1,3 @@
--- Active: 1710626043643@@127.0.0.1@3306@bd_r206
 /*
 
 Rendu partie BDD partie 2 : Requêtes et vues MySQL
