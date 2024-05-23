@@ -1,4 +1,4 @@
--- Active: 1716314718184@@127.0.0.1@3306@sae
+-- Active: 1710626043643@@127.0.0.1@3306@bd_r206
 /*
 
 Rendu partie BDD partie 2 : Requêtes et vues MySQL
@@ -137,23 +137,23 @@ RENNES 35238
 
 /* Question 7 : sous-requête (avec EXISTS) */
 -- Quels sont les communes ayant au moins 2 gares ?
-SELECT nomCommune, leDepartement
-FROM Commune c1
+SELECT nomCommune
+FROM Commune c
 WHERE EXISTS (
-    SELECT *
-    FROM Gare g1, Gare g2
-    WHERE g1.laCommune = c1.idCommune
-    AND g2.laCommune = c1.idCommune
-    AND g1.codeGare < g2.codeGare
-    )
-ORDER BY c1.idCommune;
+    SELECT g.laCommune
+    FROM Gare g
+    WHERE g.laCommune = c.idCommune
+    GROUP BY g.laCommune
+    HAVING COUNT(g.codeGare) >= 2
+);
+
 
 /*
-CALLAC 22
-GUINGAMP 22
-PLOURIVO 22
-PONT-MELVEZ 22
-PONTRIEUX 22
+CALLAC
+GUINGAMP
+PLOURIVO
+PONT-MELVEZ
+PONTRIEUX
 
 13 tuples retournés
 */
@@ -296,9 +296,33 @@ ILLE-ET-VILAINE 8958225807
 --------------------------------------------------------------
 
 /* Question 15 : division normale */
+-- Quels sont les communes ayant une gare de fret mais pas de gare de voyageurs ?
+SELECT C.nomCommune
+FROM Commune C
+JOIN Gare G1 ON C.idCommune = G1.laCommune
+WHERE G1.estFret = TRUE
+AND C.idCommune NOT IN (
+    SELECT C.idCommune
+    FROM Commune C
+    JOIN Gare G2 ON C.idCommune = G2.laCommune
+    WHERE G2.estVoyageur = TRUE
+    )
+GROUP BY C.nomCommune;
 
+/*
+SAINT-MEEN-LE-GRAND
+MONTREUIL-SOUS-PEROUSE
+PLAINTEL
+SAINT-BRANDAN
+SAINT-HERVE
+
+11 tuples retournés
+*/
+
+--------------------------------------------------------------
 
 /* Question 16 : division exacte */
+
 
 
 --------------------------------------------------------------
