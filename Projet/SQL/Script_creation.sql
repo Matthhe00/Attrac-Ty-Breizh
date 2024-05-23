@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS Voisinage;
 DROP TABLE IF EXISTS Gare;
 DROP TABLE IF EXISTS Commune;
 DROP TABLE IF EXISTS Departement;
--- aiohf
 CREATE TABLE Departement
 	(
 	idDep INTEGER,
