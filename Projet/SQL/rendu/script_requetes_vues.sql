@@ -296,34 +296,69 @@ ILLE-ET-VILAINE 8958225807
 --------------------------------------------------------------
 
 /* Question 15 : division normale */
--- Quels sont les communes ayant une gare de fret mais pas de gare de voyageurs ?
+-- Quelles sont les communes ayant les 2 types de gares ?
 SELECT C.nomCommune
 FROM Commune C
-JOIN Gare G1 ON C.idCommune = G1.laCommune
-WHERE G1.estFret = TRUE
-AND C.idCommune NOT IN (
-    SELECT C.idCommune
-    FROM Commune C
-    JOIN Gare G2 ON C.idCommune = G2.laCommune
-    WHERE G2.estVoyageur = TRUE
+WHERE NOT EXISTS (
+    SELECT G1.codeGare
+    FROM Gare G1
+    WHERE G1.estFret = TRUE
+    AND NOT EXISTS (
+        SELECT G2.codeGare
+        FROM Gare G2
+        WHERE G2.laCommune = C.idCommune
+        AND G2.estFret = TRUE
     )
-GROUP BY C.nomCommune;
+) AND NOT EXISTS (
+    SELECT G1.codeGare
+    FROM Gare G1
+    WHERE G1.estVoyageur = TRUE
+    AND NOT EXISTS (
+        SELECT G2.codeGare
+        FROM Gare G2
+        WHERE G2.laCommune = C.idCommune
+        AND G2.estVoyageur = TRUE
+    )
+);
 
 /*
-SAINT-MEEN-LE-GRAND
-MONTREUIL-SOUS-PEROUSE
-PLAINTEL
-SAINT-BRANDAN
-SAINT-HERVE
+GUINGAMP
+LAMBALLE-ARMOR
+LOCARN
+PLENEE-JUGON
+PLESTAN
 
-11 tuples retournés
+35 tuples retournés
 */
 
 --------------------------------------------------------------
 
 /* Question 16 : division exacte */
+-- Quelles sont les communes ayant uniquement des gares voyageurs ?
+SELECT C.nomCommune
+FROM Commune C
+WHERE EXISTS (
+    SELECT 1
+    FROM Gare G
+    WHERE C.idCommune = G.laCommune
+    AND G.estVoyageur = TRUE
+)
+AND NOT EXISTS (
+    SELECT 1
+    FROM Gare G
+    WHERE C.idCommune = G.laCommune
+    AND G.estFret = TRUE
+);
 
+/*
+BRUZ
+PLOURIVO
+CESSON-SEVIGNE
+VERN-SUR-SEICHE
+BETTON
 
+74 tuples retournés
+*/
 
 --------------------------------------------------------------
 
