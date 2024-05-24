@@ -13,7 +13,7 @@ Membres du groupe :
 --------------------------------------------------------------
 
 /* Question 1 : jointure interne */
--- Quel est le departement de chaque aeroport ?
+-- Quels est le departement de chaque aeroport ?
 SELECT Aeroport.nom, Departement.nomDep
 FROM Departement
 JOIN Aeroport ON Departement.idDep = Aeroport.leDepartement
@@ -32,7 +32,7 @@ QUIMPER-PLUGUFFAN	FINISTERE
 --------------------------------------------------------------
 
 /* Question 2 : auto-jointure */
--- Quelles sont les villes possédant plus d'une gares ?
+-- Quels sont les villes possédant plus d'une gares ?
 SELECT C1.nomCommune, COUNT(DISTINCT G1.codeGare) AS nombreDeGares
 FROM Commune C1
 JOIN Gare G1 ON C1.idCommune = G1.laCommune
@@ -52,13 +52,12 @@ RENNES	2
 --------------------------------------------------------------
 
 /* Question 3 : jointure externe */
-<<<<<<< HEAD
--- Quelles communes n'a pas vendues d'appartement en 2020 ?
-SELECT C.nomCommune
-FROM Commune C
-LEFT JOIN DonneesAnnuelles D ON C.idCommune = D.laCommune
-WHERE D.lAnnee = 2020
-AND D.nbAppart = 0;
+-- Quels sont les communes qui n'ont pas vendu d'apartement en 2020 ?
+SELECT c.nomCommune
+FROM Commune c
+LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
+WHERE d.lAnnee = 2020
+AND d.nbAppart = 0;
 
 /*
 ALLINEUC
@@ -69,12 +68,11 @@ BOBITAL
 
 793 tuples retournés
 */
->>>>>>> fd1bf7e88d4eb92005a2043e6b221cac742eb9a2
 
 --------------------------------------------------------------
 
 /* Question 4 : jointure externe */
--- Quelles sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
+-- Quels sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
 SELECT c.nomCommune, d.nbMaison
 FROM Commune c
 LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
@@ -113,7 +111,7 @@ RENNES-ST-JACQUES 35
 --------------------------------------------------------------
 
 /* Question 6 : sous-requête (avec NOT IN) */
--- Quelles sont les gares qui ne sont pas dans le département 56 ?
+-- Quels sont les gares qui ne sont pas dans le département 56 ?
 SELECT nomGare, laCommune
 FROM Gare
 WHERE laCommune NOT IN (
@@ -136,7 +134,7 @@ RENNES 35238
 --------------------------------------------------------------
 
 /* Question 7 : sous-requête (avec EXISTS) */
--- Quelles sont les communes ayant au moins 2 gares ?
+-- Quels sont les communes ayant au moins 2 gares ?
 SELECT nomCommune
 FROM Commune c
 WHERE EXISTS (
@@ -160,7 +158,7 @@ PONTRIEUX
 --------------------------------------------------------------
 
 /* Question 8 : sous-requête (avec NOT EXISTS) */
--- Quelles sont les communes n'ayant pas de gare ?
+-- Quels sont les communes n'ayant pas de gare ?
 SELECT *
 FROM Commune c1
 WHERE NOT EXISTS (
