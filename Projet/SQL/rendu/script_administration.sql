@@ -1,3 +1,15 @@
+/*
+
+Rendu partie BDD partie 2 : Administration de la base de donnee
+Groupe A1-2
+
+Membres du groupe :
+- Jules-Vachet Mattheo
+- Schell Yanis
+- Gauffeny Paul
+
+*/
+
 ------------------------------------------
 --        Shell / root@localhost        --
 ------------------------------------------
@@ -192,5 +204,3 @@ WHERE idDep = 67;
 SELECT *
 FROM Departement
 WHERE idDep = 67;
-
-

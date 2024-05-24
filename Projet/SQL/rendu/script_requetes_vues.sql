@@ -1,3 +1,4 @@
+-- Active: 1710626043643@@127.0.0.1@3306@bd_r206
 /*
 
 Rendu partie BDD partie 2 : Requêtes et vues MySQL
@@ -5,14 +6,14 @@ Groupe A1-2
 
 Membres du groupe :
 - Jules-Vachet Mattheo
-- Shell Yanis
+- Schell Yanis
 - Gauffeny Paul
 
 */
 
 --------------------------------------------------------------
 
-/* Question 1 : jointure */
+/* Question 1 : jointure interne */
 -- Quels est le departement de chaque aeroport ?
 SELECT Aeroport.nom, Departement.nomDep
 FROM Departement
@@ -146,7 +147,6 @@ WHERE EXISTS (
     HAVING COUNT(g.codeGare) >= 2
 );
 
-
 /*
 CALLAC
 GUINGAMP
@@ -200,7 +200,7 @@ MORBIHAN 7107993.0000
 --------------------------------------------------------------
 
 /* Question 10 : fonction de groupe sans regroupement */
--- Nombre de gares par commune, incluant les communes sans gares.
+-- Quel est le nombre de gares par commune ?
 SELECT C.nomCommune, COUNT(G.codeGare) AS nombreDeGares
 FROM Commune C
 LEFT JOIN Gare G ON C.idCommune = G.laCommune
@@ -372,6 +372,14 @@ HAVING COUNT(C.idCommune) < 300;
 
 SELECT * FROM DepartementsPlusDeCentCommunes;
 
+/*
+FINISTERE 277
+MORBIHAN 249
+
+2 tuples retournés
+*/
+
+--------------------------------------------------------------
 
 /* Question 18 : vue (pour gérer des contraintes à proposer) */
 -- Vue pour obtenir les communes ont les 2 types de gares
@@ -386,10 +394,13 @@ GROUP BY C.nomCommune;
 SELECT * FROM CommunesAvecDeuxTypesDeGares;
 
 /*
-FINISTERE 277
-MORBIHAN 249
+RENNES
+SAINT-JACQUES-DE-LA-LANDE
+L'HERMITAGE
+MONTAUBAN-DE-BRETAGNE
+REDON
 
-2 tuples retournés
+35 tuples retournés
 */
 
 --------------------------------------------------------------
