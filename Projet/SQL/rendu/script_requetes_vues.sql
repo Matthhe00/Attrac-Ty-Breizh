@@ -32,7 +32,7 @@ QUIMPER-PLUGUFFAN	FINISTERE
 --------------------------------------------------------------
 
 /* Question 2 : auto-jointure */
--- Quels sont les villes possédant plus d'une gares ?
+-- Quelles sont les villes possédant plus d'une gares ?
 SELECT C1.nomCommune, COUNT(DISTINCT G1.codeGare) AS nombreDeGares
 FROM Commune C1
 JOIN Gare G1 ON C1.idCommune = G1.laCommune
@@ -52,7 +52,7 @@ RENNES	2
 --------------------------------------------------------------
 
 /* Question 3 : jointure externe */
--- Quels sont les communes qui n'ont pas vendu d'apartement en 2020 ?
+-- Quelles sont les communes qui n'ont pas vendu d'apartement en 2020 ?
 SELECT c.nomCommune
 FROM Commune c
 LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
@@ -72,7 +72,7 @@ BOBITAL
 --------------------------------------------------------------
 
 /* Question 4 : jointure externe */
--- Quels sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
+-- Quelles sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
 SELECT c.nomCommune, d.nbMaison
 FROM Commune c
 LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
@@ -111,7 +111,7 @@ RENNES-ST-JACQUES 35
 --------------------------------------------------------------
 
 /* Question 6 : sous-requête (avec NOT IN) */
--- Quels sont les gares qui ne sont pas dans le département 56 ?
+-- Quelles sont les gares qui ne sont pas dans le département 56 ?
 SELECT nomGare, laCommune
 FROM Gare
 WHERE laCommune NOT IN (
@@ -134,7 +134,7 @@ RENNES 35238
 --------------------------------------------------------------
 
 /* Question 7 : sous-requête (avec EXISTS) */
--- Quels sont les communes ayant au moins 2 gares ?
+-- Quelles sont les communes ayant au moins 2 gares ?
 SELECT nomCommune
 FROM Commune c
 WHERE EXISTS (
@@ -158,7 +158,7 @@ PONTRIEUX
 --------------------------------------------------------------
 
 /* Question 8 : sous-requête (avec NOT EXISTS) */
--- Quels sont les communes n'ayant pas de gare ?
+-- Quelles sont les communes n'ayant pas de gare ?
 SELECT *
 FROM Commune c1
 WHERE NOT EXISTS (
