@@ -52,6 +52,7 @@ RENNES	2
 --------------------------------------------------------------
 
 /* Question 3 : jointure externe */
+<<<<<<< HEAD
 -- Quelles communes n'a pas vendues d'appartement en 2020 ?
 SELECT C.nomCommune
 FROM Commune C
@@ -59,6 +60,23 @@ LEFT JOIN DonneesAnnuelles D ON C.idCommune = D.laCommune
 WHERE D.lAnnee = 2020
 AND D.nbAppart = 0;
 
+=======
+-- Quels sont les communes qui n'ont pas vendu d'apartement en 2020 ?
+SELECT c.nomCommune
+FROM Commune c
+LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
+WHERE d.lAnnee = 2020
+AND d.nbAppart = 0;
+
+ALLINEUC
+ANDEL
+AUCALEUC
+BERHET
+BOBITAL
+
+793 tuples retournés
+*/
+>>>>>>> fd1bf7e88d4eb92005a2043e6b221cac742eb9a2
 
 --------------------------------------------------------------
 
@@ -66,8 +84,7 @@ AND D.nbAppart = 0;
 -- Quelles sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
 SELECT c.nomCommune, d.nbMaison
 FROM Commune c
-LEFT JOIN DonneesAnnuelles d
-ON c.idCommune = d.laCommune
+LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
 WHERE d.lAnnee = 2020
 AND d.nbMaison > 50;
 
