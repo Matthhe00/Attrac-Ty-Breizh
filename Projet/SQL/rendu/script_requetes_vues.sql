@@ -68,6 +68,7 @@ LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
 WHERE d.lAnnee = 2020
 AND d.nbAppart = 0;
 
+/*
 ALLINEUC
 ANDEL
 AUCALEUC
