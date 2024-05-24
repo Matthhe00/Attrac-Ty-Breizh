@@ -52,21 +52,21 @@ RENNES	2
 --------------------------------------------------------------
 
 /* Question 3 : jointure externe */
--- Quels sont les communes n'ayant pas de gare ?
-SELECT Commune.idCommune, Commune.nomCommune
-FROM Commune
-LEFT JOIN Gare ON Commune.idCommune = Gare.laCommune
-WHERE Gare.codeGare IS NULL
-ORDER BY Commune.idCommune;
+-- Quels sont les communes qui n'ont pas vendu d'apartement en 2020 ?
+SELECT c.nomCommune
+FROM Commune c
+LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
+WHERE d.lAnnee = 2020
+AND d.nbAppart = 0;
 
 /*
-22001 ALLINEUC
-22002 ANDEL
-22003 AUCALEUC
-22004 BEGARD
-22005 BELLE-ISLE-EN-TERRE
+ALLINEUC
+ANDEL
+AUCALEUC
+BERHET
+BOBITAL
 
-1087 tuples retournés
+793 tuples retournés
 */
 
 --------------------------------------------------------------
@@ -75,8 +75,7 @@ ORDER BY Commune.idCommune;
 -- Quels sont les communes ayant un nombre de maisons vendu supérieur à 50 en 2020 ?
 SELECT c.nomCommune, d.nbMaison
 FROM Commune c
-LEFT JOIN DonneesAnnuelles d
-ON c.idCommune = d.laCommune
+LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
 WHERE d.lAnnee = 2020
 AND d.nbMaison > 50;
 
