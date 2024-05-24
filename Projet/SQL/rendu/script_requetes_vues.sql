@@ -60,14 +60,6 @@ LEFT JOIN DonneesAnnuelles D ON C.idCommune = D.laCommune
 WHERE D.lAnnee = 2020
 AND D.nbAppart = 0;
 
-=======
--- Quels sont les communes qui n'ont pas vendu d'apartement en 2020 ?
-SELECT c.nomCommune
-FROM Commune c
-LEFT JOIN DonneesAnnuelles d ON c.idCommune = d.laCommune
-WHERE d.lAnnee = 2020
-AND d.nbAppart = 0;
-
 /*
 ALLINEUC
 ANDEL
