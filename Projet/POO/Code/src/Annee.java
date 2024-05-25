@@ -1,5 +1,3 @@
-package application.model;
-
 public class Annee {
     private int annee;
     private float tauxInflation;

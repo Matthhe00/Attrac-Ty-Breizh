@@ -1,5 +1,3 @@
-package application.model;
-
 public class Gare {
     private int codeGare;
     private String nomGare;

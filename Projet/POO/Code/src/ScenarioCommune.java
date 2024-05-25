@@ -1,8 +1,6 @@
-package application.model;
-
 public class ScenarioCommune {
 
-    public static void main (String args) {
+    public static void main (String[] args) {
 
         // Creation des objets et initialisation des relations
         Annee annee2020 = new Annee(2020, 1.5f);

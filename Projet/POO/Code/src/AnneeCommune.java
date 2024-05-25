@@ -1,5 +1,3 @@
-package application.model;
-
 public class AnneeCommune {
     private Annee annee;
     private Commune laCommune;

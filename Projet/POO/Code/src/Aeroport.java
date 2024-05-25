@@ -1,5 +1,3 @@
-package application.model;
-
 public class Aeroport {
     private Departement leDepartement;
     private String nom;

@@ -1,5 +1,3 @@
-package application.model;
-
 public class Departement {
     
     private int idDep;
