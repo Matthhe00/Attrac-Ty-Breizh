@@ -18,6 +18,10 @@ public class Commune {
         this.communeVoisine.add(commune);
     }
 
+    public void removeCommuneVoisine(Commune commune) {
+        this.communeVoisine.remove(commune);
+    }
+
     public int getIdCommune() {
         return this.idCommune;
     }
@@ -48,5 +52,9 @@ public class Commune {
 
     public void setCommuneVoisine(ArrayList<Commune> communeVoisine) {
         this.communeVoisine = communeVoisine;
+    }
+
+    public String toString() {
+        return "Commune [idCommune=" + idCommune + ", leDepartement=" + getLeDepartement() + ", nomCommune=" + nomCommune + "]";
     }
 }

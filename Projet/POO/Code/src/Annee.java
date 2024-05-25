@@ -22,5 +22,9 @@ public class Annee {
     public void setTauxInflation(float tauxInflation) {
         this.tauxInflation = tauxInflation;
     }
+
+    public String toString() {
+        return "Annee [annee=" + getAnnee() + ", tauxInflation=" + getTauxInflation() + "]";
+    }
     
 }

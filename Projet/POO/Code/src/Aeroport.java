@@ -24,4 +24,16 @@ public class Aeroport {
     public void setLeDepartement(Departement leDepartement) {
         this.leDepartement = leDepartement;
     }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String toString() {
+        return "Aeroport [adresse=" + getAdresse() + ", leDepartement=" + getLeDepartement() + ", nom=" + getNom() + "]";
+    }
 }

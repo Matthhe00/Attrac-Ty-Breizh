@@ -50,4 +50,13 @@ public class Gare {
         this.laCommune = laCommune;
     }
 
+    public void setCodeGare(int codeGare) {
+        this.codeGare = codeGare;
+    }
+
+    public String toString() {
+        return "Gare [codeGare=" + getCodeGare() + ", estFret=" + getEstFret() + ", estVoyageur=" + getEstVoyageur() + ", laCommune="
+                + getLaCommune() + ", nomGare=" + getNomGare() + "]";
+    }
+
 }

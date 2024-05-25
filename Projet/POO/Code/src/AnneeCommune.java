@@ -102,4 +102,11 @@ public class AnneeCommune {
     public void setPopulation(float population) {
         this.population = population;
     }
+
+    public String toString() {
+        return "AnneeCommune [annee=" + getAnnee() + ", budgetTotal=" + getBudgetTotal() + ", depCulturellesTotal="
+                + getDepCulturellesTotal() + ", laCommune=" + getLaCommune() + ", nbAppart=" + getNbAppart() + ", nbMaison=" + getNbMaison()
+                + ", population=" + getPopulation() + ", prixM2Moyen=" + getPrixM2Moyen() + ", prixMoyen=" + getPrixMoyen()
+                + ", surfaceMoy=" + getSurfaceMoy() + "]";
+    }
 }
