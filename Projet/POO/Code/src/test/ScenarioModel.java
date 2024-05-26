@@ -1,4 +1,7 @@
-public class ScenarioCommune {
+package test;
+import model.*;
+
+public class ScenarioModel {
 
     public static void main (String[] args) {
 

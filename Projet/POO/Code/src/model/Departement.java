@@ -1,3 +1,4 @@
+package model;
 public class Departement {
     
     private int idDep;
