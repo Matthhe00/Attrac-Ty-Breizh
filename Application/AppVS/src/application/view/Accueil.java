@@ -21,7 +21,7 @@ public class Accueil {
 
     public Scene creerSceneAccueil() {
         Pane root = creerRootAccueil();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, 1260, 700); 
         scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle("Attrac'Ty Breizh");
