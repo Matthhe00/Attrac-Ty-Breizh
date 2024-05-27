@@ -42,7 +42,7 @@ public class NavBarre extends GridPane{
         this.modifie.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.deconnexion.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
 
-        this.getStylesheets().add(getClass().getResource("resource/application.css").toExternalForm()); // Ajouter le fichier CSS
+        this.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm()); // Ajouter le fichier CSS
     }
 
     public void refresh(boolean estConnecte) {

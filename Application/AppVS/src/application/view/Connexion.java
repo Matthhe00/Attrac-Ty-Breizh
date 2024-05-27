@@ -39,7 +39,7 @@ public class Connexion {
     public Scene creerSceneConnexion() {
         Pane root = creerRootConnexion();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("resource/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle("Attrac'Ty Breizh");
         this.primaryStage.setScene(scene);
