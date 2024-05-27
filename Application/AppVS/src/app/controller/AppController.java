@@ -28,7 +28,16 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.connexion = connexion;
         this.accueil = accueil;
         this.inscription = inscription;
+        initEventHandlers();
+    }
 
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte) {
+        this.primaryStage = primary;
+        this.modele = modele;
+        this.connexion = connexion;
+        this.accueil = accueil;
+        this.inscription = inscription;
+        this.estConnecte = estConnecte;
         initEventHandlers();
     }
 
@@ -125,11 +134,13 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     public void connecterUtilisateur() {
         this.estConnecte = true;
         this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
+        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte);
     }
 
     public void deconnecterUtilisateur() {
         this.estConnecte = false;
         this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
+        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte);
     }
 
     @Override
