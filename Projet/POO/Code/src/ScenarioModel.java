@@ -2,6 +2,42 @@ import model.*;
 
 public class ScenarioModel {
 
+    private Annee annee2020;
+    private Annee annee2021;
+    private Annee annee2022;
+
+    private Departement departement;
+    private Commune commune1;
+    private Commune commune2;
+    private Commune commune3;
+    private Commune commune4;
+    private Commune commune5;
+
+    private Aeroport aeroport;
+    private Gare gare;
+    private Gare gare2;
+    private Gare gare3;
+    
+    private AnneeCommune anneeCommune10;
+    private AnneeCommune anneeCommune11;
+    private AnneeCommune anneeCommune12;
+    
+    private AnneeCommune anneeCommune20;
+    private AnneeCommune anneeCommune21;
+    private AnneeCommune anneeCommune22;
+
+    private AnneeCommune anneeCommune30;
+    private AnneeCommune anneeCommune31;
+    private AnneeCommune anneeCommune32;
+
+    private AnneeCommune anneeCommune40;
+    private AnneeCommune anneeCommune41;
+    private AnneeCommune anneeCommune42;
+
+    private AnneeCommune anneeCommune50;
+    private AnneeCommune anneeCommune51;
+    private AnneeCommune anneeCommune52;
+
     public static void main (String[] args) {
 
         // Creation des objets et initialisation des relations
@@ -57,6 +93,312 @@ public class ScenarioModel {
         AnneeCommune anneeCommune52 = new AnneeCommune(annee2022, commune5, 3, 3, 300000, 3000, 300, 300000, 3000000, 30000);
 
         // Scenario 
-        
+        testConstruteur();
+        System.out.println("\n/---------------------------------------------/\n");
+        testGetters();
+        System.out.println("\n/---------------------------------------------/\n");
+        testSetters();
+        System.out.println("\n/---------------------------------------------/\n");
+        testCommuneVoisine();
     }
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test des setters du package model
+     */
+    public static void testConstruteur() {
+        System.out.println("Test constructeur :");
+        System.out.println("Cas normal :");
+        System.out.print("\tTest Annee");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Departement");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Commune");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Aeroport");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Aeroport aeroport = new Aeroport(departement, "Rennes Aeroport", "Rennes Saint-Jacques");
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Gare");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            Gare gare = new Gare(1, "Rennes Gare", false, true, commune);
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest AnneeCommune");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            AnneeCommune anneeCommune = new AnneeCommune(annee, commune, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test des setters du package model
+     */
+    public static void testGetters() {
+        System.out.println("Test getters :");
+        System.out.println("Cas normal :");
+        System.out.print("\tTest Annee");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            if (annee.getAnnee() == 2020 && annee.getTauxInflation() == 1.5f) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Departement");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            if (departement.getIdDep() == 35 && departement.getNomDep() == "Ille-et-Vilaine" && departement.getInvesCulturel2019() == 1000000) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Commune");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            if (commune.getIdCommune() == 1 && commune.getNomCommune() == "Rennes" && commune.getLeDepartement() == departement) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Aeroport");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Aeroport aeroport = new Aeroport(departement, "Rennes Aeroport", "Rennes Saint-Jacques");
+            if (aeroport.getLeDepartement() == departement && aeroport.getNom() == "Rennes Aeroport" && aeroport.getAdresse() == "Rennes Saint-Jacques") {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Gare");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            Gare gare = new Gare(1, "Rennes Gare", false, true, commune);
+            if (gare.getCodeGare() == 1 && gare.getNomGare() == "Rennes Gare" && gare.getEstFret() == false && gare.getEstVoyageur() == true && gare.getLaCommune() == commune) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest AnneeCommune");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            AnneeCommune anneeCommune = new AnneeCommune(annee, commune, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
+            if (anneeCommune.getAnnee() == annee && anneeCommune.getLaCommune() == commune && anneeCommune.getNbMaison() == 1 && anneeCommune.getNbAppart() == 1 && anneeCommune.getPrixMoyen() == 100000 && anneeCommune.getPrixM2Moyen() == 1000 && anneeCommune.getSurfaceMoy() == 100 && anneeCommune.getDepCulturellesTotal() == 100000 && anneeCommune.getBudgetTotal() == 1000000 && anneeCommune.getPopulation() == 10000) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test des setters du package model
+     */
+    public static void testSetters() {
+        System.out.println("Test setters :");
+        System.out.println("Cas normal :");
+        System.out.print("\tTest Annee");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            annee.setAnnee(2021);
+            annee.setTauxInflation(1.6f);
+            if (annee.getAnnee() == 2021 && annee.getTauxInflation() == 1.6f) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Departement");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            departement.setIdDep(36);
+            departement.setNomDep("Ille-et-Vilaine 2");
+            departement.setInvesCulturel2019(2000000);
+            if (departement.getIdDep() == 36 && departement.getNomDep() == "Ille-et-Vilaine 2" && departement.getInvesCulturel2019() == 2000000) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Commune");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            commune.setIdCommune(2);
+            commune.setNomCommune("Rennes 2");
+            commune.setLeDepartement(departement);
+            if (commune.getIdCommune() == 2 && commune.getNomCommune() == "Rennes 2" && commune.getLeDepartement() == departement) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Aeroport");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Aeroport aeroport = new Aeroport(departement, "Rennes Aeroport", "Rennes Saint-Jacques");
+            aeroport.setLeDepartement(departement);
+            aeroport.setNom("Rennes Aeroport 2");
+            aeroport.setAdresse("Rennes Saint-Jacques 2");
+            if (aeroport.getLeDepartement() == departement && aeroport.getNom() == "Rennes Aeroport 2" && aeroport.getAdresse() == "Rennes Saint-Jacques 2") {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest Gare");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            Gare gare = new Gare(1, "Rennes Gare", false, true, commune);
+            gare.setCodeGare(2);
+            gare.setNomGare("Rennes Gare 2");
+            gare.setEstFret(true);
+            gare.setEstVoyageur(false);
+            gare.setLaCommune(commune);
+            if (gare.getCodeGare() == 2 && gare.getNomGare() == "Rennes Gare 2" && gare.getEstFret() == true && gare.getEstVoyageur() == false && gare.getLaCommune() == commune) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+
+        System.out.print("\tTest AnneeCommune");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune = new Commune(1, "Rennes", departement);
+            AnneeCommune anneeCommune = new AnneeCommune(annee, commune, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
+            anneeCommune.setAnnee(annee);
+            anneeCommune.setLaCommune(commune);
+            anneeCommune.setNbMaison(2);
+            anneeCommune.setNbAppart(2);
+            anneeCommune.setPrixMoyen(200000);
+            anneeCommune.setPrixM2Moyen(2000);
+            anneeCommune.setSurfaceMoy(200);
+            anneeCommune.setDepCulturellesTotal(200000);
+            anneeCommune.setBudgetTotal(2000000);
+            anneeCommune.setPopulation(20000);
+            if (anneeCommune.getAnnee() == annee && anneeCommune.getLaCommune() == commune && anneeCommune.getNbMaison() == 2 && anneeCommune.getNbAppart() == 2 && anneeCommune.getPrixMoyen() == 200000 && anneeCommune.getPrixM2Moyen() == 2000 && anneeCommune.getSurfaceMoy() == 200 && anneeCommune.getDepCulturellesTotal() == 200000 && anneeCommune.getBudgetTotal() == 2000000 && anneeCommune.getPopulation() == 20000) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test des setters du package model
+     */
+    public static void testCommuneVoisine() {
+        System.out.println("Test CommuneVoisine :");
+        System.out.println("Cas normal :");
+        System.out.print("\tTest CommuneVoisine");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Commune commune1 = new Commune(1, "Rennes", departement);
+            Commune commune2 = new Commune(2, "Cesson-Sévigné", departement);
+            Commune commune3 = new Commune(3, "Saint-Grégoire", departement);
+
+            commune1.addCommuneVoisine(commune2);
+            commune1.addCommuneVoisine(commune3);
+
+            commune2.addCommuneVoisine(commune1);
+            commune2.addCommuneVoisine(commune3);
+
+            commune3.addCommuneVoisine(commune1);
+            commune3.addCommuneVoisine(commune2);
+
+            if (commune1.getCommuneVoisine().contains(commune2) && commune1.getCommuneVoisine().contains(commune3) && commune2.getCommuneVoisine().contains(commune1) && commune2.getCommuneVoisine().contains(commune3)) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
 }
