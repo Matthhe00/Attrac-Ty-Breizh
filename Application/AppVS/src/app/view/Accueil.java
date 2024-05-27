@@ -3,6 +3,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import resource.utils.*;;
 
 public class Accueil {
     private Image icon, backgroundImage;
@@ -12,7 +13,7 @@ public class Accueil {
 
     public Accueil(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.icon = new Image("resource/image/Logo_SAE.png");
+        this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image("resource/image/BackgroundAccueil.png");
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
@@ -21,10 +22,10 @@ public class Accueil {
 
     public Scene creerSceneAccueil() {
         Pane root = creerRootAccueil();
-        Scene scene = new Scene(root, 1260, 700); 
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
-        this.primaryStage.setTitle("Attrac'Ty Breizh");
+        this.primaryStage.setTitle(Constants.APP_NAME);
         this.primaryStage.setScene(scene);
         this.primaryStage.setResizable(false);
         return scene;

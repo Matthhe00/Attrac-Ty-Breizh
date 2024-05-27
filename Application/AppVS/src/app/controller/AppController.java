@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import resource.utils.Constants;
 
 public class AppController implements EventHandler<ActionEvent>, PropertyChangeListener {
     private Stage primaryStage;
@@ -73,7 +74,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private void boutonConnexionConnexionClick() {
         connecterUtilisateur();
         Pane root = this.accueil.creerRootAccueil();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -81,7 +82,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonDeconnexionNavBarreClick() {
         Pane root = this.accueil.creerRootAccueil();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -91,7 +92,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonInscriptionConnexionClick() {
         Pane root = this.inscription.creerRootInscription();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -99,7 +100,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonCompteNavBarreClick() {
         Pane root = this.connexion.creerRootConnexion();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -107,7 +108,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonInscriptionInscriptionClick() {
         Pane root = this.connexion.creerRootConnexion();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -115,7 +116,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonConnexionInscriptionClick() {
         Pane root = this.connexion.creerRootConnexion();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();

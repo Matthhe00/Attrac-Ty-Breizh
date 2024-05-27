@@ -4,6 +4,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import resource.utils.Constants;
 
 public class Inscription {
     private Stage primaryStage;
@@ -30,10 +31,10 @@ public class Inscription {
 
     public Scene creerSceneInscription() {
         Pane root = creerRootInscription();
-        Scene scene = new Scene(root, 1260, 700);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
-        this.primaryStage.setTitle("Attrac'Ty Breizh");
+        this.primaryStage.setTitle(Constants.APP_NAME);
         this.primaryStage.setScene(scene);
         this.primaryStage.setResizable(false);
         return scene;
