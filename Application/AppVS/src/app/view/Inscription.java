@@ -1,4 +1,4 @@
-package application.view;
+package app.view;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,8 +14,8 @@ public class Inscription {
 
     public Inscription(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.icon = new Image("application/resource/image/Logo_SAE.png");
-        this.backgroundImage = new Image("application/resource/image/BackgroundInscription.png");
+        this.icon = new Image("resource/image/Logo_SAE.png");
+        this.backgroundImage = new Image("resource/image/BackgroundInscription.png");
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
         initUIComponents();
@@ -31,7 +31,7 @@ public class Inscription {
     public Scene creerSceneInscription() {
         Pane root = creerRootInscription();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle("Attrac'Ty Breizh");
         this.primaryStage.setScene(scene);

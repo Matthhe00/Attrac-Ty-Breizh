@@ -1,4 +1,4 @@
-package application.view;
+package app.view;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,8 +17,8 @@ public class Connexion {
 
     public Connexion(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.icon = new Image("application/resource/image/Logo_SAE.png");
-        this.backgroundImage = new Image("application/resource/image/BackgroundConnexion.png");
+        this.icon = new Image("resource/image/Logo_SAE.png");
+        this.backgroundImage = new Image("resource/image/BackgroundConnexion.png");
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
         initUIComponents();
@@ -39,7 +39,7 @@ public class Connexion {
     public Scene creerSceneConnexion() {
         Pane root = creerRootConnexion();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle("Attrac'Ty Breizh");
         this.primaryStage.setScene(scene);

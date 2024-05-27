@@ -1,4 +1,4 @@
-package application.view;
+package app.view;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -50,7 +50,7 @@ public class NavBarre extends GridPane{
         this.modifie.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.deconnexion.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
 
-        this.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm()); // Ajouter le fichier CSS
+        this.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm()); // Ajouter le fichier CSS
     }
 
     public NavBarre refresh(boolean estConnecte) {

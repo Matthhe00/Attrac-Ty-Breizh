@@ -1,7 +1,8 @@
-package application;
-import application.controller.*;
-import application.model.*;
-import application.view.*;
+package app;
+import app.controller.*;
+import app.model.*;
+import app.model.data.*;
+import app.view.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

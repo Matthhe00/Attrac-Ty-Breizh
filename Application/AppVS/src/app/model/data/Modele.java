@@ -1,4 +1,4 @@
-package application.model;
+package app.model.data;
 
 public class Modele {
 
