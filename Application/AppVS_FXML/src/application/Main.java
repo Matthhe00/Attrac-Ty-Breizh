@@ -23,9 +23,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("view/Accueil.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("resource/Accueil.fxml"));
             Scene scene = new Scene(root);
-            String css = this.getClass().getResource("view/style/style.css").toExternalForm();
+            String css = this.getClass().getResource("resource/style/style.css").toExternalForm();
             scene.getStylesheets().add(css);
             primaryStage.setTitle("Attrac'Ty Breizh");
             primaryStage.setResizable(false);

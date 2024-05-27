@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
@@ -13,6 +14,7 @@ public class AppController {
 
     @FXML
     public void openConnexionPage(ActionEvent event) {
+        Scene scene = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Connexion.fxml"));
             Parent connexionView = (Parent) fxmlLoader.load();

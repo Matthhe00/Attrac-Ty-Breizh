@@ -12,8 +12,8 @@ public class Accueil {
 
     public Accueil(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.icon = new Image("application/view/style/image/Logo_SAE.png");
-        this.backgroundImage = new Image("application/view/style/image/BackgroundAccueil.png");
+        this.icon = new Image("application/resource/image/Logo_SAE.png");
+        this.backgroundImage = new Image("application/resource/image/BackgroundAccueil.png");
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
         this.navBarre = new NavBarre();
@@ -22,7 +22,7 @@ public class Accueil {
     public Scene creerSceneAccueil() {
         Pane root = creerRootAccueil();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("resource/application.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle("Attrac'Ty Breizh");
         this.primaryStage.setScene(scene);
