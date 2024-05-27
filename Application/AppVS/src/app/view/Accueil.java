@@ -14,7 +14,7 @@ public class Accueil {
     public Accueil(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
-        this.backgroundImage = new Image("resource/image/BackgroundAccueil.png");
+        this.backgroundImage = new Image(Constants.BACKGROUND_ACCUEIL_PATH);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
         this.navBarre = new NavBarre();
