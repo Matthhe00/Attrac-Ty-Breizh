@@ -90,13 +90,12 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     private void boutonDeconnexionNavBarreClick() {
+        deconnecterUtilisateur();
         Pane root = this.accueil.creerRootAccueil();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        System.out.println("Déconnexion");
-        deconnecterUtilisateur();
     }
 
     private void boutonInscriptionConnexionClick() {
