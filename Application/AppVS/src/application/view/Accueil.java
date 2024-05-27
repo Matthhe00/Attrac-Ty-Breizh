@@ -48,4 +48,8 @@ public class Accueil {
     public NavBarre getNavBarre() {
         return this.navBarre;
     }
+
+    public void setNavBarre(NavBarre navBarre) {
+        this.navBarre = navBarre;
+    }
 }

@@ -16,8 +16,16 @@ public class NavBarre extends GridPane{
         initNavBarre(false);
     }
 
+    public NavBarre(boolean estConnecte) {
+        this.compteButton = new Button("Compte");
+        this.carteButton = new Button("Carte");
+        this.donneesButton = new Button("Données");
+        this.modifie = new Button("Modifier");
+        this.deconnexion = new Button("Déconnexion");
+        initNavBarre(estConnecte);
+    }
+
     public void initNavBarre(boolean estConnecte) {
-        this.getChildren().clear();  // Nettoyer les éléments précédents
         this.setHgap(30);
 
         this.compteButton = new Button("Compte");
@@ -45,9 +53,12 @@ public class NavBarre extends GridPane{
         this.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm()); // Ajouter le fichier CSS
     }
 
-    public void refresh(boolean estConnecte) {
-        initNavBarre(estConnecte);
+    public NavBarre refresh(boolean estConnecte) {
+        NavBarre newNavBarre = new NavBarre(estConnecte);
+        return newNavBarre;
     }
+
+
 
     public Button getcompteButton() {
         return this.compteButton;

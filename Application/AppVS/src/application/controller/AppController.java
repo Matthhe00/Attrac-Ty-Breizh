@@ -73,7 +73,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         connecterUtilisateur();
         Pane root = this.accueil.creerRootAccueil();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("/application/view/style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
@@ -81,7 +81,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private void boutonDeconnexionNavBarreClick() {
         Pane root = this.accueil.creerRootAccueil();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("/application/view/style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         System.out.println("Déconnexion");
@@ -91,7 +91,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private void boutonInscriptionConnexionClick() {
         Pane root = this.inscription.creerRootInscription();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("/application/view/style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
@@ -99,7 +99,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private void boutonCompteNavBarreClick() {
         Pane root = this.connexion.creerRootConnexion();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("/application/view/style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
@@ -107,7 +107,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private void boutonInscriptionInscriptionClick() {
         Pane root = this.connexion.creerRootConnexion();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("/application/view/style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
@@ -115,19 +115,19 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private void boutonConnexionInscriptionClick() {
         Pane root = this.connexion.creerRootConnexion();
         Scene scene = new Scene(root, 1260, 700);
-        scene.getStylesheets().add(getClass().getResource("/application/view/style/application.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../resource/application.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
     
     public void connecterUtilisateur() {
         this.estConnecte = true;
-        this.accueil.getNavBarre().refresh(this.estConnecte);
+        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
     }
 
     public void deconnecterUtilisateur() {
         this.estConnecte = false;
-        this.accueil.getNavBarre().refresh(this.estConnecte);
+        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
     }
 
     @Override

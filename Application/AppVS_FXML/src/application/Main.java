@@ -1,5 +1,6 @@
 package application;
 
+import application.controller.AppController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,13 +24,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("resource/Accueil.fxml"));
-            Scene scene = new Scene(root);
-            String css = this.getClass().getResource("resource/style/style.css").toExternalForm();
-            scene.getStylesheets().add(css);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("resource/Accueil.fxml"));
+            Parent root = loader.load();
+            
+            AppController controller = loader.getController();
+            controller.setStage(primaryStage);
+            
             primaryStage.setTitle("Attrac'Ty Breizh");
             primaryStage.setResizable(false);
-            primaryStage.setScene(scene);
+            primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();
