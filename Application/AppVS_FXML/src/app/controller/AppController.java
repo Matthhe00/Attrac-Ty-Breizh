@@ -1,4 +1,4 @@
-package application.controller;
+package app.controller;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -25,7 +25,7 @@ public class AppController {
     public void openConnexionPage(ActionEvent event) {
         Scene scene = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resource/Connexion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resource/Connexion.fxml"));
             Parent root = loader.load();
             scene = new Scene(root);
             this.stage.setScene(scene);
@@ -39,7 +39,7 @@ public class AppController {
     public void openInscriptionPage(ActionEvent event) {
         Scene scene = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resource/Inscription.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resource/Inscription.fxml"));
             Parent root = loader.load();
             scene = new Scene(root);
             this.stage.setScene(scene);
@@ -54,7 +54,7 @@ public class AppController {
         
         Scene scene = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resource/AccueilConnecte.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resource/AccueilConnecte.fxml"));
             Parent root = loader.load();
             scene = new Scene(root);
             this.stage.setScene(scene);

@@ -3,6 +3,14 @@ package app.model;
 import resource.utils.Constants;
 import java.sql.*;
 
+/*
+ * Creation de la base de donnees et des utilisateurs
+ * 
+ * CREATE USER communeB_User@localhost IDENTIFIED BY 'communeB_Password' ;
+ * CREATE DATABASE bd_communeb;
+ * GRANT ALL ON bd_communeb .* TO 'communeB_User'@'localhost' ;
+ */
+
 public class ConnexionDB {
 
 	private Connection conn;

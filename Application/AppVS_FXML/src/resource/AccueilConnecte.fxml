@@ -7,14 +7,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AppController">
    <children>
       <ImageView fx:id="boutonNav" fitHeight="720.0" fitWidth="1260.0" pickOnBounds="true">
          <image>
             <Image url="@style/image/BackgroundAccueil.png" />
          </image>
       </ImageView>
-      <ButtonBar id="nav-barre" prefHeight="79.0" prefWidth="642.0" stylesheets="@style/style.css" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="618.0" AnchorPane.topAnchor="0.0">
+      <ButtonBar id="nav-barre" prefHeight="79.0" prefWidth="924.0" stylesheets="@style/style.css" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="336.0" AnchorPane.topAnchor="0.0">
         <buttons>
           <Button id="my-button-nav-barre" minWidth="48.0" mnemonicParsing="false" onAction="#openConnexionPage" prefHeight="25.0" stylesheets="@style/style.css" text="Compte" />
             <Button id="my-button-nav-barre" mnemonicParsing="false" prefHeight="25.0" prefWidth="137.0" stylesheets="@style/style.css" text="Carte" />
@@ -22,6 +22,16 @@
                <padding>
                   <Insets left="40.0" />
                </padding></Button>
+            <Button id="my-button-nav-barre" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" text="Modifier">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Button>
+            <Button id="my-button-nav-barre" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" text="Déconnexion">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Button>
         </buttons>
       </ButtonBar>
    </children>

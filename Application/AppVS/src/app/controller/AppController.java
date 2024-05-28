@@ -3,7 +3,6 @@ package app.controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import app.model.*;
 import app.model.data.*;
 import app.view.*;
 import javafx.event.ActionEvent;
