@@ -1,4 +1,5 @@
-#Membre du projet
+Membre du projet
+
 [Matthéo Jules-Vachet - GrA1](mailto:jules-vachet.e2300672@etud.univ-ubs.fr)
 
 [Yanis Schell - GrA1](mailto:schell.e2300591@etud.univ-ubs.fr)
