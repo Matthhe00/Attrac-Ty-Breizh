@@ -111,64 +111,33 @@ public class AnneeCommune {
                 + ", surfaceMoy=" + getSurfaceMoy() + "]";
     }
 
-    public String compareTo(AnneeCommune otherAnneeCommune){
+    String compareValues(String nomDonnee, double valeur1, double valeur2, String nomCommune1, String nomCommune2) {
+        if (valeur1 > valeur2) {
+            return nomDonnee + " de " + nomCommune1 + " est > à " + nomCommune2 + "\n";
+        } else if (valeur1 < valeur2) {
+            return nomDonnee + " de " + nomCommune1 + " est < à " + nomCommune2 + "\n";
+        } else if (valeur1 == valeur2) {
+            return nomDonnee + " de " + nomCommune1 + " est = à " + nomCommune2 + "\n";
+        } else {
+            return "";
+        }
+    }
+    
+    public String compareTo(AnneeCommune otherAnneeCommune) {
         String result = "";
-        if(this.getBudgetTotal() > otherAnneeCommune.getBudgetTotal()){
-            result += "Le budget total de la commune " + this.getLaCommune().getNomCommune() + " est supérieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getBudgetTotal() < otherAnneeCommune.getBudgetTotal()){
-            result += "Le budget total de la commune " + this.getLaCommune().getNomCommune() + " est inférieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "Le budget total de la commune " + this.getLaCommune().getNomCommune() + " est égal à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
-        if(this.getDepCulturellesTotal() > otherAnneeCommune.getDepCulturellesTotal()){
-            result += "Les dépenses culturelles totales de la commune " + this.getLaCommune().getNomCommune() + " sont supérieures à celles de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getDepCulturellesTotal() < otherAnneeCommune.getDepCulturellesTotal()){
-            result += "Les dépenses culturelles totales de la commune " + this.getLaCommune().getNomCommune() + " sont inférieures à celles de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "Les dépenses culturelles totales de la commune " + this.getLaCommune().getNomCommune() + " sont égales à celles de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
-        if(this.getNbAppart() > otherAnneeCommune.getNbAppart()){
-            result += "Le nombre d'appartements de la commune " + this.getLaCommune().getNomCommune() + " est supérieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getNbAppart() < otherAnneeCommune.getNbAppart()){
-            result += "Le nombre d'appartements de la commune " + this.getLaCommune().getNomCommune() + " est inférieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "Le nombre d'appartements de la commune " + this.getLaCommune().getNomCommune() + " est égal à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
-        if(this.getNbMaison() > otherAnneeCommune.getNbMaison()){
-            result += "Le nombre de maisons de la commune " + this.getLaCommune().getNomCommune() + " est supérieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getNbMaison() < otherAnneeCommune.getNbMaison()){
-            result += "Le nombre de maisons de la commune " + this.getLaCommune().getNomCommune() + " est inférieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "Le nombre de maisons de la commune " + this.getLaCommune().getNomCommune() + " est égal à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
-        if(this.getPrixM2Moyen() > otherAnneeCommune.getPrixM2Moyen()){
-            result += "Le prix moyen du m2 de la commune " + this.getLaCommune().getNomCommune() + " est supérieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getPrixM2Moyen() < otherAnneeCommune.getPrixM2Moyen()){
-            result += "Le prix moyen du m2 de la commune " + this.getLaCommune().getNomCommune() + " est inférieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "Le prix moyen du m2 de la commune " + this.getLaCommune().getNomCommune() + " est égal à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
-        if(this.getPrixMoyen() > otherAnneeCommune.getPrixMoyen()){
-            result += "Le prix moyen des logements de la commune " + this.getLaCommune().getNomCommune() + " est supérieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getPrixMoyen() < otherAnneeCommune.getPrixMoyen()){
-            result += "Le prix moyen des logements de la commune " + this.getLaCommune().getNomCommune() + " est inférieur à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "Le prix moyen des logements de la commune " + this.getLaCommune().getNomCommune() + " est égal à celui de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
-        if(this.getSurfaceMoy() > otherAnneeCommune.getSurfaceMoy()){
-            result += "La surface moyenne des logements de la commune " + this.getLaCommune().getNomCommune() + " est supérieure à celle de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else if(this.getSurfaceMoy() < otherAnneeCommune.getSurfaceMoy()){
-            result += "La surface moyenne des logements de la commune " + this.getLaCommune().getNomCommune() + " est inférieure à celle de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        } else {
-            result += "La surface moyenne des logements de la commune " + this.getLaCommune().getNomCommune() + " est égale à celle de la commune " + otherAnneeCommune.getLaCommune().getNomCommune() + "\n";
-        }
-
+    
+        String nomCommune1 = this.getLaCommune().getNomCommune();
+        String nomCommune2 = otherAnneeCommune.getLaCommune().getNomCommune();
+    
+        result += compareValues("\tLe budget total", this.getBudgetTotal(), otherAnneeCommune.getBudgetTotal(), nomCommune1, nomCommune2);
+        result += compareValues("\tLes dépenses culturelles totales", this.getDepCulturellesTotal(), otherAnneeCommune.getDepCulturellesTotal(), nomCommune1, nomCommune2);
+        result += compareValues("\tLe nombre d'appartements vendu", this.getNbAppart(), otherAnneeCommune.getNbAppart(), nomCommune1, nomCommune2);
+        result += compareValues("\tLe nombre de maisons vendu", this.getNbMaison(), otherAnneeCommune.getNbMaison(), nomCommune1, nomCommune2);
+        result += compareValues("\tLe prix moyen du m2", this.getPrixM2Moyen(), otherAnneeCommune.getPrixM2Moyen(), nomCommune1, nomCommune2);
+        result += compareValues("\tLe prix moyen des logements", this.getPrixMoyen(), otherAnneeCommune.getPrixMoyen(), nomCommune1, nomCommune2);
+        result += compareValues("\tLa surface moyenne des logements", this.getSurfaceMoy(), otherAnneeCommune.getSurfaceMoy(), nomCommune1, nomCommune2);
+    
         return result;
     }
+    
 }

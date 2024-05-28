@@ -100,6 +100,8 @@ public class ScenarioModel {
         testSetters();
         System.out.println("\n/---------------------------------------------/\n");
         testCommuneVoisine();
+        System.out.println("\n/---------------------------------------------/\n");
+        testCompareToAnneeCommune();
     }
 //--------------------------------------------------------------------------------------------------------------------------------
 
@@ -365,20 +367,31 @@ public class ScenarioModel {
         } catch (Exception e) {
             System.out.println(" : Test échoué");
         }
+            
+    }
 
-        System.out.println("\t-----------------------------Test AnneeComune compareTo-----------------------------");
+//--------------------------------------------------------------------------------------------------------------------------------
 
-        System.out.print("\tTest AnneeCommune compareTo");
+    /**
+     * Test de la méthode compareTo de la classe AnneeCommune
+     */
+    public static void testCompareToAnneeCommune() {
+        System.out.println("Test compareTo AnneeCommune :");
+        System.out.println("Cas normal :");
+        try {
             Annee annee = new Annee(2020, 1.5f);
             Departement departement35 = new Departement(35, "Ille-et-Vilaine", 1000000);
             Departement departement56 = new Departement(56, "Morbihan", 102300);
             Commune commune = new Commune(1, "Rennes", departement35);
             Commune commune2 = new Commune(2, "Vannes",departement56);
             AnneeCommune anneeCommune = new AnneeCommune(annee, commune, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-            AnneeCommune anneeCommune2 = new AnneeCommune(annee, commune2, 2, 2,12410, 1, 1, 1, 1, 1);
+            AnneeCommune anneeCommune2 = new AnneeCommune(annee, commune2, 2, 2,12410, 1000, 1, 1, 1, 1);
             String ret  = anneeCommune.compareTo(anneeCommune2);
-        System.out.println(ret);
-            
+            System.out.println(ret);
+
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
     }
 
 //--------------------------------------------------------------------------------------------------------------------------------
