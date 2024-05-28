@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import app.model.data.*;
+import app.model.dao.*;
 import app.view.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +19,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private Connexion connexion;
     private Accueil accueil;
     private Inscription inscription;
+    private UserDAO userDAO;
+    private User user;
 
     private boolean estConnecte = false;
 
@@ -27,6 +30,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.connexion = connexion;
         this.accueil = accueil;
         this.inscription = inscription;
+        this.userDAO = new UserDAO();
         initEventHandlers();
     }
 
@@ -37,6 +41,16 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.accueil = accueil;
         this.inscription = inscription;
         this.estConnecte = estConnecte;
+        initEventHandlers();
+    }
+
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, User user) {
+        this.primaryStage = primary;
+        this.modele = modele;
+        this.connexion = connexion;
+        this.accueil = accueil;
+        this.inscription = inscription;
+        this.user = user;
         initEventHandlers();
     }
 
@@ -90,7 +104,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonDeconnexionNavBarreClick() {
         deconnecterUtilisateur();
-        Pane root = this.accueil.creerRootAccueil();
+        Pane root = this.connexion.creerRootConnexion();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
@@ -144,5 +158,6 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // Implémentation du PropertyChangeListener si nécessaire
+        
     }
 }

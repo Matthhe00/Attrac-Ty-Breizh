@@ -27,7 +27,7 @@ public class Main extends Application {
         Accueil vueAccueil = new Accueil(primaryStage);
         Inscription vueInscription = new Inscription(primaryStage);
         new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription);
-        primaryStage.setScene(vueAccueil.creerSceneAccueil());
+        primaryStage.setScene(vueConnexion.creerSceneConnexion());
         primaryStage.show();
     }
 }

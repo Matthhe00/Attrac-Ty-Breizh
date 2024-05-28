@@ -108,4 +108,12 @@ public class Connexion {
         return motDePasseOublieButton;
     }
 
+    public TextField getMailField() {
+        return mailField;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
 }

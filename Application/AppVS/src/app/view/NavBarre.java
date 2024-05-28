@@ -1,4 +1,5 @@
 package app.view;
+import app.model.data.User;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -8,6 +9,7 @@ public class NavBarre extends GridPane{
     private Button donneesButton;
     private Button modifie;
     private Button deconnexion;
+    private String role;
 
     public NavBarre() {
         this.compteButton = new Button("Compte");
@@ -16,12 +18,13 @@ public class NavBarre extends GridPane{
         initNavBarre(false);
     }
 
-    public NavBarre(boolean estConnecte) {
+    public NavBarre(boolean estConnecte, User user) {
         this.compteButton = new Button("Compte");
         this.carteButton = new Button("Carte");
         this.donneesButton = new Button("Données");
         this.modifie = new Button("Modifier");
         this.deconnexion = new Button("Déconnexion");
+        this.role = user.getRole();
         initNavBarre(estConnecte);
     }
 
@@ -37,10 +40,11 @@ public class NavBarre extends GridPane{
         this.add(compteButton, 0, 0);
         this.add(carteButton, 1, 0);
         this.add(donneesButton, 2, 0);
+        this.add(deconnexion, 3, 0);
 
-        if (estConnecte) {
-            this.add(modifie, 3, 0);
-            this.add(deconnexion, 4, 0);
+
+        if (estConnecte && this.role == "admin") {
+            this.add(modifie, 19, 0);
         }
 
         this.getStyleClass().add("nav-barre"); // Ajouter une classe CSS
@@ -54,11 +58,9 @@ public class NavBarre extends GridPane{
     }
 
     public NavBarre refresh(boolean estConnecte) {
-        NavBarre newNavBarre = new NavBarre(estConnecte);
+        NavBarre newNavBarre = new NavBarre(estConnecte, new User());
         return newNavBarre;
     }
-
-
 
     public Button getcompteButton() {
         return this.compteButton;

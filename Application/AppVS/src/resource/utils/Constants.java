@@ -15,6 +15,7 @@ public abstract class Constants {
     
 
 	public static final String DB_NAME = "bd_communeb";
+	public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String DB_URL = "jdbc:mysql://localhost:3306/" + DB_NAME;
 	public static final String DB_LOGIN = "communeB_User";
 	public static final String DB_PASSWORD = "communeB_Password";
