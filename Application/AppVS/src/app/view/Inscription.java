@@ -11,7 +11,7 @@ public class Inscription {
     private Image icon, backgroundImage;
     private BackgroundImage background;
     private Button inscriptionButton, connexionButton;
-    private TextField mailField, passwordField;
+    private TextField indentField, passwordField;
 
     public Inscription(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -25,11 +25,13 @@ public class Inscription {
     private void initUIComponents() {
         this.inscriptionButton = new Button("S'inscrire");
         this.connexionButton = new Button("Deja inscrit ? Connecte toi !");
-        this.mailField = new TextField();
+        this.indentField = new TextField();
         this.passwordField = new PasswordField();
     }
 
     public Scene creerSceneInscription() {
+        this.indentField.clear();
+        this.passwordField.clear();
         Pane root = creerRootInscription();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -41,18 +43,18 @@ public class Inscription {
     }
 
     public Pane creerRootInscription() {
+        this.indentField.clear();
+        this.passwordField.clear();
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        
         configurerComposants(root);
-        
         return root;
     }
 
     private void configurerComposants(Pane root) {
         configurerBouton(inscriptionButton, 490, 480, 260, 50, "my-button", root);
         configurerBouton(connexionButton, 490, 225, 260, 10, "my-button-label", root);
-        configurerTextField(mailField, 490, 300, 260, 45, "Jean.Dubois@gmail.com", "my-field-user-con", root);
+        configurerTextField(indentField, 490, 300, 260, 45, "Identifiant", "my-field-user-con", root);
         configurerTextField(passwordField, 490, 395, 260, 45, "Mot de passe", "my-field-user-con", root);
     }
 
@@ -83,8 +85,8 @@ public class Inscription {
         return connexionButton;
     }
 
-    public TextField getMailField() {
-        return mailField;
+    public TextField getIndentField() {
+        return indentField;
     }
 
     public TextField getPasswordField() {

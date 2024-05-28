@@ -13,7 +13,7 @@ public class Connexion {
     private BackgroundImage background;
     private Button inscriptionButton, connexionButton, motDePasseOublieButton;
     private Label inscriptionLabel, connexionLabel, emailLabel, passwordLabel;
-    private TextField mailField;
+    private TextField indentField;
     private PasswordField passwordField;
 
     public Connexion(Stage primaryStage) {
@@ -31,13 +31,15 @@ public class Connexion {
         this.motDePasseOublieButton = new Button("Mot de passe oublié ?");
         this.inscriptionLabel = new Label("Vous n'avez pas de compte ?");
         this.connexionLabel = new Label("Connectez-vous !");
-        this.emailLabel = new Label("Email :");
-        this.mailField = new TextField();
+        this.emailLabel = new Label("Identifiant :");
+        this.indentField = new TextField();
         this.passwordLabel = new Label("Mot de passe :");
         this.passwordField = new PasswordField();
     }
 
     public Scene creerSceneConnexion() {
+        this.indentField.clear();
+        this.passwordField.clear();
         Pane root = creerRootConnexion();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -49,11 +51,11 @@ public class Connexion {
     }
 
     public Pane creerRootConnexion() {
+        this.indentField.clear();
+        this.passwordField.clear();
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        
         configurerComposants(root);
-        
         return root;
     }
 
@@ -65,7 +67,7 @@ public class Connexion {
         configurerLabel(connexionLabel, 290, 225, "my-label-con", root);
         configurerLabel(emailLabel, 260, 274, "my-label-user-con", root);
         configurerLabel(passwordLabel, 260, 364, "my-label-user-con", root);
-        configurerTextField(mailField, 260, 300, 260, 45, "Jean.Dubois@gmail.com", "my-field-user-con", root);
+        configurerTextField(indentField, 260, 300, 260, 45, "Identifiant", "my-field-user-con", root);
         configurerTextField(passwordField, 260, 390, 260, 45, "Mot de passe", "my-field-user-con", root);
     }
 
@@ -108,8 +110,8 @@ public class Connexion {
         return motDePasseOublieButton;
     }
 
-    public TextField getMailField() {
-        return mailField;
+    public TextField getIndentField() {
+        return indentField;
     }
 
     public PasswordField getPasswordField() {

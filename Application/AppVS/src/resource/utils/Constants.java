@@ -12,6 +12,7 @@ public abstract class Constants {
     public static final String BACKGROUND_ACCUEIL_PATH = "resource/image/BackgroundAccueil.png";
     public static final String BACKGROUND_CONNEXION_PATH = "resource/image/BackgroundConnexion.png";
     public static final String BACKGROUND_INSCRIPTION_PATH = "resource/image/BackgroundInscription.png";
+	public static final String BACKGROUND_COMPTE_PATH = "resource/image/BackgroundCompte.png";
     
 
 	public static final String DB_NAME = "bd_communeb";

@@ -28,6 +28,15 @@ public class NavBarre extends GridPane{
         initNavBarre(estConnecte);
     }
 
+    public NavBarre(boolean estConnecte) {
+        this.compteButton = new Button("Compte");
+        this.carteButton = new Button("Carte");
+        this.donneesButton = new Button("Données");
+        this.modifie = new Button("Modifier");
+        this.deconnexion = new Button("Déconnexion");
+        initNavBarre(estConnecte);
+    }
+
     public void initNavBarre(boolean estConnecte) {
         this.setHgap(30);
 

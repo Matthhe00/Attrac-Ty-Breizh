@@ -8,12 +8,12 @@ import java.sql.Statement;
 import java.util .*;
 import app.model.data.User;
 
-public class UserDAO extends DAO <User > {
+public class UserDAO extends DAO <User> {
 
     @Override
     public int create(User user) {
-        String query = "INSERT INTO USER(LOGIN , PWD) VALUES ('" + user.getLogin () + "','" + user.getPwd() + "')";
-        try (Connection con = getConnection (); Statement st = con.createStatement ()) {
+        String query = "INSERT INTO USER(LOGIN , PWD , ROLE) VALUES ('" + user.getLogin () + "','" + user.getPwd() + "','" + user.getRole() + "')";
+        try (Connection con = getConnection(); Statement st = con.createStatement ()) {
             return st.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace ();
@@ -59,11 +59,20 @@ public class UserDAO extends DAO <User > {
     }
 
     @Override
-    public User findByID(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
+    public User findByLoginPwd(String login , String pwd) {
+        try (Connection con = getConnection ();
+            PreparedStatement st = con.prepareStatement("SELECT * FROM USER WHERE LOGIN= ? AND PWD= ?")) {
+            st.setString(1, login); st.setString(2, pwd);
+            ResultSet rs = st.executeQuery ();
+            while (rs.next()) {
+                String l = rs.getString("LOGIN");
+                String p = rs.getString("PWD");
+                return new User(l, p);
+            }
+        } catch (SQLException ex) { 
+            ex.printStackTrace (); 
+        }
+        return null;
     }
         
-
-
 }

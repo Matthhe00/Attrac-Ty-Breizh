@@ -14,25 +14,27 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+import app.model.data.User;
+
 public abstract class DAO <T> {
 
     protected Connection getConnection () throws SQLException {
         // Charger la classe du pilote
     try {
         Class.forName(Constants.DB_DRIVER);
+        return DriverManager.getConnection(Constants.DB_URL , Constants.DB_LOGIN , Constants.DB_PASSWORD);
     } catch (ClassNotFoundException ex) {
         ex.printStackTrace ();
         return null;
     }
-
     // Obtenir la connection
-    return DriverManager.getConnection(Constants.DB_URL , Constants.DB_LOGIN , Constants.DB_PASSWORD);
     }
     public abstract List <T> findAll ();
-    public abstract T findByID(Long id);
     public abstract int update(T element);
     public abstract int delete(T element);
     public abstract int create(T element);
+    public abstract T findByLoginPwd(String login , String pwd);
+
 }
 
 

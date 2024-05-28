@@ -19,17 +19,19 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private Connexion connexion;
     private Accueil accueil;
     private Inscription inscription;
+    private Compte compte;
     private UserDAO userDAO;
     private User user;
 
     private boolean estConnecte = false;
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription) {
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte) {
         this.primaryStage = primary;
         this.modele = modele;
         this.connexion = connexion;
         this.accueil = accueil;
         this.inscription = inscription;
+        this.compte = compte;
         this.userDAO = new UserDAO();
         initEventHandlers();
     }
@@ -67,10 +69,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     @Override
     public void handle(ActionEvent event) {
         Object source = event.getSource();
-        if (source == this.connexion.getConnexionButton()) {
+        if (source == this.connexion.getConnexionButton() && !this.estConnecte && !this.connexion.getIndentField().getText().isEmpty() && !this.connexion.getPasswordField().getText().isEmpty()) {
             boutonConnexionConnexionClick();
-        } else if (source == this.accueil.getNavBarre().getcompteButton() && !this.estConnecte) {
-            boutonCompteNavBarreClick();
         } else if (source == this.connexion.getInscriptionButton()) {
             boutonInscriptionConnexionClick();
         } else if (source == this.inscription.getInscriptionButton()) {
@@ -80,7 +80,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         } else if (source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) {
             boutonDeconnexionNavBarreClick();
         } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte) {
-            System.out.println("Compte");
+            boutonCompteNavBarreClick();
         }
     } 
 
@@ -91,6 +91,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        this.estConnecte = false;
     }
 
     private void boutonDeconnexionNavBarreClick() {
@@ -111,7 +112,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     private void boutonCompteNavBarreClick() {
-        Pane root = this.connexion.creerRootConnexion();
+        Pane root = this.compte.creerRootCompte();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
@@ -124,6 +125,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        inscrireUtilisateur();
     }
 
     private void boutonConnexionInscriptionClick() {
@@ -144,6 +146,11 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.estConnecte = false;
         this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
         new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user);
+    }
+
+    public void inscrireUtilisateur() {
+        this.user = new User(this.inscription.getIndentField().getText(), this.inscription.getPasswordField().getText());
+        userDAO.create(user);
     }
 
     @Override
