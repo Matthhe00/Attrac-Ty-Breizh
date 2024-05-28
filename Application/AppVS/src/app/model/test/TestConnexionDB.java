@@ -1,7 +1,8 @@
 package app.model.test;
 
-import app.model.ConnexionDB;
 import java.sql.Connection;
+
+import app.model.ConnexionDB;
 
 public class TestConnexionDB {
 
