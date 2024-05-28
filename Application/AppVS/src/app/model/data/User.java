@@ -36,4 +36,8 @@ public class User {
     public String getRole() {
         return role;
     }
+
+    public User getUser() {
+        return this;
+    }
 }
