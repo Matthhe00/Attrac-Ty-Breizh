@@ -1,10 +1,10 @@
 # Membre du projet
 
-[Matthéo Jules-Vachet - GrA1]
+Matthéo Jules-Vachet - GrA1
 
-[Yanis Schell - GrA1]
+Yanis Schell - GrA1
 
-[Paul Gauffeny - GrA1]
+Paul Gauffeny - GrA1
 
 # Lien vers la page notion du projet :
 
