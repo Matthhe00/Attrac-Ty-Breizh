@@ -12,36 +12,35 @@ public class Compte {
     private Stage primaryStage;
     private Image icon, backgroundImage;
     private BackgroundImage background;
-    private Button modificationButton, deconnexionButton;
+    private Button modificationButton;
     private Label roleLabel, identLabel, passwordLabel;
-    private TextField mailField;
+    private TextField identField;
     private PasswordField passwordField;
     private NavBarre navBarre;
 
-    public Compte(Stage primaryStage) {
+    public Compte(Stage primaryStage, String role, String ident, String password) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image(Constants.BACKGROUND_COMPTE_PATH);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         this.navBarre = new NavBarre(true);
 
-        initUIComponents();
+        initUIComponents(role, ident, password);
     }
 
-    private void initUIComponents() {
+    private void initUIComponents(String role, String ident, String password) {
         this.modificationButton = new Button("Modifier");
-        this.deconnexionButton = new Button("Deconnexion");
-        this.roleLabel = new Label("Role : ");
-        this.identLabel = new Label("Identifiant : ");
-        this.passwordLabel = new Label("Mot de passe : ");
-        this.mailField = new TextField();
+        this.roleLabel = new Label(role);
+        this.identLabel = new Label(ident);
+        this.passwordLabel = new Label(password);
+        this.identField = new TextField();
         this.passwordField = new PasswordField();
     }
 
     public Scene creerSceneCompte() {
-        this.mailField.clear();
+        this.identField.clear();
         this.passwordField.clear();
-        Pane root = creerRootCompte();
+        Pane root = creerRootCompte("role", "ident", "password");
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
@@ -51,24 +50,24 @@ public class Compte {
         return scene;
     }
 
-    public Pane creerRootCompte() {
-        this.mailField.clear();
+    public Pane creerRootCompte(String role, String ident, String password) {
+        this.identField.clear();
         this.passwordField.clear();
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
+        initUIComponents(role, ident, password);
         configurerComposants(root);
         return root;
     }
 
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
-        configurerBouton(modificationButton, 490, 480, 260, 50, "my-button", root);
-        configurerBouton(deconnexionButton, 490, 225, 260, 10, "my-button-label", root);
-        configurerLabel(roleLabel, 490, 100, 260, 45, "my-label", root);
-        configurerLabel(identLabel, 490, 300, 260, 45, "my-label", root);
-        configurerLabel(passwordLabel, 490, 395, 260, 45, "my-label", root);
-        configurerTextField(mailField, 490, 300, 260, 45, "Identifiant", "my-field-user-con", root);
-        configurerTextField(passwordField, 490, 395, 260, 45, "Mot de passe", "my-field-user-con", root);
+        configurerBouton(this.modificationButton, 600, 500, 260, 50, "my-button", root);
+        configurerLabel(this.roleLabel, 220, 555, 260, 45, "my-label", root);
+        configurerLabel(this.identLabel, 220, 425, 260, 45, "my-label", root);
+        configurerLabel(this.passwordLabel, 220, 490, 260, 45, "my-label", root);
+        configurerTextField(this.identField, 730, 290, 260, 45, "Identifiant", "my-field-user-con", root);
+        configurerTextField(this.passwordField, 730, 390, 260, 45, "Mot de passe", "my-field-user-con", root);
     }
 
     private void configurerBouton(Button button, int x, int y, int width, int height, String style, Pane root) {
@@ -97,19 +96,35 @@ public class Compte {
     }
 
     public Button getModificationButton() {
-        return modificationButton;
+        return this.modificationButton;
     }
 
-    public Button getDeconnexionButton() {
-        return deconnexionButton;
-    }
-
-    public TextField getMailField() {
-        return mailField;
+    public TextField getidentField() {
+        return this.identField;
     }
 
     public PasswordField getPasswordField() {
-        return passwordField;
+        return this.passwordField;
+    }
+
+    public NavBarre getNavBarre() {
+        return this.navBarre;
+    }
+
+    public void setNavBarre(NavBarre navBarre) {
+        this.navBarre = navBarre;
+    }
+
+    public void setRoleLabel(String role) {
+        this.roleLabel.setText(role);
+    }
+
+    public void setIdentLabel(String ident) {
+        this.identLabel.setText(ident);
+    }
+
+    public void setPasswordLabel(String password) {
+        this.passwordLabel.setText(password);
     }
 
 }

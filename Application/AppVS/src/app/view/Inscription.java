@@ -12,6 +12,7 @@ public class Inscription {
     private BackgroundImage background;
     private Button inscriptionButton, connexionButton;
     private TextField indentField, passwordField;
+    private Label errorLabel;
 
     public Inscription(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -27,6 +28,7 @@ public class Inscription {
         this.connexionButton = new Button("Deja inscrit ? Connecte toi !");
         this.indentField = new TextField();
         this.passwordField = new PasswordField();
+        this.errorLabel = new Label();
     }
 
     public Scene creerSceneInscription() {
@@ -54,6 +56,7 @@ public class Inscription {
     private void configurerComposants(Pane root) {
         configurerBouton(inscriptionButton, 490, 480, 260, 50, "my-button", root);
         configurerBouton(connexionButton, 490, 225, 260, 10, "my-button-label", root);
+        configurerLabel(errorLabel, 545, 437, 260, 45, "my-label-error", root);
         configurerTextField(indentField, 490, 300, 260, 45, "Identifiant", "my-field-user-con", root);
         configurerTextField(passwordField, 490, 395, 260, 45, "Mot de passe", "my-field-user-con", root);
     }
@@ -77,6 +80,14 @@ public class Inscription {
         root.getChildren().add(champ);
     }
 
+    private void configurerLabel(Label label, int x, int y, int width, int height, String style, Pane root) {
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+        label.setPrefSize(width, height);
+        label.getStyleClass().add(style);
+        root.getChildren().add(label);
+    }
+
     public Button getInscriptionButton() {
         return inscriptionButton;
     }
@@ -91,5 +102,13 @@ public class Inscription {
 
     public TextField getPasswordField() {
         return passwordField;
+    }
+
+    public Label getErrorLabel() {
+        return errorLabel;
+    }
+
+    public void setErrorLabel(String error) {
+        this.errorLabel.setText(error);
     }
 }

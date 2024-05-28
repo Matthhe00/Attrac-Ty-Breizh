@@ -2,6 +2,7 @@ package app.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 
 import app.model.data.*;
 import app.model.dao.*;
@@ -36,7 +37,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         initEventHandlers();
     }
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user) {
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte) {
         this.primaryStage = primary;
         this.modele = modele;
         this.connexion = connexion;
@@ -44,6 +45,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.inscription = inscription;
         this.estConnecte = estConnecte;
         this.user = user;
+        this.compte = compte;
         initEventHandlers();
     }
 
@@ -112,7 +114,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     private void boutonCompteNavBarreClick() {
-        Pane root = this.compte.creerRootCompte();
+        Pane root = this.compte.creerRootCompte(this.user.getRole(), this.user.getLogin(), this.user.getPwd());
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
@@ -120,12 +122,17 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     private void boutonInscriptionInscriptionClick() {
-        Pane root = this.connexion.creerRootConnexion();
-        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
-        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
-        inscrireUtilisateur();
+        if (!this.userDAO.exists(this.inscription.getIndentField().getText())) {
+            Pane root = this.connexion.creerRootConnexion();
+            Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+            scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+            this.primaryStage.setScene(scene);
+            this.primaryStage.show();
+            inscrireUtilisateur();
+        } else {
+            this.inscription.getErrorLabel().setText("Identifiant déjà utilisé");
+        }
+
     }
 
     private void boutonConnexionInscriptionClick() {
@@ -137,15 +144,17 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
     
     public void connecterUtilisateur() {
+        this.user = new User(this.connexion.getIndentField().getText(), this.connexion.getPasswordField().getText());
+        System.out.println(userDAO.findByLoginPwd("admin", "admin"));
         this.estConnecte = true;
         this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user);
+        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte);
     }
 
     public void deconnecterUtilisateur() {
         this.estConnecte = false;
         this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user);
+        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte);
     }
 
     public void inscrireUtilisateur() {

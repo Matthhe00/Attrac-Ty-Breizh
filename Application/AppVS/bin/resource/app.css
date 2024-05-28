@@ -27,6 +27,16 @@
     -fx-text-fill: #ffffff;
 }
 
+.my-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.my-label-error {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ff0000;
+}
+
 .my-field-user-con {
     -fx-font-size: 14px;
     -fx-text-fill: #ffffff;

@@ -74,5 +74,16 @@ public class UserDAO extends DAO <User> {
         }
         return null;
     }
-        
+
+    public boolean exists(String login) {
+        try (Connection con = getConnection ();
+            PreparedStatement st = con.prepareStatement("SELECT * FROM USER WHERE LOGIN= ?")) {
+            st.setString(1, login);
+            ResultSet rs = st.executeQuery ();
+            return rs.next();
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return false;
+        }
+    }
 }

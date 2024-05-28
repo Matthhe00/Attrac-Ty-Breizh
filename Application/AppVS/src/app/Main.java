@@ -26,7 +26,7 @@ public class Main extends Application {
         Connexion vueConnexion = new Connexion(primaryStage);
         Accueil vueAccueil = new Accueil(primaryStage);
         Inscription vueInscription = new Inscription(primaryStage);
-        Compte vueCompte = new Compte(primaryStage);
+        Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
         new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte);
         primaryStage.setScene(vueConnexion.creerSceneConnexion());
         primaryStage.show();
