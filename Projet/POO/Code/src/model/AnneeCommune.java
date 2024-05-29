@@ -113,11 +113,11 @@ public class AnneeCommune {
 
     String compareValues(String nomDonnee, double valeur1, double valeur2, String nomCommune1, String nomCommune2) {
         if (valeur1 > valeur2) {
-            return nomDonnee + " de " + nomCommune1 + " est > à " + nomCommune2 + "\n";
+            return nomDonnee + " de " + nomCommune1 + " est superieur à " + nomCommune2 + "\n";
         } else if (valeur1 < valeur2) {
-            return nomDonnee + " de " + nomCommune1 + " est < à " + nomCommune2 + "\n";
+            return nomDonnee + " de " + nomCommune1 + " est inferieur à " + nomCommune2 + "\n";
         } else if (valeur1 == valeur2) {
-            return nomDonnee + " de " + nomCommune1 + " est = à " + nomCommune2 + "\n";
+            return nomDonnee + " de " + nomCommune1 + " est egal à " + nomCommune2 + "\n";
         } else {
             return "";
         }
