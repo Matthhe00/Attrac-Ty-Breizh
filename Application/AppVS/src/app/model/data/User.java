@@ -17,6 +17,12 @@ public class User {
         this.role = "user";
     }
 
+    public User(String login , String pwd, String role) {
+        this.login = login;
+        this.pwd = pwd;
+        this.role = role;
+    }
+
     public String getLogin () {
         return login;
     }
@@ -40,4 +46,8 @@ public class User {
     public User getUser() {
         return this;
     }
+
+    public String toString() {
+        return "User [login=" + login + ", pwd=" + pwd + ", role=" + role + "]";
+    } 
 }

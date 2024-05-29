@@ -18,14 +18,20 @@ public class NavBarre extends GridPane{
         initNavBarre(false);
     }
 
-    public NavBarre(boolean estConnecte, User user) {
+    public NavBarre(User user) {
         this.compteButton = new Button("Compte");
         this.carteButton = new Button("Carte");
         this.donneesButton = new Button("Données");
         this.modifie = new Button("Modifier");
         this.deconnexion = new Button("Déconnexion");
         this.role = user.getRole();
-        initNavBarre(estConnecte);
+        if (this.role == "admin") {
+            initNavBarre(true);
+            System.out.println("admin");
+        } else {
+            initNavBarre(false);
+            System.out.println("user");
+        }
     }
 
     public NavBarre(boolean estConnecte) {
@@ -52,7 +58,7 @@ public class NavBarre extends GridPane{
         this.add(deconnexion, 3, 0);
 
 
-        if (estConnecte && this.role == "admin") {
+        if (estConnecte) {
             this.add(modifie, 19, 0);
         }
 
@@ -66,8 +72,13 @@ public class NavBarre extends GridPane{
         this.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm()); // Ajouter le fichier CSS
     }
 
-    public NavBarre refresh(boolean estConnecte) {
-        NavBarre newNavBarre = new NavBarre(estConnecte, new User());
+    public NavBarre refresh(User user) {
+        NavBarre newNavBarre = new NavBarre(user);
+        return newNavBarre;
+    }
+
+    public NavBarre refresh(boolean role) {
+        NavBarre newNavBarre = new NavBarre(role);
         return newNavBarre;
     }
 

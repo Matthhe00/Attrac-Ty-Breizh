@@ -67,7 +67,8 @@ public class UserDAO extends DAO <User> {
             while (rs.next()) {
                 String l = rs.getString("LOGIN");
                 String p = rs.getString("PWD");
-                return new User(l, p);
+                String r = rs.getString("ROLE");
+                return new User(l, p, r);
             }
         } catch (SQLException ex) { 
             ex.printStackTrace (); 

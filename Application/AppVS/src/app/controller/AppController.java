@@ -23,7 +23,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private Compte compte;
     private UserDAO userDAO;
     private User user;
-
+    private boolean role = false;
     private boolean estConnecte = false;
 
     public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte) {
@@ -37,7 +37,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         initEventHandlers();
     }
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte) {
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte, boolean role) {
         this.primaryStage = primary;
         this.modele = modele;
         this.connexion = connexion;
@@ -46,6 +46,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.estConnecte = estConnecte;
         this.user = user;
         this.compte = compte;
+        this.userDAO = new UserDAO();
+        this.role = role;
         initEventHandlers();
     }
 
@@ -88,12 +90,13 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonConnexionConnexionClick() {
         connecterUtilisateur();
-        Pane root = this.accueil.creerRootAccueil();
-        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
-        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
-        this.estConnecte = false;
+        if (this.estConnecte) {
+            Pane root = this.accueil.creerRootAccueil();
+            Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+            scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+            this.primaryStage.setScene(scene);
+            this.primaryStage.show();
+        }
     }
 
     private void boutonDeconnexionNavBarreClick() {
@@ -114,6 +117,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     private void boutonCompteNavBarreClick() {
+        this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
         Pane root = this.compte.creerRootCompte(this.user.getRole(), this.user.getLogin(), this.user.getPwd());
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -144,22 +148,46 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
     
     public void connecterUtilisateur() {
-        this.user = new User(this.connexion.getIndentField().getText(), this.connexion.getPasswordField().getText());
-        System.out.println(userDAO.findByLoginPwd("admin", "admin"));
-        this.estConnecte = true;
-        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte);
+        this.user = utilisateurExiste();
+        if (this.user == null) {
+            return;
+        } else {
+            System.out.println(userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd()));
+            this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
+            if (this.user.getRole().equals("admin")) {
+                this.role = true;
+                this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(true));
+            } else {
+                this.role = false;
+                this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(false));
+            }
+            this.estConnecte = true;
+            new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role);
+        }
     }
 
     public void deconnecterUtilisateur() {
         this.estConnecte = false;
-        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.estConnecte));
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte);
+        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.user));
+
     }
 
     public void inscrireUtilisateur() {
         this.user = new User(this.inscription.getIndentField().getText(), this.inscription.getPasswordField().getText());
         userDAO.create(user);
+    }
+
+    public User utilisateurExiste() {
+        if (userDAO.findByLoginPwd(this.connexion.getIndentField().getText(), this.connexion.getPasswordField().getText()) == null) {
+            return null;
+        } else {
+            return userDAO.findByLoginPwd(this.connexion.getIndentField().getText(), this.connexion.getPasswordField().getText());
+        }
+    }
+
+    public void modifierUtilisateur() {
+        this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText());
+        userDAO.update(user);
     }
 
     @Override
