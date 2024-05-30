@@ -51,6 +51,15 @@ public class Departement {
         this.listeAeroports = listeAeroports;
     }
 
+    public void addAeroport(Aeroport aeroport) {
+        if(aeroport != null){
+            this.listeAeroports.add(aeroport);
+        }
+    }
+
+    public void removeAeroport(Aeroport aeroport){
+            this.listeAeroports.remove(aeroport);
+    }
 
     public String toString() {
         return "Departement [idDep=" + idDep + ", nomDep=" + nomDep + ", invesCulturel2019=" + invesCulturel2019 + "]";

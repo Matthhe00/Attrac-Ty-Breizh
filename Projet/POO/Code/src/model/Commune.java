@@ -65,6 +65,16 @@ public class Commune {
         this.listeGares = listeGares;
     }
 
+    public void addGare(Gare gare) {
+        if(gare != null){
+            this.listeGares.add(gare);
+        }
+    }
+
+    public void removeGare(Gare gare) {
+        this.listeGares.remove(gare);
+    }
+
     public String toString() {
         return "Commune [idCommune=" + idCommune + ", leDepartement=" + getLeDepartement() + ", nomCommune=" + nomCommune + "]";
     }
