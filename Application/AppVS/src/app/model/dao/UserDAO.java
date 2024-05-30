@@ -22,8 +22,8 @@ public class UserDAO extends DAO <User> {
     }
     
     @Override
-    public int update(User user) {
-        String query = "UPDATE USER SET LOGIN='" + user.getLogin () + "', PWD='" + user.getPwd() + "' WHERE LOGIN='" + user.getLogin () + "'";
+    public int update(User user, String login, String role) {
+        String query = "UPDATE User SET login ='" + user.getLogin() + "', pwd ='" + user.getPwd() + "', role ='" + user.getRole() + "' WHERE login ='" + login + "'";
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
             return st.executeUpdate(query);
         } catch (SQLException ex) {
@@ -33,8 +33,8 @@ public class UserDAO extends DAO <User> {
     }
 
     @Override
-    public int delete(User user) {
-        String query = "DELETE FROM USER WHERE LOGIN='" + user.getLogin () + "'";
+    public int delete(User user, String login) {
+        String query = "DELETE FROM User WHERE LOGIN='" + login + "'";
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
             return st.executeUpdate(query);
         } catch (SQLException ex) {
@@ -43,14 +43,16 @@ public class UserDAO extends DAO <User> {
         }
     }
 
-    public List <User > findAll () {
+    public List <User> findAll () {
         List <User > users = new LinkedList <>();
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
             ResultSet rs = st.executeQuery("SELECT * FROM USER");
             while (rs.next()) {
+                String id = rs.getString("ID");
                 String nom = rs.getString("LOGIN");
                 String pwd = rs.getString("PWD");
-                users.add(new User(nom , pwd));
+                String role = rs.getString("ROLE");
+                users.add(new User(id, nom , pwd, role));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

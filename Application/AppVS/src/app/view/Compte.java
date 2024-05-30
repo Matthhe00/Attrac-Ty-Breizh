@@ -12,7 +12,7 @@ public class Compte {
     private Stage primaryStage;
     private Image icon, backgroundImage;
     private BackgroundImage background;
-    private Button modificationButton, supprimerButton;
+    private Button modificationButton, supprimerButton, listeCompteButton;
     private Label roleLabel, identLabel, passwordLabel, errorLabel;
     private TextField identField;
     private PasswordField passwordField;
@@ -25,10 +25,10 @@ public class Compte {
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         this.navBarre = new NavBarre(false);
 
-        initUIComponents(role, ident, password);
+        initUIComponents(role, ident, password, false);
     }
 
-    private void initUIComponents(String role, String ident, String password) {
+    private void initUIComponents(String role, String ident, String password, boolean estConnecte) {
         this.modificationButton = new Button("Modifier");
         this.supprimerButton = new Button("Supprimer");
         this.errorLabel = new Label();
@@ -37,6 +37,7 @@ public class Compte {
         this.passwordLabel = new Label(password);
         this.identField = new TextField();
         this.passwordField = new PasswordField();
+        this.listeCompteButton = new Button("Liste des comptes");
     }
 
     public Scene creerSceneCompte() {
@@ -58,12 +59,12 @@ public class Compte {
         this.navBarre = this.navBarre.refresh(estConnecte);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        initUIComponents(role, ident, password);
-        configurerComposants(root);
+        initUIComponents(role, ident, password, estConnecte);
+        configurerComposants(root, estConnecte);
         return root;
     }
 
-    private void configurerComposants(Pane root) {
+    private void configurerComposants(Pane root, boolean estConnecte) {
         root.getChildren().add(this.navBarre);
         configurerBouton(this.supprimerButton, 800, 500, 260, 50, "my-button-nav-barre-deco", root);
         configurerLabel(this.errorLabel, 520, 330, 260, 45, "my-label-error", root);
@@ -73,6 +74,9 @@ public class Compte {
         configurerLabel(this.passwordLabel, 220, 490, 260, 45, "my-label", root);
         configurerTextField(this.identField, 730, 290, 260, 45, "Identifiant", "my-field-user-con", root);
         configurerTextField(this.passwordField, 730, 390, 260, 45, "Mot de passe", "my-field-user-con", root);
+        if (estConnecte) {
+            configurerBouton(this.listeCompteButton, 645, 570, 260, 50, "my-button-modif", root);
+        }
     }
 
     private void configurerBouton(Button button, int x, int y, int width, int height, String style, Pane root) {
@@ -148,4 +152,19 @@ public class Compte {
         return this.supprimerButton;
     }
 
+    public Label getidentLabel() {
+        return this.identLabel;
+    }
+
+    public Label getPasswordLabel() {
+        return this.passwordLabel;
+    }
+
+    public Label getRoleLabel() {
+        return this.roleLabel;
+    }
+
+    public Button getListeCompteButton() {
+        return this.listeCompteButton;
+    }
 }

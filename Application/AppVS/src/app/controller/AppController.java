@@ -3,6 +3,8 @@ package app.controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URI;
+import java.util.List;
+
 import app.model.data.*;
 import app.model.dao.*;
 import app.view.*;
@@ -77,6 +79,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.compte.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.compte.getNavBarre().getAccueilButton().setOnAction(this);
         this.compte.getModificationButton().setOnAction(this);
+        this.compte.getSupprimerButton().setOnAction(this);
+        this.compte.getListeCompteButton().setOnAction(this);
   
     }
 
@@ -111,6 +115,10 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
             System.out.println("Accueil");
         } else if (source == this.compte.getModificationButton() && this.estConnecte) {
             modifierUtilisateur();
+        } else if (source == this.compte.getSupprimerButton() && this.estConnecte) {
+            boutonSupprimerClick();
+        } else if (source == this.compte.getListeCompteButton()) {
+            boutonListeCompteClick();
         }
     } 
 
@@ -228,13 +236,28 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     public void modifierUtilisateur() {
-        this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText());
-        if(this.userDAO.exists(this.inscription.getIndentField().getText())) {
-            this.userDAO.update(user);
+        this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText(), this.compte.getRoleLabel().getText());
+        if(!this.userDAO.exists(this.compte.getidentField().getText()) && !this.compte.getidentField().getText().isEmpty() && !this.compte.getPasswordField().getText().isEmpty()){
+            this.userDAO.update(user, this.compte.getidentLabel().getText(), this.compte.getRoleLabel().getText());
+            System.out.println(this.compte.getidentLabel().getText());
+            boutonCompteNavBarreClick();
         } else {
             this.compte.getErrorLabel().setText("Identifiant déjà utilisé");
         }
+    }
 
+    public void boutonSupprimerClick() {
+        this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText());
+        this.userDAO.delete(user, this.compte.getidentLabel().getText());
+        deconnecterUtilisateur();
+        boutonConnexionInscriptionClick();
+    }
+
+    public void boutonListeCompteClick() {
+        List<User> users = userDAO.findAll();
+        for (User user : users) {
+            System.out.println(user.getId() + " " +user.getLogin() + " " + user.getPwd() + " " + user.getRole());
+        }
     }
 
     @Override

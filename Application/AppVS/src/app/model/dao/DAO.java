@@ -37,8 +37,8 @@ public abstract class DAO <T> {
     // Obtenir la connection
     }
     public abstract List <T> findAll ();
-    public abstract int update(T element);
-    public abstract int delete(T element);
+    public abstract int update(T element, String login, String role);
+    public abstract int delete(T element, String login);
     public abstract int create(T element);
     public abstract T findByLoginPwd(String login , String pwd);
 

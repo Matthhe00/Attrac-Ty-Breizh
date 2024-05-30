@@ -4,6 +4,7 @@ public class User {
     private String login;
     private String pwd;
     private String role;
+    private String id;
 
     public User(){
         this.login = "";
@@ -18,6 +19,13 @@ public class User {
     }
 
     public User(String login , String pwd, String role) {
+        this.login = login;
+        this.pwd = pwd;
+        this.role = role;
+    }
+
+    public User(String id, String login , String pwd, String role) {
+        this.id = id;
         this.login = login;
         this.pwd = pwd;
         this.role = role;
@@ -45,6 +53,10 @@ public class User {
 
     public User getUser() {
         return this;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String toString() {

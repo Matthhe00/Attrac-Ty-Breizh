@@ -10,20 +10,16 @@ public class NavBarre extends GridPane{
     private Button modifie;
     private Button deconnexion;
     private Button accueilButton;
-    private String role;
 
     public NavBarre() {
         initNavBarre(false);
     }
 
     public NavBarre(User user, boolean role) {
-        this.role = user.getRole();
         if (role) {
             initNavBarre(true);
-            System.out.println("Role : " + this.role);
         } else {
             initNavBarre(false);
-            System.out.println("Role : " + this.role);
         }
     }
 
