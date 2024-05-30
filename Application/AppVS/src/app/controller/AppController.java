@@ -2,8 +2,7 @@ package app.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.SQLException;
-
+import java.net.URI;
 import app.model.data.*;
 import app.model.dao.*;
 import app.view.*;
@@ -63,10 +62,21 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.accueil.getNavBarre().getDonneesButton().setOnAction(this);
         this.accueil.getNavBarre().getModifieButton().setOnAction(this);
         this.accueil.getNavBarre().getDeconnexionButton().setOnAction(this);
+        this.accueil.getNavBarre().getAccueilButton().setOnAction(this);
+        this.accueil.getNotion().setOnAction(this);
 
         // gestion des événements de la classe Inscription
         this.inscription.getInscriptionButton().setOnAction(this);
         this.inscription.getConnexionButton().setOnAction(this);
+
+        // gestion des événements de la classe Compte
+        this.compte.getNavBarre().getcompteButton().setOnAction(this);
+        this.compte.getNavBarre().getCarteButton().setOnAction(this);
+        this.compte.getNavBarre().getDonneesButton().setOnAction(this);
+        this.compte.getNavBarre().getModifieButton().setOnAction(this);
+        this.compte.getNavBarre().getDeconnexionButton().setOnAction(this);
+        this.compte.getNavBarre().getAccueilButton().setOnAction(this);
+        this.compte.getModificationButton().setOnAction(this);
   
     }
 
@@ -81,21 +91,36 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
             boutonInscriptionInscriptionClick();
         } else if (source == this.inscription.getConnexionButton()) {
             boutonConnexionInscriptionClick();
-        } else if (source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) {
+        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte)){
             boutonDeconnexionNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte) {
             boutonCompteNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte || source == this.compte.getNavBarre().getCarteButton() && this.estConnecte) {
             // boutonCarteNavBarreClick();
             System.out.println("Carte");
-        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte) {
             // boutonDonneesNavBarreClick();
             System.out.println("Données");
-        } else if (source == this.accueil.getNavBarre().getModifieButton() && this.estConnecte && this.role) {
+        } else if (source == this.accueil.getNavBarre().getModifieButton() && this.estConnecte && this.role || source == this.compte.getNavBarre().getModifieButton() && this.estConnecte && this.role){
             // boutonModifieNavBarreClick();
             System.out.println("Modifie");
+        } else if (source == this.accueil.getNotion()) {
+            boutonNotionClick();
+        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte){
+            boutonAccueilNavBarreClick();
+            System.out.println("Accueil");
+        } else if (source == this.compte.getModificationButton() && this.estConnecte) {
+            modifierUtilisateur();
         }
     } 
+
+    private void boutonNotionClick() {
+        try {
+            java.awt.Desktop.getDesktop().browse(new URI("https://a1-2-sae2.notion.site/Attractivit-des-communes-bretonnes-e554c010050d45e996431ba36e920265"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void boutonConnexionConnexionClick() {
         connecterUtilisateur();
@@ -127,12 +152,12 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonCompteNavBarreClick() {
         this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
-        this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
-        Pane root = this.compte.creerRootCompte(this.user.getRole(), this.user.getLogin(), this.user.getPwd());
+        Pane root = this.compte.creerRootCompte(this.user.getRole(), this.user.getLogin(), this.user.getPwd(), this.role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role);
     }
 
     private void boutonInscriptionInscriptionClick() {
@@ -151,6 +176,14 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonConnexionInscriptionClick() {
         Pane root = this.connexion.creerRootConnexion();
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+    }
+
+    private void boutonAccueilNavBarreClick() {
+        Pane root = this.accueil.creerRootAccueil();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
@@ -176,10 +209,9 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     public void deconnecterUtilisateur() {
+        this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
         this.estConnecte = false;
-        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.user, this.role));
         new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role);
-
     }
 
     public void inscrireUtilisateur() {
@@ -197,7 +229,12 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     public void modifierUtilisateur() {
         this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText());
-        userDAO.update(user);
+        if(this.userDAO.exists(this.inscription.getIndentField().getText())) {
+            this.userDAO.update(user);
+        } else {
+            this.compte.getErrorLabel().setText("Identifiant déjà utilisé");
+        }
+
     }
 
     @Override

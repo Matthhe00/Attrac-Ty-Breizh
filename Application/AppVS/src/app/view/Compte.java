@@ -12,8 +12,8 @@ public class Compte {
     private Stage primaryStage;
     private Image icon, backgroundImage;
     private BackgroundImage background;
-    private Button modificationButton;
-    private Label roleLabel, identLabel, passwordLabel;
+    private Button modificationButton, supprimerButton;
+    private Label roleLabel, identLabel, passwordLabel, errorLabel;
     private TextField identField;
     private PasswordField passwordField;
     private NavBarre navBarre;
@@ -23,13 +23,15 @@ public class Compte {
         this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image(Constants.BACKGROUND_COMPTE_PATH);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
-        this.navBarre = new NavBarre(true);
+        this.navBarre = new NavBarre(false);
 
         initUIComponents(role, ident, password);
     }
 
     private void initUIComponents(String role, String ident, String password) {
         this.modificationButton = new Button("Modifier");
+        this.supprimerButton = new Button("Supprimer");
+        this.errorLabel = new Label();
         this.roleLabel = new Label(role);
         this.identLabel = new Label(ident);
         this.passwordLabel = new Label(password);
@@ -40,7 +42,7 @@ public class Compte {
     public Scene creerSceneCompte() {
         this.identField.clear();
         this.passwordField.clear();
-        Pane root = creerRootCompte("role", "ident", "password");
+        Pane root = creerRootCompte("role", "ident", "password", false);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
@@ -50,9 +52,10 @@ public class Compte {
         return scene;
     }
 
-    public Pane creerRootCompte(String role, String ident, String password) {
+    public Pane creerRootCompte(String role, String ident, String password, boolean estConnecte) {
         this.identField.clear();
         this.passwordField.clear();
+        this.navBarre = this.navBarre.refresh(estConnecte);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
         initUIComponents(role, ident, password);
@@ -62,7 +65,9 @@ public class Compte {
 
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
-        configurerBouton(this.modificationButton, 600, 500, 260, 50, "my-button", root);
+        configurerBouton(this.supprimerButton, 800, 500, 260, 50, "my-button-nav-barre-deco", root);
+        configurerLabel(this.errorLabel, 520, 330, 260, 45, "my-label-error", root);
+        configurerBouton(this.modificationButton, 500, 500, 260, 50, "my-button", root);
         configurerLabel(this.roleLabel, 220, 555, 260, 45, "my-label", root);
         configurerLabel(this.identLabel, 220, 425, 260, 45, "my-label", root);
         configurerLabel(this.passwordLabel, 220, 490, 260, 45, "my-label", root);
@@ -107,12 +112,24 @@ public class Compte {
         return this.passwordField;
     }
 
+    public void updateNavBarre(boolean estConnecte) {
+        this.navBarre.initNavBarre(estConnecte);
+    }
+
     public NavBarre getNavBarre() {
         return this.navBarre;
     }
 
     public void setNavBarre(NavBarre navBarre) {
         this.navBarre = navBarre;
+    }
+
+    public void setErrorLabel(String error) {
+        this.errorLabel.setText(error);
+    }
+
+    public Label getErrorLabel() {
+        return this.errorLabel;
     }
 
     public void setRoleLabel(String role) {
@@ -125,6 +142,10 @@ public class Compte {
 
     public void setPasswordLabel(String password) {
         this.passwordLabel.setText(password);
+    }
+
+    public Button getSupprimerButton() {
+        return this.supprimerButton;
     }
 
 }

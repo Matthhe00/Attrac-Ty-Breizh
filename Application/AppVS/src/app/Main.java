@@ -30,5 +30,6 @@ public class Main extends Application {
         new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte);
         primaryStage.setScene(vueConnexion.creerSceneConnexion());
         primaryStage.show();
+
     }
 }
