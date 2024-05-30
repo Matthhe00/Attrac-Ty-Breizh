@@ -1,4 +1,7 @@
 package model;
+
+import java.util.ArrayList;
+
 public class Departement {
     
     private int idDep;
@@ -7,10 +10,13 @@ public class Departement {
 
     private float invesCulturel2019;
 
+    private ArrayList<Aeroport> listeAeroports;
+
     public Departement(int idDep, String nomDep, float inves) {
         this.idDep = idDep;
         this.nomDep = nomDep;
         this.invesCulturel2019 = inves;
+        this.listeAeroports = new ArrayList<Aeroport>();
     }
 
     public int getIdDep() {
@@ -36,6 +42,15 @@ public class Departement {
     public void setInvesCulturel2019(float invesCulturel2019) {
         this.invesCulturel2019 = invesCulturel2019;
     }
+
+    public ArrayList<Aeroport> getListeAeroports() {
+        return this.listeAeroports;
+    }
+
+    public void setListeAeroports(ArrayList<Aeroport> listeAeroports) {
+        this.listeAeroports = listeAeroports;
+    }
+
 
     public String toString() {
         return "Departement [idDep=" + idDep + ", nomDep=" + nomDep + ", invesCulturel2019=" + invesCulturel2019 + "]";

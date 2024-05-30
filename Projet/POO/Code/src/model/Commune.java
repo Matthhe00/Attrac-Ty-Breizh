@@ -6,12 +6,14 @@ public class Commune {
     private String nomCommune;
     private Departement leDepartement;
     private ArrayList<Commune> communeVoisine;
+    private ArrayList<Gare> listeGares;
 
     public Commune(int idCommune, String nomCommune, Departement leDepartement) {
         this.idCommune = idCommune;
         this.nomCommune = nomCommune;
         this.leDepartement = leDepartement;
         this.communeVoisine = new ArrayList<Commune>();
+        this.listeGares = new ArrayList<Gare>();
 
     }
 
@@ -53,6 +55,14 @@ public class Commune {
 
     public void setCommuneVoisine(ArrayList<Commune> communeVoisine) {
         this.communeVoisine = communeVoisine;
+    }
+
+    public ArrayList<Gare> getListeGares() {
+        return this.listeGares;
+    }
+
+    public void setListeGares(ArrayList<Gare> listeGares) {
+        this.listeGares = listeGares;
     }
 
     public String toString() {
