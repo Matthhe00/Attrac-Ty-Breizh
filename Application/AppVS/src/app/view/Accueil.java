@@ -1,6 +1,8 @@
 package app.view;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import resource.utils.*;;
@@ -10,6 +12,7 @@ public class Accueil {
     private BackgroundImage background;
     private NavBarre navBarre;
     private Stage primaryStage;
+    private Button notion; 
 
     public Accueil(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -18,6 +21,11 @@ public class Accueil {
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
         this.navBarre = new NavBarre();
+         initUIComponents();
+    }
+
+    private void initUIComponents() {
+        this.notion = new Button("Notion");
     }
 
     public Scene creerSceneAccueil() {
@@ -40,6 +48,16 @@ public class Accueil {
 
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
+        configurerBouton(notion, 200, 500, 260, 45, "my-button", root);
+    }
+
+    private void configurerBouton(Button button, int x, int y, int width, int height, String styleClass, Pane root) {
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.setPrefWidth(width);
+        button.setPrefHeight(height);
+        button.getStyleClass().add(styleClass);
+        root.getChildren().add(button);
     }
 
     public void updateNavBarre(boolean estConnecte) {
@@ -52,5 +70,9 @@ public class Accueil {
 
     public void setNavBarre(NavBarre navBarre) {
         this.navBarre = navBarre;
+    }
+
+    public Button getNotion() {
+        return this.notion;
     }
 }

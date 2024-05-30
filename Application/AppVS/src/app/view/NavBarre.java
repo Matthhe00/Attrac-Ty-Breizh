@@ -9,21 +9,14 @@ public class NavBarre extends GridPane{
     private Button donneesButton;
     private Button modifie;
     private Button deconnexion;
+    private Button accueilButton;
     private String role;
 
     public NavBarre() {
-        this.compteButton = new Button("Compte");
-        this.carteButton = new Button("Carte");
-        this.donneesButton = new Button("Données");
         initNavBarre(false);
     }
 
     public NavBarre(User user, boolean role) {
-        this.compteButton = new Button("Compte");
-        this.carteButton = new Button("Carte");
-        this.donneesButton = new Button("Données");
-        this.modifie = new Button("Modifier");
-        this.deconnexion = new Button("Déconnexion");
         this.role = user.getRole();
         if (role) {
             initNavBarre(true);
@@ -35,11 +28,6 @@ public class NavBarre extends GridPane{
     }
 
     public NavBarre(boolean estConnecte) {
-        this.compteButton = new Button("Compte");
-        this.carteButton = new Button("Carte");
-        this.donneesButton = new Button("Données");
-        this.modifie = new Button("Modifier");
-        this.deconnexion = new Button("Déconnexion");
         initNavBarre(estConnecte);
     }
 
@@ -51,18 +39,25 @@ public class NavBarre extends GridPane{
         this.donneesButton = new Button("Données");
         this.modifie = new Button("Modifier");
         this.deconnexion = new Button("Déconnexion");
+        this.accueilButton = new Button("Accueil");
 
-        this.add(compteButton, 0, 0);
-        this.add(carteButton, 1, 0);
-        this.add(donneesButton, 2, 0);
-        this.add(deconnexion, 19, 0);
-
-
-        if (estConnecte) {
-            this.add(modifie, 3, 0);
+        if (!estConnecte) {
+            this.add(accueilButton, 0, 0);
+            this.add(compteButton, 1, 0);
+            this.add(carteButton, 2, 0);
+            this.add(donneesButton, 3, 0);
+            this.add(deconnexion, 20, 0);
+        } else {
+            this.add(accueilButton, 0, 0);
+            this.add(compteButton, 1, 0);
+            this.add(carteButton, 2, 0);
+            this.add(donneesButton, 3, 0);
+            this.add(modifie, 4, 0);
+            this.add(deconnexion, 16, 0);
         }
 
         this.getStyleClass().add("nav-barre"); // Ajouter une classe CSS
+        this.accueilButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.carteButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.compteButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.donneesButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
@@ -100,6 +95,10 @@ public class NavBarre extends GridPane{
 
     public Button getDeconnexionButton() {
         return this.deconnexion;
+    }
+
+    public Button getAccueilButton() {
+        return this.accueilButton;
     }
     
 }
