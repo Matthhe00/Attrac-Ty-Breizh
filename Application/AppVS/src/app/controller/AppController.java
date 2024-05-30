@@ -85,6 +85,15 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
             boutonDeconnexionNavBarreClick();
         } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte) {
             boutonCompteNavBarreClick();
+        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte) {
+            // boutonCarteNavBarreClick();
+            System.out.println("Carte");
+        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte) {
+            // boutonDonneesNavBarreClick();
+            System.out.println("Données");
+        } else if (source == this.accueil.getNavBarre().getModifieButton() && this.estConnecte && this.role) {
+            // boutonModifieNavBarreClick();
+            System.out.println("Modifie");
         }
     } 
 
@@ -118,6 +127,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     private void boutonCompteNavBarreClick() {
         this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
+        this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
         Pane root = this.compte.creerRootCompte(this.user.getRole(), this.user.getLogin(), this.user.getPwd());
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -152,7 +162,6 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         if (this.user == null) {
             return;
         } else {
-            System.out.println(userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd()));
             this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
             if (this.user.getRole().equals("admin")) {
                 this.role = true;
@@ -168,7 +177,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
 
     public void deconnecterUtilisateur() {
         this.estConnecte = false;
-        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.user));
+        this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(this.user, this.role));
+        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role);
 
     }
 

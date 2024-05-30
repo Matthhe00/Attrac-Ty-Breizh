@@ -18,19 +18,19 @@ public class NavBarre extends GridPane{
         initNavBarre(false);
     }
 
-    public NavBarre(User user) {
+    public NavBarre(User user, boolean role) {
         this.compteButton = new Button("Compte");
         this.carteButton = new Button("Carte");
         this.donneesButton = new Button("Données");
         this.modifie = new Button("Modifier");
         this.deconnexion = new Button("Déconnexion");
         this.role = user.getRole();
-        if (this.role == "admin") {
+        if (role) {
             initNavBarre(true);
-            System.out.println("admin");
+            System.out.println("Role : " + this.role);
         } else {
             initNavBarre(false);
-            System.out.println("user");
+            System.out.println("Role : " + this.role);
         }
     }
 
@@ -55,11 +55,11 @@ public class NavBarre extends GridPane{
         this.add(compteButton, 0, 0);
         this.add(carteButton, 1, 0);
         this.add(donneesButton, 2, 0);
-        this.add(deconnexion, 3, 0);
+        this.add(deconnexion, 19, 0);
 
 
         if (estConnecte) {
-            this.add(modifie, 19, 0);
+            this.add(modifie, 3, 0);
         }
 
         this.getStyleClass().add("nav-barre"); // Ajouter une classe CSS
@@ -67,13 +67,13 @@ public class NavBarre extends GridPane{
         this.compteButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.donneesButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.modifie.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
-        this.deconnexion.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
+        this.deconnexion.getStyleClass().add("my-button-nav-barre-deco"); // Ajouter une classe CSS
 
         this.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm()); // Ajouter le fichier CSS
     }
 
-    public NavBarre refresh(User user) {
-        NavBarre newNavBarre = new NavBarre(user);
+    public NavBarre refresh(User user, boolean role) {
+        NavBarre newNavBarre = new NavBarre(user, role);
         return newNavBarre;
     }
 

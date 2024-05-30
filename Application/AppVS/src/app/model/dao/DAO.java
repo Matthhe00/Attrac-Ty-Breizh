@@ -7,13 +7,14 @@ package app.model.dao;
  * CREATE DATABASE bd_communeb;
  * GRANT ALL ON bd_communeb .* TO 'communeB_User'@'localhost';
  * 
- * DROP TABLE IF EXISTS User;
+    DROP TABLE IF EXISTS User;
     CREATE TABLE User (
         id INT PRIMARY KEY AUTO_INCREMENT,
         login VARCHAR(255) NOT NULL UNIQUE,
-        pwd VARCHAR(255) NOT NULL UNIQUE,
+        pwd VARCHAR(255) NOT NULL,
         role VARCHAR(255) NOT NULL
     );
+    INSERT INTO User (login, pwd, role) VALUES ('admin', 'admin', 'admin'); 
  */
 
 import resource.utils.Constants;
