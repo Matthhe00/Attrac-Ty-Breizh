@@ -1,21 +1,20 @@
 package app.controller;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import app.model.data.*;
 import app.Main;
 import app.model.dao.*;
 import app.view.*;
 import app.view.admin.CompteAdminScene;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import resource.utils.Constants;
 
-public class AppController implements EventHandler<ActionEvent>, PropertyChangeListener {
+public class AppController implements EventHandler<ActionEvent> {
     private Stage primaryStage;
     private Modele modele;
     private Connexion connexion;
@@ -27,6 +26,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private boolean role = false;
     private boolean estConnecte = false;
     private Main main;
+    private UserFileAccess userFileAccess;
     private CompteAdminScene CompteAdminScene;
 
     public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene) {
@@ -39,7 +39,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.main = main;
         this.userDAO = new UserDAO();
         this.CompteAdminScene = CompteAdminScene;
-        this.CompteAdminScene.init(primaryStage, this, new UserFileAccess());
+        this.userFileAccess = new UserFileAccess();
+        this.CompteAdminScene.init(primaryStage, this, userFileAccess);
         initEventHandlers();
     }
 
@@ -56,7 +57,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.role = role;
         this.main = main;
         this.CompteAdminScene = CompteAdminScene;
-        this.CompteAdminScene.init(primaryStage, this, new UserFileAccess());
+        this.userFileAccess = new UserFileAccess();
+        this.CompteAdminScene.init(primaryStage, this, userFileAccess);
         initEventHandlers();
     }
 
@@ -130,16 +132,24 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
             boutonNotionClick();
         } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte) {
             boutonAccueilNavBarreClick();
-            System.out.println("Accueil");
         } else if (source == this.compte.getModificationButton() && this.estConnecte) {
             modifierUtilisateur();
         } else if (source == this.compte.getSupprimerButton() && this.estConnecte) {
             boutonSupprimerClick();
         } else if (source == this.compte.getListeCompteButton()) {
             boutonListeCompteClick();
-        } 
-    } 
+        } else {
+            Button sources = (Button) event.getSource();
+            String sourceId = sources.getId();
 
+            if (this.userDAO.exists(sourceId)) {
+                // Handle user deletion
+                boutonSupprimerClickAdmin(sourceId);
+                System.out.println("Suppression de l'utilisateur " + sourceId);
+            }     
+        }
+    } 
+    
     private void boutonNotionClick() {
         try {
             this.main.getHostServices().showDocument("https://a1-2-sae2.notion.site/Attractivit-des-communes-bretonnes-e554c010050d45e996431ba36e920265");
@@ -187,15 +197,17 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     private void boutonInscriptionInscriptionClick() {
-        if (!this.userDAO.exists(this.inscription.getIndentField().getText())) {
+        if (!this.userDAO.exists(this.inscription.getIndentField().getText()) && !this.inscription.getIndentField().getText().isEmpty() && !this.inscription.getPasswordField().getText().isEmpty()){
             Pane root = this.connexion.creerRootConnexion();
             Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
             scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
             this.primaryStage.setScene(scene);
             this.primaryStage.show();
             inscrireUtilisateur();
-        } else {
+        } else if (this.userDAO.exists(this.inscription.getIndentField().getText())){
             this.inscription.getErrorLabel().setText("Identifiant déjà utilisé");
+        } else {
+            this.inscription.getErrorLabel().setText("Champs vides");
         }
 
     }
@@ -257,7 +269,6 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText(), this.compte.getRoleLabel().getText());
         if(!this.userDAO.exists(this.compte.getidentField().getText()) && !this.compte.getidentField().getText().isEmpty() && !this.compte.getPasswordField().getText().isEmpty()){
             this.userDAO.update(user, this.compte.getidentLabel().getText(), this.compte.getRoleLabel().getText());
-            System.out.println(this.compte.getidentLabel().getText());
             boutonCompteNavBarreClick();
         } else {
             this.compte.getErrorLabel().setText("Identifiant déjà utilisé");
@@ -271,29 +282,36 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         boutonConnexionInscriptionClick();
     }
 
+    public void boutonSupprimerClickAdmin(String user) {
+        this.userFileAccess.deleteUser(this.userFileAccess.getUser(user));
+        boutonListeCompteClick();
+    }
+
     public void boutonListeCompteClick() {
 
         Pane root = this.CompteAdminScene.creerRootCompte();
-        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene);
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene);
-
     }
 
     public void updateLogin(String initLogin, String newLogin) {
         this.userDAO.updateLogin(initLogin, newLogin);
+        this.userFileAccess.setList();
     }
 
     public void updatePwd(User user, String newPwd) {
         String login = user.getLogin();
         this.userDAO.updatePwd(login, newPwd);
+        this.userFileAccess.setList();
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        // Implémentation du PropertyChangeListener si nécessaire
-
+    public void updateRole(User user, String newRole) {
+        String login = user.getLogin();
+        this.userDAO.updateRole(login, newRole);
+        this.userFileAccess.setList();
     }
+    
 }

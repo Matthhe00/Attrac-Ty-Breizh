@@ -1,7 +1,7 @@
 package app.view.admin;
 
 import app.controller.AppController;
-import app.model.data.UserFileAccess;
+import app.model.data.*;
 import app.view.NavBarre;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -16,9 +16,11 @@ public class CompteAdminScene extends Pane {
     private BackgroundImage background;
     private NavBarre navBarre;
     private CompteAdminTable compteAdminTable;
+    public Object getCompteAdminTable;
     
 
     public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
+
         this.compteAdminTable = new CompteAdminTable(userFileAccess, appController);
     }
 
@@ -33,7 +35,7 @@ public class CompteAdminScene extends Pane {
     public Scene creerSceneCompte() {
         Pane root = creerRootCompte();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
-        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle(Constants.APP_NAME);
         this.primaryStage.setScene(scene);
@@ -68,5 +70,8 @@ public class CompteAdminScene extends Pane {
     public void setNavBarre(NavBarre navBarre) {
         this.navBarre = navBarre;
     }
+
     
+
+
 }

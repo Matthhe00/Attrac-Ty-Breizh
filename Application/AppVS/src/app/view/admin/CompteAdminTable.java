@@ -25,42 +25,59 @@ public class CompteAdminTable extends TableView<User> {
      */
     public CompteAdminTable(UserFileAccess UserFileAccess, AppController controller) {
         this.controller = controller;
+        this.UserFileAccess = UserFileAccess;
         ObservableList<User> data = FXCollections.observableArrayList(UserFileAccess.getUsers());
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
         this.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());
 
 
+
         // Creating columns
-        TableColumn<User, String> loginCol = new TableColumn<>("Login");
+        TableColumn<User, String> loginCol = new TableColumn<>("Identifiant");
         loginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
         loginCol.setCellFactory(TextFieldTableCell.forTableColumn());
         loginCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
-            if (!t.getNewValue().equals(""))
+            if (!t.getNewValue().equals("")) {
                 controller.updateLogin(t.getOldValue(), t.getNewValue());
+            }
         });
-        loginCol.setMinWidth(150);
+        loginCol.setMinWidth(130);
 
         TableColumn<User, String> pwdCol = new TableColumn<>("Mot de passe");
-        pwdCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        pwdCol.setCellValueFactory(new PropertyValueFactory<>("pwd"));
         pwdCol.setCellFactory(TextFieldTableCell.forTableColumn());
         pwdCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
-            if (!t.getNewValue().equals(""))
+            if (!t.getNewValue().equals("")) {
                 controller.updatePwd(t.getRowValue(), t.getNewValue());
+            }
         });
-        pwdCol.setMinWidth(150);
+        pwdCol.setMinWidth(130);
+
+        
+        TableColumn<User, String> roleCol = new TableColumn<>("Role");
+        roleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+        roleCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        roleCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
+            if (!t.getNewValue().equals("")) {
+                controller.updateRole(t.getRowValue(), t.getNewValue());
+            }
+        });
+        roleCol.setMinWidth(130);
 
         TableColumn<User, String> otherCol = new TableColumn<>("Actions");
         otherCol.setCellFactory(i -> new TableCell<User, String>() {
             Button deleteButton = new Button("Supprimer");
-            FlowPane pane = new FlowPane(1, 0, deleteButton);
-
+            FlowPane pane = new FlowPane(deleteButton);
+            
             @Override
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
+                deleteButton.getStyleClass().add("my-button-sup");
                 if (!empty) {
+                    User user = getTableView().getItems().get(getIndex());
                     pane.setAlignment(Pos.CENTER);
-                    deleteButton.setId("delUser_" + getIndex());
+                    deleteButton.setId(user.getLogin()); 
                     deleteButton.setOnAction(controller);
                     setGraphic(pane);
                     setText(null);
@@ -69,21 +86,30 @@ public class CompteAdminTable extends TableView<User> {
                     setGraphic(null);
                     setText(null);
                 }
+                
             }
         });
-        otherCol.setMinWidth(150);
+        otherCol.setMinWidth(130);
 
         // Adding data to the table
         this.setItems(data);
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.getColumns().add(loginCol);
         this.getColumns().add(pwdCol);
+        this.getColumns().add(roleCol);
         this.getColumns().add(otherCol);
 
         // Ajouter des classes CSS aux colonnes
 
+        loginCol.getStyleClass().add("my-table-col");
+        pwdCol.getStyleClass().add("my-table-col");
+        roleCol.getStyleClass().add("my-table-col");
+        otherCol.getStyleClass().add("my-table-col");
 
         // Setting the size of the table
         this.setMaxSize(600, 800);
     }
+
+ 
+    
 }
