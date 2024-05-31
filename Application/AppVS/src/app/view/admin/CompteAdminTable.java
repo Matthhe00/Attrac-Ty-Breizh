@@ -28,6 +28,8 @@ public class CompteAdminTable extends TableView<User> {
         ObservableList<User> data = FXCollections.observableArrayList(UserFileAccess.getUsers());
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
+        this.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());
+
 
         // Creating columns
         TableColumn<User, String> loginCol = new TableColumn<>("Login");
@@ -78,10 +80,8 @@ public class CompteAdminTable extends TableView<User> {
         this.getColumns().add(pwdCol);
         this.getColumns().add(otherCol);
 
-        // adding CSS classes
-        loginCol.getStyleClass().add("my-table-col");
-        pwdCol.getStyleClass().add("my-table-col");
-        otherCol.getStyleClass().add("my-table-col");
+        // Ajouter des classes CSS aux colonnes
+
 
         // Setting the size of the table
         this.setMaxSize(600, 800);

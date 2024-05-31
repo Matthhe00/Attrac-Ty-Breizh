@@ -43,7 +43,6 @@ public abstract class DAO <T> {
     public abstract int delete(T element, String login);
     public abstract int create(T element);
     public abstract T findByLoginPwd(String login , String pwd);
-    public abstract int updateLogin(String oldLogin, String newLogin);
     
 
 }

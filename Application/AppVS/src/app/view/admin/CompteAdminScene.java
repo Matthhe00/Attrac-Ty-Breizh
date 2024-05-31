@@ -2,7 +2,6 @@ package app.view.admin;
 
 import app.controller.AppController;
 import app.model.data.UserFileAccess;
-import app.view.Compte;
 import app.view.NavBarre;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,6 +16,7 @@ public class CompteAdminScene extends Pane {
     private BackgroundImage background;
     private NavBarre navBarre;
     private CompteAdminTable compteAdminTable;
+    
 
     public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
         this.compteAdminTable = new CompteAdminTable(userFileAccess, appController);
@@ -51,7 +51,7 @@ public class CompteAdminScene extends Pane {
 
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
-        configurerTable(compteAdminTable, 600, 175, "table-view", root);
+        configurerTable(compteAdminTable, 650, 175, "table-view", root);
     }
 
     private void configurerTable(CompteAdminTable t, int x, int y, String style, Pane root) {

@@ -132,8 +132,7 @@
     -fx-background-radius: 15px;
 }
 
-.my-table-col {
-    -fx-font-size: 14px;
-    -fx-font-color: #ffffff;
+.table-view .column-header-background {
+    -fx-background-color: #74747434;
     -fx-background-radius: 15px;
 }

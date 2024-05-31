@@ -90,7 +90,6 @@ public class UserDAO extends DAO <User> {
         }
     }
 
-    @Override
     public int updateLogin(String oldLogin, String newLogin) {
         String query = "UPDATE User SET login ='" + newLogin + "' WHERE login ='" + oldLogin + "'";
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
