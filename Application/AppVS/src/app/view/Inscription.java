@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import resource.utils.Constants;
 
-public class Inscription {
+public class Inscription extends Pane {
     private Stage primaryStage;
     private Image icon, backgroundImage;
     private BackgroundImage background;

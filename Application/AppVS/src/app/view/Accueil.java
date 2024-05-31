@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import resource.utils.*;;
 
-public class Accueil {
+public class Accueil extends Pane {
     private Image icon, backgroundImage;
     private BackgroundImage background;
     private NavBarre navBarre;

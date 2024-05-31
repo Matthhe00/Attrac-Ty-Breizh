@@ -36,11 +36,15 @@ public abstract class DAO <T> {
     }
     // Obtenir la connection
     }
+
+    // Les methodes abstraites pour la class User
     public abstract List <T> findAll ();
     public abstract int update(T element, String login, String role);
     public abstract int delete(T element, String login);
     public abstract int create(T element);
     public abstract T findByLoginPwd(String login , String pwd);
+    public abstract int updateLogin(String oldLogin, String newLogin);
+    
 
 }
 

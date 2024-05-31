@@ -89,4 +89,25 @@ public class UserDAO extends DAO <User> {
             return false;
         }
     }
+
+    @Override
+    public int updateLogin(String oldLogin, String newLogin) {
+        String query = "UPDATE User SET login ='" + newLogin + "' WHERE login ='" + oldLogin + "'";
+        try (Connection con = getConnection (); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
+    }
+
+    public int updatePwd(String login, String pwd) {
+        String query = "UPDATE User SET pwd ='" + pwd + "' WHERE login ='" + login + "'";
+        try (Connection con = getConnection (); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
+    }
 }

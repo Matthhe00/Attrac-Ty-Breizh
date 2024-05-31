@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import resource.utils.Constants;
 
-public class Compte {
+public class Compte extends Pane {
     
     private Stage primaryStage;
     private Image icon, backgroundImage;

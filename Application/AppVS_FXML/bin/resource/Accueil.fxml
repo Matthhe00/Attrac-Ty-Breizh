@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AppController">
    <children>
-      <ImageView fx:id="boutonNav" fitHeight="720.0" fitWidth="1260.0" pickOnBounds="true">
+      <ImageView fitHeight="700.0" fitWidth="1260.0" pickOnBounds="true">
          <image>
             <Image url="@style/image/BackgroundAccueil.png" />
          </image>
       </ImageView>
-      <ButtonBar id="nav-barre" prefHeight="79.0" prefWidth="642.0" stylesheets="@style/style.css" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="618.0" AnchorPane.topAnchor="0.0">
-        <buttons>
-          <Button id="my-button-nav-barre" minWidth="48.0" mnemonicParsing="false" onAction="#openConnexionPage" prefHeight="25.0" stylesheets="@style/style.css" text="Compte" />
-            <Button id="my-button-nav-barre" mnemonicParsing="false" prefHeight="25.0" prefWidth="137.0" stylesheets="@style/style.css" text="Carte" />
-            <Button id="my-button-nav-barre" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" text="Donnée">
-               <padding>
-                  <Insets left="40.0" />
-               </padding></Button>
-        </buttons>
-      </ButtonBar>
+      <MenuButton layoutX="90.0" layoutY="130.0" mnemonicParsing="false" text="MenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <SplitMenuButton layoutX="90.0" layoutY="224.0" mnemonicParsing="false" text="SplitMenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
+      <ToggleButton layoutX="111.0" layoutY="305.0" mnemonicParsing="false" text="ToggleButton" />
+      <CheckBox layoutX="119.0" layoutY="386.0" mnemonicParsing="false" text="CheckBox" />
+      <ChoiceBox layoutX="360.0" layoutY="161.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

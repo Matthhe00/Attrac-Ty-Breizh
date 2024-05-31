@@ -2,6 +2,7 @@ package app;
 import app.controller.*;
 import app.model.data.*;
 import app.view.*;
+import app.view.admin.CompteAdminScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -27,7 +28,8 @@ public class Main extends Application {
         Accueil vueAccueil = new Accueil(primaryStage);
         Inscription vueInscription = new Inscription(primaryStage);
         Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
-        new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte);
+        AppController controller = new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte, this);
+        UserFileAccess UserFileAccess = new UserFileAccess();
         primaryStage.setScene(vueConnexion.creerSceneConnexion());
         primaryStage.show();
 
