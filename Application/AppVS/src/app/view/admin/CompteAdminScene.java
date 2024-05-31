@@ -2,10 +2,9 @@ package app.view.admin;
 
 import app.controller.AppController;
 import app.model.data.UserFileAccess;
+import app.view.Compte;
 import app.view.NavBarre;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -18,26 +17,18 @@ public class CompteAdminScene extends Pane {
     private BackgroundImage background;
     private NavBarre navBarre;
     private CompteAdminTable compteAdminTable;
-    private BorderPane borderPane;
 
-    public CompteAdminScene(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
+    public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
+        this.compteAdminTable = new CompteAdminTable(userFileAccess, appController);
+    }
+
+    public CompteAdminScene(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image(Constants.BACKGROUND);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         this.navBarre = new NavBarre(false);
-        this.compteAdminTable = new CompteAdminTable(userFileAccess, appController);
-        this.borderPane = new BorderPane();
-
-        initUIComponents();
     }
-
-    private void initUIComponents() {
-        BorderPane.setMargin(compteAdminTable, new Insets(50, 50, 50, 50));
-        this.borderPane.setCenter(compteAdminTable);
-
-    }
-
 
     public Scene creerSceneCompte() {
         Pane root = creerRootCompte();
@@ -51,15 +42,31 @@ public class CompteAdminScene extends Pane {
     }
 
     public Pane creerRootCompte() {
+        this.navBarre = this.navBarre.refresh(true);
         Pane root = new Pane();
-        root.getChildren().add(this.navBarre);
         root.setBackground(new Background(this.background));
         configurerComposants(root);
         return root;
     }
 
     private void configurerComposants(Pane root) {
-        root.getChildren().add(this.compteAdminTable);
+        root.getChildren().add(this.navBarre);
+        configurerTable(compteAdminTable, 600, 175, "table-view", root);
+    }
+
+    private void configurerTable(CompteAdminTable t, int x, int y, String style, Pane root) {
+        t.setLayoutX(x);
+        t.setLayoutY(y);
+        t.getStyleClass().add(style);
+        root.getChildren().add(t);
+    }
+
+    public NavBarre getNavBarre() {
+        return this.navBarre;
+    }
+
+    public void setNavBarre(NavBarre navBarre) {
+        this.navBarre = navBarre;
     }
     
 }

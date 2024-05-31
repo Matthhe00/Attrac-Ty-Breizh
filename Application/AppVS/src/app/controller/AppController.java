@@ -2,8 +2,6 @@ package app.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.URI;
-import java.util.List;
 
 import app.model.data.*;
 import app.Main;
@@ -31,7 +29,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     private Main main;
     private CompteAdminScene CompteAdminScene;
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main) {
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene) {
         this.primaryStage = primary;
         this.modele = modele;
         this.connexion = connexion;
@@ -40,11 +38,12 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.compte = compte;
         this.main = main;
         this.userDAO = new UserDAO();
-        this.CompteAdminScene = new CompteAdminScene(primary, this, new UserFileAccess());
+        this.CompteAdminScene = CompteAdminScene;
+        this.CompteAdminScene.init(primaryStage, this, new UserFileAccess());
         initEventHandlers();
     }
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte, boolean role, Main main) {
+    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte, boolean role, Main main, CompteAdminScene CompteAdminScene) {
         this.primaryStage = primary;
         this.modele = modele;
         this.connexion = connexion;
@@ -56,7 +55,8 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.userDAO = new UserDAO();
         this.role = role;
         this.main = main;
-        this.CompteAdminScene = new CompteAdminScene(primary, this, new UserFileAccess());
+        this.CompteAdminScene = CompteAdminScene;
+        this.CompteAdminScene.init(primaryStage, this, new UserFileAccess());
         initEventHandlers();
     }
 
@@ -89,6 +89,16 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         this.compte.getModificationButton().setOnAction(this);
         this.compte.getSupprimerButton().setOnAction(this);
         this.compte.getListeCompteButton().setOnAction(this);
+
+        // gestion des événements de la classe CompteAdminScene
+        this.CompteAdminScene.getNavBarre().getcompteButton().setOnAction(this);
+        this.CompteAdminScene.getNavBarre().getCarteButton().setOnAction(this);
+        this.CompteAdminScene.getNavBarre().getDonneesButton().setOnAction(this);
+        this.CompteAdminScene.getNavBarre().getModifieButton().setOnAction(this);
+        this.CompteAdminScene.getNavBarre().getDeconnexionButton().setOnAction(this);
+        this.CompteAdminScene.getNavBarre().getAccueilButton().setOnAction(this);
+    
+
   
     }
 
@@ -103,22 +113,22 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
             boutonInscriptionInscriptionClick();
         } else if (source == this.inscription.getConnexionButton()) {
             boutonConnexionInscriptionClick();
-        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte)){
+        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.CompteAdminScene.getNavBarre().getDeconnexionButton() && this.estConnecte)){
             boutonDeconnexionNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getcompteButton() && this.estConnecte) {
             boutonCompteNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte || source == this.compte.getNavBarre().getCarteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte || source == this.compte.getNavBarre().getCarteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getCarteButton() && this.estConnecte) {
             // boutonCarteNavBarreClick();
             System.out.println("Carte");
-        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte) {
             // boutonDonneesNavBarreClick();
             System.out.println("Données");
-        } else if (source == this.accueil.getNavBarre().getModifieButton() && this.estConnecte && this.role || source == this.compte.getNavBarre().getModifieButton() && this.estConnecte && this.role){
+        } else if (source == this.accueil.getNavBarre().getModifieButton() && this.estConnecte && this.role || source == this.compte.getNavBarre().getModifieButton() && this.estConnecte && this.role || source == this.CompteAdminScene.getNavBarre().getModifieButton() && this.estConnecte && this.role){
             // boutonModifieNavBarreClick();
             System.out.println("Modifie");
         } else if (source == this.accueil.getNotion()) {
             boutonNotionClick();
-        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte){
+        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte) {
             boutonAccueilNavBarreClick();
             System.out.println("Accueil");
         } else if (source == this.compte.getModificationButton() && this.estConnecte) {
@@ -173,7 +183,7 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main);
+        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene);
     }
 
     private void boutonInscriptionInscriptionClick() {
@@ -220,14 +230,14 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
                 this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(false));
             }
             this.estConnecte = true;
-            new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main);
+            new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene);
         }
     }
 
     public void deconnecterUtilisateur() {
         this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
         this.estConnecte = false;
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main);
+        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene);
     }
 
     public void inscrireUtilisateur() {
@@ -262,16 +272,13 @@ public class AppController implements EventHandler<ActionEvent>, PropertyChangeL
     }
 
     public void boutonListeCompteClick() {
-        List<User> users = userDAO.findAll();
-        for (User user : users) {
-            System.out.println(user.getId() + " " +user.getLogin() + " " + user.getPwd() + " " + user.getRole());
-        }
 
         Pane root = this.CompteAdminScene.creerRootCompte();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene);
 
     }
 

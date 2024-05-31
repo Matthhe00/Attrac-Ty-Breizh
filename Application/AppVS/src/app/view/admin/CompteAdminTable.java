@@ -30,33 +30,28 @@ public class CompteAdminTable extends TableView<User> {
         this.getSelectionModel().setCellSelectionEnabled(true);
 
         // Creating columns
-        TableColumn<User, String> nameCol = new TableColumn<>("Login");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("login"));
-        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
+        TableColumn<User, String> loginCol = new TableColumn<>("Login");
+        loginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
+        loginCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        loginCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
             if (!t.getNewValue().equals(""))
                 controller.updateLogin(t.getOldValue(), t.getNewValue());
         });
-        nameCol.setMinWidth(150);
+        loginCol.setMinWidth(150);
 
-        TableColumn<User, String> firstNameCol = new TableColumn<>("Mot de passe");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-        firstNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        firstNameCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
+        TableColumn<User, String> pwdCol = new TableColumn<>("Mot de passe");
+        pwdCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        pwdCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        pwdCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
             if (!t.getNewValue().equals(""))
                 controller.updatePwd(t.getRowValue(), t.getNewValue());
         });
-        firstNameCol.setMinWidth(150);
-
-        TableColumn<User, Float> avgCol = new TableColumn<>("Moyenne");
-        avgCol.setCellValueFactory(new PropertyValueFactory<>("average"));
-        avgCol.setMinWidth(150);
+        pwdCol.setMinWidth(150);
 
         TableColumn<User, String> otherCol = new TableColumn<>("Actions");
         otherCol.setCellFactory(i -> new TableCell<User, String>() {
-            Button evalButton = new Button("Notes");
             Button deleteButton = new Button("Supprimer");
-            FlowPane pane = new FlowPane(1, 0, evalButton, deleteButton);
+            FlowPane pane = new FlowPane(1, 0, deleteButton);
 
             @Override
             public void updateItem(String item, boolean empty) {
@@ -65,8 +60,6 @@ public class CompteAdminTable extends TableView<User> {
                     pane.setAlignment(Pos.CENTER);
                     deleteButton.setId("delUser_" + getIndex());
                     deleteButton.setOnAction(controller);
-                    evalButton.setId("eval_" + getIndex());
-                    evalButton.setOnAction(controller);
                     setGraphic(pane);
                     setText(null);
                     setAlignment(Pos.CENTER);
@@ -81,10 +74,14 @@ public class CompteAdminTable extends TableView<User> {
         // Adding data to the table
         this.setItems(data);
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        this.getColumns().add(nameCol);
-        this.getColumns().add(firstNameCol);
-        this.getColumns().add(avgCol);
+        this.getColumns().add(loginCol);
+        this.getColumns().add(pwdCol);
         this.getColumns().add(otherCol);
+
+        // adding CSS classes
+        loginCol.getStyleClass().add("my-table-col");
+        pwdCol.getStyleClass().add("my-table-col");
+        otherCol.getStyleClass().add("my-table-col");
 
         // Setting the size of the table
         this.setMaxSize(600, 800);

@@ -28,8 +28,8 @@ public class Main extends Application {
         Accueil vueAccueil = new Accueil(primaryStage);
         Inscription vueInscription = new Inscription(primaryStage);
         Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
-        AppController controller = new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte, this);
-        UserFileAccess UserFileAccess = new UserFileAccess();
+        CompteAdminScene vueCompteAdminScene = new CompteAdminScene(primaryStage);
+        new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte, this, vueCompteAdminScene);
         primaryStage.setScene(vueConnexion.creerSceneConnexion());
         primaryStage.show();
 

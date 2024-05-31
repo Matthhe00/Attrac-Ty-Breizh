@@ -126,3 +126,14 @@
 .my-button-label:hover {
     -fx-text-fill: #1f6892;
 }
+
+.table-view {
+    -fx-background-color: #74747434;
+    -fx-background-radius: 15px;
+}
+
+.my-table-col {
+    -fx-font-size: 14px;
+    -fx-font-color: #ffffff;
+    -fx-background-radius: 15px;
+}
