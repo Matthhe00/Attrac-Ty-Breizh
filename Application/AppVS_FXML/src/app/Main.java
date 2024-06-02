@@ -24,7 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resource/Connexion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resource/Inscription.fxml"));
             Parent root = loader.load();
             
             AppController controller = loader.getController();

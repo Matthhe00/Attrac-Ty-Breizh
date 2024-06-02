@@ -16,7 +16,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    /**
+    /** 
      * Méthode de démarrage
      * @param primaryStage Scène principale
      * @throws Exception Exception

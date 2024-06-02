@@ -99,9 +99,8 @@ public class AppController implements EventHandler<ActionEvent> {
         this.CompteAdminScene.getNavBarre().getModifieButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getAccueilButton().setOnAction(this);
-    
-
-  
+        // this.CompteAdminScene.getRefreshButton().setOnAction(this);
+     
     }
 
     @Override
@@ -143,10 +142,10 @@ public class AppController implements EventHandler<ActionEvent> {
             String sourceId = sources.getId();
 
             if (this.userDAO.exists(sourceId)) {
-                // Handle user deletion
                 boutonSupprimerClickAdmin(sourceId);
-                System.out.println("Suppression de l'utilisateur " + sourceId);
-            }     
+                boutonListeCompteClick();
+                boutonListeCompteClick();
+            }
         }
     } 
     
@@ -284,34 +283,40 @@ public class AppController implements EventHandler<ActionEvent> {
 
     public void boutonSupprimerClickAdmin(String user) {
         this.userFileAccess.deleteUser(this.userFileAccess.getUser(user));
-        boutonListeCompteClick();
     }
 
     public void boutonListeCompteClick() {
-
+        // this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
         Pane root = this.CompteAdminScene.creerRootCompte();
-        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene);
+        this.CompteAdminScene.init(primaryStage, this, userFileAccess);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene);
     }
 
     public void updateLogin(String initLogin, String newLogin) {
         this.userDAO.updateLogin(initLogin, newLogin);
         this.userFileAccess.setList();
+        boutonListeCompteClick();
+        boutonListeCompteClick();
     }
 
     public void updatePwd(User user, String newPwd) {
         String login = user.getLogin();
         this.userDAO.updatePwd(login, newPwd);
         this.userFileAccess.setList();
+        boutonListeCompteClick();
+        boutonListeCompteClick();
     }
 
     public void updateRole(User user, String newRole) {
         String login = user.getLogin();
         this.userDAO.updateRole(login, newRole);
         this.userFileAccess.setList();
+        boutonListeCompteClick();
+        boutonListeCompteClick();
     }
     
 }
