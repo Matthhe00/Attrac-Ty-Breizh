@@ -117,7 +117,7 @@ public class Compte extends Pane {
     }
 
     public void updateNavBarre(boolean estConnecte) {
-        this.navBarre.initNavBarre(estConnecte);
+        this.navBarre.initNavBarre(estConnecte, false);
     }
 
     public NavBarre getNavBarre() {

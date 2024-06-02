@@ -34,9 +34,9 @@ public class CompteAdminScene extends Pane {
     public CompteAdminScene(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
-        this.backgroundImage = new Image(Constants.BACKGROUND);
+        this.backgroundImage = new Image(Constants.BACKGROUND_COMPTE_ADMIN_PATH);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
-        this.navBarre = new NavBarre(false);
+        this.navBarre = new NavBarre(true);
         initUIComponents();
     }
 
@@ -52,6 +52,8 @@ public class CompteAdminScene extends Pane {
     }
 
     public Pane creerRootCompte() {
+        this.loginField.clear();
+        this.passwordField.clear();
         this.navBarre = this.navBarre.refresh(true);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
@@ -61,7 +63,7 @@ public class CompteAdminScene extends Pane {
 
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
-        configurerTable(compteAdminTable, 650, 175, "table-view", root);
+        configurerTable(compteAdminTable, 650, 195, "table-view", root);
         configurerBouton(ajouterButton, 250, 450, 100, 30, "my-button", root);
         configurerTextField(loginField, 175, 305, 260, 45, "Identifiant", "my-field-user-con", root);
         configurerTextField(passwordField, 175, 380, 260, 45, "Mot de passe", "my-field-user-con", root);
@@ -101,4 +103,15 @@ public class CompteAdminScene extends Pane {
         this.navBarre = navBarre;
     }
 
+    public Button getAjouterButton() {
+        return this.ajouterButton;
+    }
+
+    public TextField getLoginField() {
+        return this.loginField;
+    }
+
+    public TextField getPasswordField() {
+        return this.passwordField;
+    }
 }

@@ -1,32 +1,33 @@
-package app.view;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+package app.view.admin;
 
+import app.view.NavBarre;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import resource.utils.*;;
+import javafx.stage.Stage;
+import resource.utils.Constants;
 
-public class Donnee extends Pane {
+public class ModifierScene {
+    private Stage primaryStage;
     private Image icon, backgroundImage;
     private BackgroundImage background;
     private NavBarre navBarre;
-    private Stage primaryStage;
 
-    public Donnee(Stage primaryStage) {
+    
+    public ModifierScene(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
-        this.backgroundImage = new Image(Constants.BACKGROUND_DONNEE_PATH);
+        this.backgroundImage = new Image(Constants.BACKGROUND_CONNEXION_PATH);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
-        this.navBarre = new NavBarre(true, true);
+        this.navBarre = new NavBarre();
     }
 
-
-    public Scene creerSceneDonnee() {
-        Pane root = creerRootDonnee(false, false);
+    public Scene creerSceneCompte() {
+        Pane root = creerRootCompte();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
-        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
         this.primaryStage.setTitle(Constants.APP_NAME);
         this.primaryStage.setScene(scene);
@@ -34,22 +35,16 @@ public class Donnee extends Pane {
         return scene;
     }
 
-    public Pane creerRootDonnee(boolean estConnecte, boolean estAdmin) {
-        this.navBarre = this.navBarre.refresh(estConnecte, estAdmin);
+    public Pane creerRootCompte() {
+        this.navBarre = this.navBarre.refresh(true, true);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        configurerComposants(root);
+        // configurerComposants(root);
         return root;
     }
 
-    private void configurerComposants(Pane root) {
-        root.getChildren().add(this.navBarre);
-    }
-
-
-
     public void updateNavBarre(boolean estConnecte) {
-        this.navBarre.initNavBarre(estConnecte, true);
+        this.navBarre.initNavBarre(estConnecte, false);
     }
 
     public NavBarre getNavBarre() {
@@ -59,5 +54,4 @@ public class Donnee extends Pane {
     public void setNavBarre(NavBarre navBarre) {
         this.navBarre = navBarre;
     }
-
 }
