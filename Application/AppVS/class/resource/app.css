@@ -179,6 +179,28 @@
     -fx-font-weight: bold;
 }
 
+.table-view .scroll-bar {
+    -fx-background-color: #8b8b8b00;
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #888;
+    -fx-background-radius: 10px;
+}
+
+/* Style the track (the "path" the thumb slides on) */
+.table-view .scroll-bar .track {
+    -fx-background-color: #555;
+    -fx-background-radius: 10px;
+}
+
+/* Style the buttons at the ends of the scrollbar (if present) */
+.table-view .scroll-bar .increment-button,
+.table-view .scroll-bar .decrement-button {
+    -fx-background-color: #666;
+}
+
 .table-view .table-cell:selected {
     -fx-background-color: #1f6892;
     -fx-text-fill: #ffffff;
@@ -191,4 +213,31 @@
     -fx-font-weight: bold;
     -fx-padding: 5px;
     -fx-border-radius: 5px;
+}
+
+/* Style for CheckBox */
+.my-checkbox {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.my-checkbox .box {
+    -fx-background-color: #38B6FF;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+.my-checkbox .box:hover {
+    -fx-background-color: #1f6892;
+}
+
+.my-checkbox .box:selected {
+    -fx-background-color: #1f6892;
+}
+
+.my-label-titre {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
 }

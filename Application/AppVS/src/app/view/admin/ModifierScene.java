@@ -2,7 +2,6 @@ package app.view.admin;
 
 import app.view.NavBarre;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
