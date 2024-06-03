@@ -18,6 +18,8 @@ public abstract class Constants {
 	public static final String BACKGROUND_COMPTE_ADMIN_PATH = "resource/image/BackgroundCompteAdmin.png";
 	public static final String BACKGROUND_DONNEE_PATH = "resource/image/BackgroundDonnee.png";
 
+	public static final String CARTE_PATH = "resource/image/RegionBretagne.svg";
+
     
 
 	public static final String DB_NAME = "bd_communeb";
