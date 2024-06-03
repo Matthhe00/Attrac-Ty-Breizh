@@ -3,6 +3,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+import app.controller.AppController;
+import app.model.data.UserFileAccess;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -17,6 +19,7 @@ public class Donnee extends Pane {
     private CheckBox tri1, tri2, tri3, tri4, tri5, tri6, tri7, tri8;
     private Label donneLabel;
     private TextField searchField;
+    private DonneTable donneTable;
 
     public Donnee(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -26,6 +29,10 @@ public class Donnee extends Pane {
         
         this.navBarre = new NavBarre(true, true);
         initUIComponents();
+    }
+
+    public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
+        this.donneTable = new DonneTable(userFileAccess, appController);
     }
 
     public void initUIComponents() {
