@@ -45,6 +45,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.CompteAdminScene.init(primaryStage, this, userFileAccess);
         this.modifierScene = modifierScene;
         this.donnee = donnee;
+        this.donnee.init(primaryStage, this, userFileAccess);
         initEventHandlers();
     }
 
@@ -65,6 +66,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.CompteAdminScene.init(primaryStage, this, userFileAccess);
         this.modifierScene = modifierScene;
         this.donnee = donnee;
+        this.donnee.init(primaryStage, this, userFileAccess);
         initEventHandlers();
     }
 

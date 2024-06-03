@@ -72,6 +72,7 @@ public class Donnee extends Pane {
         root.getChildren().add(this.navBarre);
         configurerLabel(this.donneLabel, 790, 135, 200, 50, "my-label-titre", root);
         configurerTextField(this.searchField, 135, 180, 350, 50, "Rechercher", "my-field-user-con", root);
+        configurerTable(this.donneTable, 575, 195, "my-table", root);
         
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
         checkBoxes.add(this.tri1);
@@ -138,6 +139,12 @@ public class Donnee extends Pane {
         root.getChildren().add(champ);
     }
 
+    private void configurerTable(DonneTable t, int x, int y, String style, Pane root) {
+        t.setLayoutX(x);
+        t.setLayoutY(y);
+        t.getStyleClass().add(style);
+        root.getChildren().add(t);
+    }
 
     public void updateNavBarre(boolean estConnecte) {
         this.navBarre.initNavBarre(estConnecte, true);

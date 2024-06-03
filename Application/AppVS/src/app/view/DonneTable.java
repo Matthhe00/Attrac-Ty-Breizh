@@ -26,8 +26,7 @@ public class DonneTable extends TableView<User> {
         ObservableList<User> data = FXCollections.observableArrayList(UserFileAccess.getUsers());
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
-        this.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());
-
+        this.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
 
 
         // Creating columns
@@ -51,7 +50,6 @@ public class DonneTable extends TableView<User> {
             }
         });
         pwdCol.setMinWidth(130);
-
         
         TableColumn<User, String> roleCol = new TableColumn<>("Role");
         roleCol.setCellValueFactory(new PropertyValueFactory<>("role"));

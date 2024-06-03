@@ -29,7 +29,7 @@ public class Main extends Application {
         Inscription vueInscription = new Inscription(primaryStage);
         Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
         CompteAdminScene vueCompteAdminScene = new CompteAdminScene(primaryStage);
-        ModifierScene vueModifierScene = new ModifierScene(primaryStage);
+        ModifierScene vueModifierScene = new ModifierScene(primaryStage); 
         Donnee vueDonnee = new Donnee(primaryStage);
         new AppController(primaryStage, modele, vueConnexion, vueAccueil, vueInscription, vueCompte, this, vueCompteAdminScene, vueModifierScene, vueDonnee);
         primaryStage.setScene(vueConnexion.creerSceneConnexion());
