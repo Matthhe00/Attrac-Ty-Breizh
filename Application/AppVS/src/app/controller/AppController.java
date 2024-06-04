@@ -16,7 +16,6 @@ import resource.utils.Constants;
 
 public class AppController implements EventHandler<ActionEvent> {
     private Stage primaryStage;
-    private Modele modele;
     private Connexion connexion;
     private Accueil accueil;
     private Inscription inscription;
@@ -31,9 +30,8 @@ public class AppController implements EventHandler<ActionEvent> {
     private ModifierScene modifierScene;
     private Donnee donnee;
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee) {
+    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee) {
         this.primaryStage = primary;
-        this.modele = modele;
         this.connexion = connexion;
         this.accueil = accueil;
         this.inscription = inscription;
@@ -45,13 +43,12 @@ public class AppController implements EventHandler<ActionEvent> {
         this.CompteAdminScene.init(primaryStage, this, userFileAccess);
         this.modifierScene = modifierScene;
         this.donnee = donnee;
-        this.donnee.init(primaryStage, this, userFileAccess);
+        this.donnee.init(primaryStage, this, userFileAccess, this.role);
         initEventHandlers();
     }
 
-    public AppController(Stage primary, Modele modele, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte, boolean role, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee) {
+    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte, boolean role, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee) {
         this.primaryStage = primary;
-        this.modele = modele;
         this.connexion = connexion;
         this.accueil = accueil;
         this.inscription = inscription;
@@ -66,7 +63,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.CompteAdminScene.init(primaryStage, this, userFileAccess);
         this.modifierScene = modifierScene;
         this.donnee = donnee;
-        this.donnee.init(primaryStage, this, userFileAccess);
+        this.donnee.init(primaryStage, this, userFileAccess, this.role);
         initEventHandlers();
     }
 
@@ -218,7 +215,7 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee);
+        new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee);
     }
 
     private void boutonInscriptionInscriptionClick() {
@@ -267,14 +264,14 @@ public class AppController implements EventHandler<ActionEvent> {
                 this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(false));
             }
             this.estConnecte = true;
-            new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee);
+            new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee);
         }
     }
 
     public void deconnecterUtilisateur() {
         this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
         this.estConnecte = false;
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee);
+        new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee);
     }
 
     public void inscrireUtilisateur() {
@@ -329,7 +326,7 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(primaryStage, modele, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee);
+        new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee);
     }
 
     public void updateLogin(String initLogin, String newLogin) {
@@ -361,7 +358,7 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(this.primaryStage, this.modele, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee);
+        new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee);
     }
     
 }

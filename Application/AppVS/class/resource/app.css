@@ -222,19 +222,23 @@
     -fx-font-weight: bold;
 }
 
+.my-checkbox:hover {
+    -fx-text-fill: #9b9b9b;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
 .my-checkbox .box {
-    -fx-background-color: #38B6FF;
+    -fx-background-color: #fafafa;
     -fx-padding: 5px;
     -fx-border-radius: 5px;
 }
 
 .my-checkbox .box:hover {
-    -fx-background-color: #1f6892;
+    -fx-background-color: #9b9b9b;
 }
 
-.my-checkbox .box:selected {
-    -fx-background-color: #1f6892;
-}
+
 
 .my-label-titre {
     -fx-font-size: 30px;

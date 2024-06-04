@@ -8,11 +8,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
-import app.model.data.UserFileAccess;
+import app.model.data.*;
 
 
 public class DonneTable extends TableView<User> {
     private UserFileAccess UserFileAccess; // Access to User file operations
+    private AeroportFileAccess AeroportFileAccess;
     private AppController controller; // Reference to the controller for event handling
 
     /**
@@ -20,7 +21,7 @@ public class DonneTable extends TableView<User> {
      * @param UserFileAccess The access object for User file operations.
      * @param controller The controller object for event handling.
      */
-    public DonneTable(UserFileAccess UserFileAccess, AppController controller) {
+    public DonneTable(UserFileAccess UserFileAccess, AppController controller, Boolean isAdmin) {
         this.controller = controller;
         this.UserFileAccess = UserFileAccess;
         ObservableList<User> data = FXCollections.observableArrayList(UserFileAccess.getUsers());
@@ -33,32 +34,45 @@ public class DonneTable extends TableView<User> {
         TableColumn<User, String> loginCol = new TableColumn<>("Identifiant");
         loginCol.setCellValueFactory(new PropertyValueFactory<>("login"));
         loginCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        loginCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
-            if (!t.getNewValue().equals("")) {
-                controller.updateLogin(t.getOldValue(), t.getNewValue());
-                System.out.println("Login changed");
-            }
-        });
+        if (isAdmin) {
+            loginCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
+                if (!t.getNewValue().equals("")) {
+                    controller.updateLogin(t.getOldValue(), t.getNewValue());
+                    System.out.println("Login changed");
+                }
+            });
+        } else {
+            loginCol.setEditable(false);
+        }
         loginCol.setMinWidth(130);
 
         TableColumn<User, String> pwdCol = new TableColumn<>("Mot de passe");
         pwdCol.setCellValueFactory(new PropertyValueFactory<>("pwd"));
         pwdCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        pwdCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
-            if (!t.getNewValue().equals("")) {
-                controller.updatePwd(t.getRowValue(), t.getNewValue());
-            }
-        });
+        if (isAdmin) {
+            pwdCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
+                if (!t.getNewValue().equals("")) {
+                    controller.updatePwd(t.getRowValue(), t.getNewValue());
+                }
+            });
+        } else {
+            pwdCol.setEditable(false);
+        }
+
         pwdCol.setMinWidth(130);
         
         TableColumn<User, String> roleCol = new TableColumn<>("Role");
         roleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
         roleCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        roleCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
-            if (!t.getNewValue().equals("")) {
-                controller.updateRole(t.getRowValue(), t.getNewValue());
-            }
-        });
+        if (isAdmin) {
+            roleCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
+                if (!t.getNewValue().equals("")) {
+                    controller.updateRole(t.getRowValue(), t.getNewValue());
+                }
+            });
+        } else {
+            roleCol.setEditable(false);
+        }
         roleCol.setMinWidth(130);
 
         TableColumn<User, String> otherCol = new TableColumn<>("Actions");
@@ -90,10 +104,14 @@ public class DonneTable extends TableView<User> {
         // Adding data to the table
         this.setItems(data);
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         this.getColumns().add(loginCol);
         this.getColumns().add(pwdCol);
         this.getColumns().add(roleCol);
-        this.getColumns().add(otherCol);
+
+        if (isAdmin) {
+            this.getColumns().add(otherCol);
+        }
 
         // Ajouter des classes CSS aux colonnes
 
@@ -106,4 +124,7 @@ public class DonneTable extends TableView<User> {
         this.setMaxSize(600, 800);
     }
     
+    public DonneTable(AeroportFileAccess AeroportFileAccess, AppController controller, Boolean isAdmin) {
+        
+    }
 }

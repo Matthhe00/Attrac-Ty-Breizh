@@ -31,8 +31,8 @@ public class Donnee extends Pane {
         initUIComponents();
     }
 
-    public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
-        this.donneTable = new DonneTable(userFileAccess, appController);
+    public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess, Boolean isAdmin) {
+        this.donneTable = new DonneTable(userFileAccess, appController, isAdmin);
     }
 
     public void initUIComponents() {
