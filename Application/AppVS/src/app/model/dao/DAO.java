@@ -21,7 +21,7 @@ import resource.utils.Constants;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class DAO <T> {
 
@@ -38,7 +38,7 @@ public abstract class DAO <T> {
     }
 
     // Les methodes abstraites pour la class User
-    public abstract List <T> findAll ();
+    public abstract ArrayList <T> findAll ();
     public abstract int update(T element, String login, String role);
     public abstract int delete(T element, String login);
     public abstract int create(T element);

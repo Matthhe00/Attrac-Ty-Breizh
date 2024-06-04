@@ -215,6 +215,19 @@
     -fx-border-radius: 5px;
 }
 
+.my-button-info {
+    -fx-background-color: #38B6FF;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+.my-button-info:hover {
+    -fx-background-color: #1f6892;
+    -fx-text-fill: #ffffff;
+}
+
 /* Style for CheckBox */
 .my-checkbox {
     -fx-text-fill: #ffffff;

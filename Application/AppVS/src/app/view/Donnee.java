@@ -4,7 +4,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 import app.controller.AppController;
-import app.model.data.UserFileAccess;
+import app.model.data.CommuneFileAccess;
+import app.view.table.CommuneTable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -17,10 +18,9 @@ public class Donnee extends Pane {
     private NavBarre navBarre;
     private Stage primaryStage;
     private CheckBox tri1, tri2, tri3, tri4, tri5, tri6, tri7, tri8;
-    private ComboBox<String> anneeBox;
     private Label donneLabel;
     private TextField searchField;
-    private DonneTable donneTable;
+    private CommuneTable donneTable;
 
     public Donnee(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -32,8 +32,8 @@ public class Donnee extends Pane {
         initUIComponents();
     }
 
-    public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess, Boolean isAdmin) {
-        this.donneTable = new DonneTable(userFileAccess, appController, isAdmin);
+    public void init(AppController appController, CommuneFileAccess communeFileAccess, Boolean isAdmin) {
+        this.donneTable = new CommuneTable(communeFileAccess, appController);
     }
 
     public void initUIComponents() {
@@ -45,8 +45,6 @@ public class Donnee extends Pane {
         this.tri6 = new CheckBox("Tri 6");
         this.tri7 = new CheckBox("Tri 7");
         this.tri8 = new CheckBox("Tri 8");
-        this.anneeBox = new ComboBox<>();
-        this.anneeBox.getItems().addAll("2018", "2019", "2020", "2021");
         this.donneLabel = new Label("Données");
         this.searchField = new TextField();
     }
@@ -75,8 +73,8 @@ public class Donnee extends Pane {
         root.getChildren().add(this.navBarre);
         configurerLabel(this.donneLabel, 790, 135, 200, 50, "my-label-titre", root);
         configurerTextField(this.searchField, 135, 180, 350, 50, "Rechercher", "my-field-user-con", root);
-        configurerTable(this.donneTable, 575, 195, "my-table", root);
-        configurerComboBox(this.anneeBox, 135, 250, 135, 45, "my-combo-box", root);
+        // configurerTable(this.donneTable, 575, 195, "my-table", root);
+        configurerTable(this.donneTable, 595, 195, "my-table", root, 522, 430);
         
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
         checkBoxes.add(this.tri1);
@@ -115,15 +113,6 @@ public class Donnee extends Pane {
             }
         }
     }
-    
-    private void configurerComboBox(ComboBox<String> anneeBox, int x, int y, int width, int height, String styleClass, Pane root) {
-        anneeBox.setLayoutX(x);
-        anneeBox.setLayoutY(y);
-        anneeBox.setPrefWidth(width);
-        anneeBox.setPrefHeight(height);
-        anneeBox.getStyleClass().add(styleClass);
-        root.getChildren().add(anneeBox);
-    }
 
     private void configurerCheckBox(CheckBox checkBox, int x, int y, int width, int height, String styleClass, Pane root) {
         checkBox.setLayoutX(x);
@@ -152,9 +141,18 @@ public class Donnee extends Pane {
         root.getChildren().add(champ);
     }
 
-    private void configurerTable(DonneTable t, int x, int y, String style, Pane root) {
+    private void configurerTable(CommuneTable t, int x, int y, String style, Pane root) {
         t.setLayoutX(x);
         t.setLayoutY(y);
+        t.getStyleClass().add(style);
+        root.getChildren().add(t);
+    }
+
+    private void configurerTable(CommuneTable t, int x, int y, String style, Pane root, int width, int height) {
+        t.setLayoutX(x);
+        t.setLayoutY(y);
+        t.setPrefWidth(width);
+        t.setPrefHeight(height);
         t.getStyleClass().add(style);
         root.getChildren().add(t);
     }

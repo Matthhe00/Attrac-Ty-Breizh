@@ -2,19 +2,18 @@ package app.model.data;
 import java.util.ArrayList;
 
 public class Commune {
-    private int idCommune;
+    private String idCommune;
     private String nomCommune;
-    private Departement leDepartement;
+    private String leDepartement;
     private ArrayList<Commune> communeVoisine;
     private ArrayList<Gare> listeGares;
 
-    public Commune(int idCommune, String nomCommune, Departement leDepartement) {
+    public Commune(String idCommune, String nomCommune, String leDepartement) {
         this.idCommune = idCommune;
         this.nomCommune = nomCommune;
         this.leDepartement = leDepartement;
         this.communeVoisine = new ArrayList<Commune>();
         this.listeGares = new ArrayList<Gare>();
-
     }
 
     public void addCommuneVoisine(Commune commune) {
@@ -25,11 +24,11 @@ public class Commune {
         this.communeVoisine.remove(commune);
     }
 
-    public int getIdCommune() {
+    public String getIdCommune() {
         return this.idCommune;
     }
 
-    public void setIdCommune(int idCommune) {
+    public void setIdCommune(String idCommune) {
         this.idCommune = idCommune;
     }
 
@@ -41,11 +40,11 @@ public class Commune {
         this.nomCommune = nomCommune;
     }
 
-    public Departement getLeDepartement() {
+    public String getLeDepartement() {
         return this.leDepartement;
     }
 
-    public void setLeDepartement(Departement leDepartement) {
+    public void setLeDepartement(String leDepartement) {
         this.leDepartement = leDepartement;
     }
 

@@ -20,7 +20,7 @@ public class CompteAdminScene extends Pane {
     private Button ajouterButton;
     private TextField loginField, passwordField;
 
-    public void init(Stage primaryStage, AppController appController, UserFileAccess userFileAccess) {
+    public void init(AppController appController, UserFileAccess userFileAccess) {
 
         this.compteAdminTable = new CompteAdminTable(userFileAccess, appController);
     }
