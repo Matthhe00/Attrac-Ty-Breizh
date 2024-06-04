@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+
 public class AppController {
 
     private Stage stage;
@@ -63,3 +64,4 @@ public class AppController {
         }
     }
 }
+

@@ -245,3 +245,39 @@
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
+
+.my-combo-box {
+    -fx-background-color: #8f8e8e48;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+}
+
+.my-combo-box:hover {
+    -fx-background-color: #8f8e8e48;
+    -fx-text-fill: white;
+}
+
+.my-combo-box .list-cell {
+    -fx-background-color: #585858;
+    -fx-text-fill: #ffffff;
+}
+
+.my-combo-box .list-cell:hover {
+    -fx-background-color: #2e3a41;
+    -fx-text-fill: white;
+}
+
+.my-combo-box .list-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.my-combo-box .arrow {
+    -fx-background-color: #ffffffb6;
+}
+
+

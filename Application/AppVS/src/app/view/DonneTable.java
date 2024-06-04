@@ -12,9 +12,9 @@ import app.model.data.*;
 
 
 public class DonneTable extends TableView<User> {
+    private AppController controller; // Reference to the controller for event handling
     private UserFileAccess UserFileAccess; // Access to User file operations
     private AeroportFileAccess AeroportFileAccess;
-    private AppController controller; // Reference to the controller for event handling
 
     /**
      * Constructor to initialize the UserTable with data and event handling.

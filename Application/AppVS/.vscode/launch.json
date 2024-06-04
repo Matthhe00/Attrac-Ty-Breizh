@@ -6,13 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Carte",
-            "request": "launch",
-            "mainClass": "app.view.Carte",
-            "projectName": "AppVS_84aee466"
-        },
-        {
-            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "app.Main",

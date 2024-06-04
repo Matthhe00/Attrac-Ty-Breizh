@@ -1,16 +1,16 @@
 package app.model.data;
 public class Aeroport {
-    private Departement leDepartement;
+    private int leDepartement;
     private String nom;
     private String adresse;
 
-    public Aeroport(Departement leDepartement, String nom, String adresse) {
+    public Aeroport(int leDepartement, String nom, String adresse) {
         this.leDepartement = leDepartement;
         this.nom = nom;
         this.adresse = adresse;
     }
 
-    public Departement getLeDepartement() {
+    public int getLeDepartement() {
         return this.leDepartement;
     }
 
@@ -22,7 +22,7 @@ public class Aeroport {
         return this.adresse;
     }
 
-    public void setLeDepartement(Departement leDepartement) {
+    public void setLeDepartement(int leDepartement) {
         this.leDepartement = leDepartement;
     }
 

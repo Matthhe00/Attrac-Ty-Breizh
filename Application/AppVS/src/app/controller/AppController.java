@@ -30,6 +30,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private ModifierScene modifierScene;
     private Donnee donnee;
 
+
     public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee) {
         this.primaryStage = primary;
         this.connexion = connexion;
@@ -144,7 +145,6 @@ public class AppController implements EventHandler<ActionEvent> {
             System.out.println("Carte");
         } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte ){
             boutonDonneesNavBarreClick();
-            System.out.println("Données");
         } else if (source == this.donnee.getNavBarre().getModifieButton() && this.estConnecte && this.role) {
             // boutonModifieNavBarreClick();
             System.out.println("Modifie");
@@ -171,6 +171,9 @@ public class AppController implements EventHandler<ActionEvent> {
             }
         }
     } 
+
+    // private void boutonCarteNavBarreClick() {
+    // }
 
     private void boutonNotionClick() {
         try {

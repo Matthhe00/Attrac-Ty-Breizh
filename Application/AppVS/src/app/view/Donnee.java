@@ -17,6 +17,7 @@ public class Donnee extends Pane {
     private NavBarre navBarre;
     private Stage primaryStage;
     private CheckBox tri1, tri2, tri3, tri4, tri5, tri6, tri7, tri8;
+    private ComboBox<String> anneeBox;
     private Label donneLabel;
     private TextField searchField;
     private DonneTable donneTable;
@@ -44,6 +45,8 @@ public class Donnee extends Pane {
         this.tri6 = new CheckBox("Tri 6");
         this.tri7 = new CheckBox("Tri 7");
         this.tri8 = new CheckBox("Tri 8");
+        this.anneeBox = new ComboBox<>();
+        this.anneeBox.getItems().addAll("2018", "2019", "2020", "2021");
         this.donneLabel = new Label("Données");
         this.searchField = new TextField();
     }
@@ -73,6 +76,7 @@ public class Donnee extends Pane {
         configurerLabel(this.donneLabel, 790, 135, 200, 50, "my-label-titre", root);
         configurerTextField(this.searchField, 135, 180, 350, 50, "Rechercher", "my-field-user-con", root);
         configurerTable(this.donneTable, 575, 195, "my-table", root);
+        configurerComboBox(this.anneeBox, 135, 250, 135, 45, "my-combo-box", root);
         
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
         checkBoxes.add(this.tri1);
@@ -97,7 +101,7 @@ public class Donnee extends Pane {
         }
     
         int x = 50;
-        int y = 320;
+        int y = 350;
         for (int i = 0; i < checkBoxes.size(); i++) {
             CheckBox checkBox = checkBoxes.get(i);
             if (i % 2 == 0) {
@@ -112,6 +116,15 @@ public class Donnee extends Pane {
         }
     }
     
+    private void configurerComboBox(ComboBox<String> anneeBox, int x, int y, int width, int height, String styleClass, Pane root) {
+        anneeBox.setLayoutX(x);
+        anneeBox.setLayoutY(y);
+        anneeBox.setPrefWidth(width);
+        anneeBox.setPrefHeight(height);
+        anneeBox.getStyleClass().add(styleClass);
+        root.getChildren().add(anneeBox);
+    }
+
     private void configurerCheckBox(CheckBox checkBox, int x, int y, int width, int height, String styleClass, Pane root) {
         checkBox.setLayoutX(x);
         checkBox.setLayoutY(y);
