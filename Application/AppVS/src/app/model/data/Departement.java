@@ -4,26 +4,34 @@ import java.util.ArrayList;
 
 public class Departement {
     
-    private int idDep;
+    private String idDep;
 
     private String nomDep;
 
-    private float invesCulturel2019;
+    private String invesCulturel2019;
+
+    private AeroportFileAccess aeroportFileAccess;
 
     private ArrayList<Aeroport> listeAeroports;
 
-    public Departement(int idDep, String nomDep, float inves) {
+    public Departement(String idDep, String nomDep, String inves) {
         this.idDep = idDep;
         this.nomDep = nomDep;
         this.invesCulturel2019 = inves;
         this.listeAeroports = new ArrayList<Aeroport>();
+        this.aeroportFileAccess = new AeroportFileAccess();
+        initAeroports();
     }
 
-    public int getIdDep() {
+    public void initAeroports(){
+        this.listeAeroports = aeroportFileAccess.getAeroports(this.idDep);
+    }
+
+    public String getIdDep() {
         return this.idDep;
     }
 
-    public void setIdDep(int idDep) {
+    public void setIdDep(String idDep) {
         this.idDep = idDep;
     }
 
@@ -35,11 +43,11 @@ public class Departement {
         this.nomDep = nomDep;
     }
 
-    public float getInvesCulturel2019() {
+    public String getInvesCulturel2019() {
         return this.invesCulturel2019;
     }
 
-    public void setInvesCulturel2019(float invesCulturel2019) {
+    public void setInvesCulturel2019(String invesCulturel2019) {
         this.invesCulturel2019 = invesCulturel2019;
     }
 

@@ -141,13 +141,6 @@ public class Donnee extends Pane {
         root.getChildren().add(champ);
     }
 
-    private void configurerTable(CommuneTable t, int x, int y, String style, Pane root) {
-        t.setLayoutX(x);
-        t.setLayoutY(y);
-        t.getStyleClass().add(style);
-        root.getChildren().add(t);
-    }
-
     private void configurerTable(CommuneTable t, int x, int y, String style, Pane root, int width, int height) {
         t.setLayoutX(x);
         t.setLayoutY(y);

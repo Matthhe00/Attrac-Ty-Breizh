@@ -7,6 +7,7 @@ public class Commune {
     private String leDepartement;
     private ArrayList<Commune> communeVoisine;
     private ArrayList<Gare> listeGares;
+    private GareFileAccess gareFileAccess;
 
     public Commune(String idCommune, String nomCommune, String leDepartement) {
         this.idCommune = idCommune;
@@ -14,6 +15,12 @@ public class Commune {
         this.leDepartement = leDepartement;
         this.communeVoisine = new ArrayList<Commune>();
         this.listeGares = new ArrayList<Gare>();
+        this.gareFileAccess = new GareFileAccess();
+        initGares();
+    }
+
+    private void initGares() {
+        this.listeGares = this.gareFileAccess.getGares(this.idCommune);
     }
 
     public void addCommuneVoisine(Commune commune) {

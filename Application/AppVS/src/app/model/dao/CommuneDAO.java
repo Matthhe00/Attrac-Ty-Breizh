@@ -9,7 +9,7 @@ public class CommuneDAO extends DAO<Commune> {
 
     @Override
     public ArrayList<Commune> findAll() {
-                ArrayList <Commune> communes = new ArrayList <>();
+        ArrayList <Commune> communes = new ArrayList <>();
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
             ResultSet rs = st.executeQuery("SELECT * FROM Commune");
             while (rs.next()) {
@@ -58,6 +58,23 @@ public class CommuneDAO extends DAO<Commune> {
             ex.printStackTrace ();
             return false;
         }
+    }
+
+    public Commune findByCodePostal(String sourceId) {
+        try (Connection con = getConnection ();
+            PreparedStatement st = con.prepareStatement("SELECT * FROM COMMUNE WHERE IDCOMMUNE= ?")) {
+            st.setString(1, sourceId);
+            ResultSet rs = st.executeQuery ();
+            if (rs.next()) {
+                String idCommune = rs.getString("IDCOMMUNE");
+                String nomCommune = rs.getString("NOMCOMMUNE");
+                String departement = rs.getString("LEDEPARTEMENT");
+                return new Commune(idCommune, nomCommune, departement);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+        }
+        return null;
     }
     
 }

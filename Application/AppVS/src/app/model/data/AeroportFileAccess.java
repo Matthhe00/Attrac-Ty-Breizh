@@ -38,14 +38,16 @@ public class AeroportFileAccess {
     //     this.Aeroports = u.findAll();
     // }
 
-    // public Aeroport getAeroport(String login) {
-    //     for (Aeroport Aeroport : Aeroports) {
-    //         if (Aeroport.getLogin().equals(login)) {
-    //             return Aeroport;
-    //         }
-    //     }
-    //     return null;
-    // }
+
+    public ArrayList<Aeroport> getAeroports(String departement) {
+        ArrayList<Aeroport> Aeroports = new ArrayList<Aeroport>();
+        for (Aeroport Aeroport : this.Aeroports) {
+            if (Aeroport.getLeDepartement().equals(departement)) {
+                Aeroports.add(Aeroport);
+            }
+        }
+        return Aeroports;
+    }
     
     public void setList() {
         AeroportDAO u =  new AeroportDAO();

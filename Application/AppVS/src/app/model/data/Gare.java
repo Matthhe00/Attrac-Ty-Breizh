@@ -1,12 +1,12 @@
 package app.model.data;
 public class Gare {
-    private int codeGare;
+    private String codeGare;
     private String nomGare;
-    private boolean estFret;
-    private boolean estVoyageur;
-    private Commune laCommune;
+    private String estFret;
+    private String estVoyageur;
+    private String laCommune;
 
-    public Gare(int codeGare, String nomGare, boolean estFret, boolean estVoyageur, Commune laCommune) {
+    public Gare(String codeGare, String nomGare, String estFret, String estVoyageur, String laCommune) {
         this.codeGare = codeGare;
         this.nomGare = nomGare;
         this.estFret = estFret;
@@ -15,7 +15,7 @@ public class Gare {
 
     }
     
-    public int getCodeGare() {
+    public String getCodeGare() {
         return this.codeGare;
     }
 
@@ -23,23 +23,23 @@ public class Gare {
         return this.nomGare;
     }
 
-    public boolean getEstFret() {
+    public String getEstFret() {
         return this.estFret;
     }
 
-    public boolean getEstVoyageur() {
+    public String getEstVoyageur() {
         return this.estVoyageur;
     }
 
-    public Commune getLaCommune() {
+    public String getLaCommune() {
         return this.laCommune;
     }
 
-    public void setEstFret(boolean estFret) {
+    public void setEstFret(String estFret) {
         this.estFret = estFret;
     }
 
-    public void setEstVoyageur(boolean estVoyageur) {
+    public void setEstVoyageur(String estVoyageur) {
         this.estVoyageur = estVoyageur;
     }
 
@@ -47,11 +47,11 @@ public class Gare {
         this.nomGare = nomGare;
     }
 
-    public void setLaCommune(Commune laCommune) {
+    public void setLaCommune(String laCommune) {
         this.laCommune = laCommune;
     }
 
-    public void setCodeGare(int codeGare) {
+    public void setCodeGare(String codeGare) {
         this.codeGare = codeGare;
     }
 

@@ -22,6 +22,9 @@ public class AppController implements EventHandler<ActionEvent> {
     private Compte compte;
     private UserDAO userDAO;
     private CommuneDAO communeDAO;
+    private AeroportDAO aeroportDAO;
+    private GareDAO gareDAO;
+    private DepartementDAO departementDAO;
     private User user;
     private boolean role = false;
     private boolean estConnecte = false;
@@ -33,6 +36,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private ModifierScene modifierScene;
     private Donnee donnee;
     private DonneeDetailVue donneeDetailVue;
+    private DepartementFileAccess departementFileAccess;
 
 
     public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetailVue donneeDetailVue) {
@@ -42,11 +46,19 @@ public class AppController implements EventHandler<ActionEvent> {
         this.inscription = inscription;
         this.compte = compte;
         this.main = main;
+
         this.userDAO = new UserDAO();
+        this.communeDAO = new CommuneDAO();
+        this.aeroportDAO = new AeroportDAO();
+        this.gareDAO = new GareDAO();
+        this.departementDAO = new DepartementDAO();
+    
+        
         this.CompteAdminScene = CompteAdminScene;
         this.userFileAccess = new UserFileAccess();
         this.CompteAdminScene.init(this, userFileAccess);
         this.modifierScene = modifierScene;
+        this.departementFileAccess = new DepartementFileAccess();
 
         this.communeFileAccess = new CommuneFileAccess();
         this.donnee = donnee;
@@ -54,7 +66,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         this.aeroportFileAccess = new AeroportFileAccess();
         this.donneeDetailVue = donneeDetailVue;
-        this.donneeDetailVue.init(this, aeroportFileAccess, this.role);
+        this.donneeDetailVue.init(this, aeroportFileAccess, this.role, "0");
         initEventHandlers();
     }
 
@@ -66,9 +78,14 @@ public class AppController implements EventHandler<ActionEvent> {
         this.estConnecte = estConnecte;
         this.user = user;
         this.compte = compte;
+        this.departementFileAccess = new DepartementFileAccess();
+
 
         this.userDAO = new UserDAO();
         this.communeDAO = new CommuneDAO();
+        this.aeroportDAO = new AeroportDAO();
+        this.gareDAO = new GareDAO();
+        this.departementDAO = new DepartementDAO();
 
         this.role = role;
         this.main = main;
@@ -83,10 +100,10 @@ public class AppController implements EventHandler<ActionEvent> {
 
         this.aeroportFileAccess = new AeroportFileAccess();
         this.donneeDetailVue = donneeDetailVue;
-        this.donneeDetailVue.init(this, aeroportFileAccess, this.role);
+        this.donneeDetailVue.init(this, aeroportFileAccess, this.role, "0");
         initEventHandlers();
     }
-
+ 
     private void initEventHandlers() {
         // gestion des événements de la classe Connexion
         this.connexion.getConnexionButton().setOnAction(this);
@@ -142,6 +159,14 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donnee.getNavBarre().getAccueilButton().setOnAction(this);
 
+        // gestion des événements de la classe DonneeDetailVue
+        this.donneeDetailVue.getNavBarre().getcompteButton().setOnAction(this);
+        this.donneeDetailVue.getNavBarre().getCarteButton().setOnAction(this);
+        this.donneeDetailVue.getNavBarre().getDonneesButton().setOnAction(this);
+        this.donneeDetailVue.getNavBarre().getModifieButton().setOnAction(this);
+        this.donneeDetailVue.getNavBarre().getDeconnexionButton().setOnAction(this);
+        this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
+
     }
 
     @Override
@@ -155,21 +180,21 @@ public class AppController implements EventHandler<ActionEvent> {
             boutonInscriptionInscriptionClick();
         } else if (source == this.inscription.getConnexionButton()) {
             boutonConnexionInscriptionClick();
-        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.CompteAdminScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.modifierScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donnee.getNavBarre().getDeconnexionButton() && this.estConnecte)){
+        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.CompteAdminScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.modifierScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donnee.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donneeDetailVue.getNavBarre().getDeconnexionButton() && this.estConnecte)){
             boutonDeconnexionNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.donnee.getNavBarre().getcompteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.donnee.getNavBarre().getcompteButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getcompteButton() && this.estConnecte) {
             boutonCompteNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte || source == this.compte.getNavBarre().getCarteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getCarteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getCarteButton() && this.estConnecte || source == this.donnee.getNavBarre().getCarteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte || source == this.compte.getNavBarre().getCarteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getCarteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getCarteButton() && this.estConnecte || source == this.donnee.getNavBarre().getCarteButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getCarteButton() && this.estConnecte) {
             // boutonCarteNavBarreClick();
             System.out.println("Carte");
-        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte ){
+        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getDonneesButton() && this.estConnecte) {
             boutonDonneesNavBarreClick();
         } else if (source == this.donnee.getNavBarre().getModifieButton() && this.estConnecte && this.role) {
             // boutonModifieNavBarreClick();
             System.out.println("Modifie");
         } else if (source == this.accueil.getNotion()) {
             boutonNotionClick();
-        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donnee.getNavBarre().getAccueilButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donnee.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getAccueilButton() && this.estConnecte){
             boutonAccueilNavBarreClick();
         } else if (source == this.compte.getModificationButton() && this.estConnecte) {
             modifierUtilisateur();
@@ -188,14 +213,24 @@ public class AppController implements EventHandler<ActionEvent> {
                 boutonListeCompteClick();
                 boutonListeCompteClick();
             } else if (this.communeDAO.exists(sourceId)) {
-                this.donneeDetailVue.setCommune(this.communeDAO.findByCodePostal(sourceId));
-                System.out.println(sourceId);
+                // this.donneeDetailVue.setCommune(this.communeDAO.findByCodePostal(sourceId));
+                boutonInfoClick(sourceId);
             }
         }
     } 
 
     // private void boutonCarteNavBarreClick() {
     // }
+
+    private void boutonInfoClick(String sourceId) {
+        this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess);
+        Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+        new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+    }
 
     private void boutonNotionClick() {
         try {
@@ -379,7 +414,6 @@ public class AppController implements EventHandler<ActionEvent> {
 
     private void boutonDonneesNavBarreClick() {
         Pane root = this.donnee.creerRootDonnee(estConnecte, role);
-        Pane root2 = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);

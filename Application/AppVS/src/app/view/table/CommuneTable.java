@@ -4,7 +4,6 @@ import app.controller.AppController;
 import javafx.collections.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
 import app.model.data.*;

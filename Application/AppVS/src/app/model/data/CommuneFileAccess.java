@@ -20,4 +20,13 @@ public class CommuneFileAccess {
         CommuneDAO u =  new CommuneDAO();
         this.communes = u.findAll();
     }
+
+    public Commune getCommuneById(String idCommune) {
+        for (Commune commune : this.communes) {
+            if (commune.getIdCommune().equals(idCommune)) {
+                return commune;
+            }
+        }
+        return null;
+    }
 }
