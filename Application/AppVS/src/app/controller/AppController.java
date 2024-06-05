@@ -232,18 +232,6 @@ public class AppController implements EventHandler<ActionEvent> {
     // private void boutonCarteNavBarreClick() {
     // }
 
-    private void changeAnnee(String comboBoxValue) {
-        // this.donneeDetailVue.setAnnee(comboBoxValue);
-        // this.donneeDetailVue.setTable(this.donneeDetailVue.getTable());
-        Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
-        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
-        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
-        updateAppController();
-        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
-
-    }
 
     private void boutonInfoClick(String sourceId) {
         this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess);
@@ -253,7 +241,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
-        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     private void boutonNotionClick() {
@@ -300,7 +287,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
-        // new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     private void boutonInscriptionInscriptionClick() {
@@ -350,7 +336,6 @@ public class AppController implements EventHandler<ActionEvent> {
             }
             this.estConnecte = true;
             updateAppController();
-            // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
         }
     }
 
@@ -358,7 +343,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
         this.estConnecte = false;
         updateAppController();
-        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     public void inscrireUtilisateur() {
@@ -414,7 +398,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
-        // new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     public void updateLogin(String initLogin, String newLogin) {
@@ -447,7 +430,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
-        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
     
 }
