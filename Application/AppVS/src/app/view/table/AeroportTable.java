@@ -30,7 +30,7 @@ public class AeroportTable extends TableView<Aeroport> {
         TableColumn<Aeroport, String> adresseCol = new TableColumn<>("Adresse");
         adresseCol.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         adresseCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        adresseCol.setEditable(true);
+        adresseCol.setEditable(false);
         adresseCol.setMinWidth(300);
         
         TableColumn<Aeroport, String> departCol = new TableColumn<>("Code Departement");

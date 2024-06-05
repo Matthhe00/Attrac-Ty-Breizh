@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import resource.utils.Constants;
@@ -25,18 +26,23 @@ public class AppController implements EventHandler<ActionEvent> {
     private AeroportDAO aeroportDAO;
     private GareDAO gareDAO;
     private DepartementDAO departementDAO;
+    private AnneeDAO anneeDAO;
+    private AnneeCommuneDAO anneeCommuneDAO;
     private User user;
     private boolean role = false;
     private boolean estConnecte = false;
     private Main main;
     private UserFileAccess userFileAccess;
     private AeroportFileAccess aeroportFileAccess;
+    private AnneeFileAccess anneeFileAccess;
+    private AnneeCommuneFileAccess anneeCommuneFileAccess;
     private CommuneFileAccess communeFileAccess;
     private CompteAdminScene CompteAdminScene;
     private ModifierScene modifierScene;
     private Donnee donnee;
     private DonneeDetailVue donneeDetailVue;
     private DepartementFileAccess departementFileAccess;
+
     // private AnneeFileAccess anneeFileAccess;
 
     public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetailVue donneeDetailVue) {
@@ -52,12 +58,16 @@ public class AppController implements EventHandler<ActionEvent> {
         this.aeroportDAO = new AeroportDAO();
         this.gareDAO = new GareDAO();
         this.departementDAO = new DepartementDAO();
+        // this.anneeDAO = new AnneeDAO();
+        // this.anneeCommuneDAO = new AnneeCommuneDAO();
+
     
         this.departementFileAccess = new DepartementFileAccess();
         this.userFileAccess = new UserFileAccess();
         this.communeFileAccess = new CommuneFileAccess();
         this.aeroportFileAccess = new AeroportFileAccess();
         // this.anneeFileAccess = new AnneeFileAccess();
+        // this.anneeCommuneFileAccess = new AnneeCommuneFileAccess();
 
         
         this.CompteAdminScene = CompteAdminScene;
@@ -67,41 +77,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee = donnee;
         this.donnee.init(this, communeFileAccess, this.role);
 
-        this.donneeDetailVue = donneeDetailVue;
-        this.donneeDetailVue.init(this, this.role, "0");
-        initEventHandlers();
-    }
-
-    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, boolean estConnecte, User user,  Compte compte, boolean role, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetailVue donneeDetailVue) {
-        this.primaryStage = primary;
-        this.connexion = connexion;
-        this.accueil = accueil;
-        this.inscription = inscription;
-        this.estConnecte = estConnecte;
-        this.user = user;
-        this.compte = compte;
-        this.departementFileAccess = new DepartementFileAccess();
-        // this.anneeFileAccess = new AnneeFileAccess();
-
-
-        this.userDAO = new UserDAO();
-        this.communeDAO = new CommuneDAO();
-        this.aeroportDAO = new AeroportDAO();
-        this.gareDAO = new GareDAO();
-        this.departementDAO = new DepartementDAO();
-
-        this.role = role;
-        this.main = main;
-        this.CompteAdminScene = CompteAdminScene;
-        this.userFileAccess = new UserFileAccess();
-        this.CompteAdminScene.init(this, userFileAccess);
-        this.modifierScene = modifierScene;
-        
-        this.communeFileAccess = new CommuneFileAccess();
-        this.donnee = donnee;
-        this.donnee.init(this, communeFileAccess, this.role);
-
-        this.aeroportFileAccess = new AeroportFileAccess();
         this.donneeDetailVue = donneeDetailVue;
         this.donneeDetailVue.init(this, this.role, "0");
         initEventHandlers();
@@ -174,7 +149,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDetailVue.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
-        // this.donneeDetailVue.getComboBox().setOnAction(this);
+        this.donneeDetailVue.getComboBox().setOnAction(this);
 
     }
 
@@ -214,17 +189,36 @@ public class AppController implements EventHandler<ActionEvent> {
         } else if (source == this.CompteAdminScene.getAjouterButton()){
             inscrireUtilisateurAdmin();
         } else {
-            Button sources = (Button) event.getSource();
-            String sourceId = sources.getId();
-
-            if (this.userDAO.exists(sourceId)) {
-                boutonSupprimerClickAdmin(sourceId);
-                boutonListeCompteClick();
-                boutonListeCompteClick();
-            } else if (this.communeDAO.exists(sourceId)) {
-                // this.donneeDetailVue.setCommune(this.communeDAO.findByCodePostal(sourceId));
-                boutonInfoClick(sourceId);
-                System.out.println("Commune");
+            if (source instanceof Button) {
+                Button sources = (Button) event.getSource();
+                String sourceId = sources.getId();
+    
+                if (this.userDAO.exists(sourceId)) {
+                    boutonSupprimerClickAdmin(sourceId);
+                    boutonListeCompteClick();
+                    boutonListeCompteClick();
+                } else if (this.communeDAO.exists(sourceId)) {
+                    // this.donneeDetailVue.setCommune(this.communeDAO.findByCodePostal(sourceId));
+                    boutonInfoClick(sourceId);
+                    System.out.println("Commune");
+                }
+            } else if (source instanceof ComboBox) {
+                ComboBox sources = (ComboBox) event.getSource();
+                String selectedAction = sources.getValue().toString();
+    
+                switch (selectedAction) {
+                    case "Action1":
+                        // Handle Action1
+                        System.out.println("Action1");
+                        break;
+                    case "Action2":
+                        // Handle Action2
+                        break;
+                    // Add more cases as needed
+                    default:
+                        // Handle unknown action
+                        break;
+                }
             }
         }
     } 
@@ -260,6 +254,8 @@ public class AppController implements EventHandler<ActionEvent> {
             this.primaryStage.setScene(scene);
             this.primaryStage.show();
         }
+        updateAppController();
+
     }
 
     private void boutonDeconnexionNavBarreClick() {
@@ -269,6 +265,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        updateAppController();
+
     }
 
     private void boutonInscriptionConnexionClick() {
@@ -277,6 +275,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        updateAppController();
+
     }
 
     private void boutonCompteNavBarreClick() {
@@ -302,6 +302,7 @@ public class AppController implements EventHandler<ActionEvent> {
         } else {
             this.inscription.getErrorLabel().setText("Champs vides");
         }
+        updateAppController();
 
     }
 
@@ -311,6 +312,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        updateAppController();
+
     }
 
     private void boutonAccueilNavBarreClick() {
@@ -319,6 +322,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
+        updateAppController();
+
     }
     
     public void connecterUtilisateur() {

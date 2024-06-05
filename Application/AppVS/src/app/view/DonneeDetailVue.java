@@ -83,7 +83,7 @@ public class DonneeDetailVue {
         configurerLabel(this.numeroLabel, 150, 480, "my-label-commune", root);
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
         configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
-        configurerTable(this.voisineTable, 680,520, "my-table", root, 492, 150);
+        configurerTable(this.voisineTable, 680,533, "my-table", root, 492, 150);
         configurerComboBox(this.anneeBox, 365, 140, 135, 45, "my-combo-box", root);
     }
     
@@ -163,7 +163,7 @@ public class DonneeDetailVue {
         this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
         this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
         this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
-        // this.anneeCommune = new AnneeCommune(this.commune, a);
+        
 
         //mise a jour des donnees affichees
         this.nomCommune.setText(this.commune.getNomCommune());
