@@ -2,8 +2,7 @@ package app.view;
 
 import app.controller.AppController;
 import app.model.data.*;
-import app.view.table.AeroportTable;
-import app.view.table.GareTable;
+import app.view.table.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -18,10 +17,12 @@ public class DonneeDetailVue {
     private Stage primaryStage;
     private ComboBox<String> anneeBox;
     private Label nomCommune, nomDepartementLabel, numeroLabel, prixm2Label, prixMoyenLabel, surfaceMoyenneLabel, nbMaisonLabel, nbAppartLabel;
-    private AeroportTable aeroportTable, voisineTable;
+    private AeroportTable aeroportTable;
     private GareTable gareTable;
+    private VoisineTable voisineTable;
     private Commune commune;
     private Departement departement;
+    private AnneeCommune anneeCommune;
 
     public DonneeDetailVue(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -33,9 +34,10 @@ public class DonneeDetailVue {
         initUIComponents();
     }
 
-    public void init(AppController appController, AeroportFileAccess AeroportFileAccess, Boolean isAdmin, String idCommune) {
+    public void init(AppController appController, Boolean isAdmin, String idCommune) {
         this.gareTable = new GareTable(this.commune.getListeGares(), appController, isAdmin);
         this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), appController, isAdmin);
+        this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), appController, idCommune);
     }
 
     public void initUIComponents() {
@@ -79,8 +81,9 @@ public class DonneeDetailVue {
         configurerLabel(this.nomCommune, 150, 430, "my-label-commune", root);
         configurerLabel(this.nomDepartementLabel, 150, 530, "my-label-commune", root);
         configurerLabel(this.numeroLabel, 150, 480, "my-label-commune", root);
-        configurerTable(this.aeroportTable, 650, 270, "my-table", root, 482, 105);
-        configurerTable(this.gareTable, 650, 400, "my-table", root, 482, 105);
+        configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
+        configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
+        configurerTable(this.voisineTable, 680,520, "my-table", root, 492, 150);
         configurerComboBox(this.anneeBox, 365, 140, 135, 45, "my-combo-box", root);
     }
     
@@ -118,6 +121,16 @@ public class DonneeDetailVue {
         root.getChildren().add(t);
     }
 
+    private void configurerTable(VoisineTable t, int x, int y, String style, Pane root, int width, int height) {
+        t.setLayoutX(x);
+        t.setLayoutY(y);
+        t.setPrefWidth(width);
+        t.setPrefHeight(height);
+        t.getStyleClass().add(style);
+        root.getChildren().add(t);
+    }
+    
+
     public void updateNavBarre(boolean estConnecte) {
         this.navBarre.initNavBarre(estConnecte, true);
     }
@@ -134,12 +147,23 @@ public class DonneeDetailVue {
         this.departement = departement;
     }
 
+    public String getComboBoxValue() {
+        return this.anneeBox.getValue().toString();
+    }
+
+    public ComboBox<String> getComboBox() {
+        return this.anneeBox;
+    }
+
     public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess) {
         //initialisation des variables de donnees
         this.commune = communeFileAccess.getCommuneById(idCommune);
+        this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
         this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
         this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
         this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
+        this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
+        // this.anneeCommune = new AnneeCommune(this.commune, a);
 
         //mise a jour des donnees affichees
         this.nomCommune.setText(this.commune.getNomCommune());

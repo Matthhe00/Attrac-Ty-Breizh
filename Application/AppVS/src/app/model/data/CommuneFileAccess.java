@@ -6,6 +6,9 @@ import app.model.dao.CommuneDAO;
 
 public class CommuneFileAccess {
     public ArrayList<Commune> communes;
+    public ArrayList<Commune> communesV;
+    private CommuneDAO u =  new CommuneDAO();
+
 
     public CommuneFileAccess() {
         communes = new ArrayList<Commune>();
@@ -15,10 +18,20 @@ public class CommuneFileAccess {
     public ArrayList<Commune> getCommunes() {
         return communes;
     }
+
+    public ArrayList<Commune> getCommuneVoisine(String idCommune) {
+        this.communesV = u.findAllVoisine(idCommune);
+        return communesV;
+    }
     
     public void setList() {
         CommuneDAO u =  new CommuneDAO();
         this.communes = u.findAll();
+    }
+
+    public void setList(String idCommune) {
+        CommuneDAO u =  new CommuneDAO();
+        this.communesV = u.findAllVoisine(idCommune);
     }
 
     public Commune getCommuneById(String idCommune) {
@@ -29,4 +42,5 @@ public class CommuneFileAccess {
         }
         return null;
     }
+
 }

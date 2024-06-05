@@ -24,6 +24,22 @@ public class CommuneDAO extends DAO<Commune> {
         return communes;
     }
 
+    public ArrayList<Commune> findAllVoisine(String id) {
+        ArrayList <Commune> communes = new ArrayList<>();
+        try (Connection con = getConnection (); 
+             PreparedStatement st = con.prepareStatement("SELECT * FROM Voisinage WHERE communeVoisine = ?")) {
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String idCommune = rs.getString("commune");
+                communes.add(findByCodePostal(idCommune));      
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return communes;
+    }
+
     @Override
     public int update(Commune element, String login, String role) {
         // TODO Auto-generated method stub

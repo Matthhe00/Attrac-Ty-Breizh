@@ -2,16 +2,16 @@ package app.model.data;
 public class AnneeCommune {
     private Annee annee;
     private Commune laCommune;
-    private int nbMaison;
-    private int nbAppart;
-    private float prixMoyen;
-    private float prixM2Moyen;
-    private float surfaceMoy;
-    private float depCulturellesTotal;
-    private float budgetTotal;
-    private float population;
+    private String nbMaison;
+    private String nbAppart;
+    private String prixMoyen;
+    private String prixM2Moyen;
+    private String surfaceMoy;
+    private String depCulturellesTotal;
+    private String budgetTotal;
+    private String population;
 
-    public AnneeCommune(Annee annee, Commune laCommune, int nbMaison, int nbAppart, float prixMoyen, float prixM2Moyen, float surfaceMoy, float depCulturellesTotal, float budgetTotal, float population) {
+    public AnneeCommune(Annee annee, Commune laCommune, String nbMaison, String nbAppart, String prixMoyen, String prixM2Moyen, String surfaceMoy, String depCulturellesTotal, String budgetTotal, String population) {
         this.annee = annee;
         this.laCommune = laCommune;
         this.nbMaison = nbMaison;
@@ -40,67 +40,67 @@ public class AnneeCommune {
         this.laCommune = laCommune;
     }
 
-    public int getNbMaison() {
+    public String getNbMaison() {
         return this.nbMaison;
     }
 
-    public void setNbMaison(int nbMaison) {
+    public void setNbMaison(String nbMaison) {
         this.nbMaison = nbMaison;
     }
 
-    public int getNbAppart() {
+    public String getNbAppart() {
         return this.nbAppart;
     }
 
-    public void setNbAppart(int nbAppart) {
+    public void setNbAppart(String nbAppart) {
         this.nbAppart = nbAppart;
     }
 
-    public float getPrixMoyen() {
+    public String getPrixMoyen() {
         return this.prixMoyen;
     }
 
-    public void setPrixMoyen(float prixMoyen) {
+    public void setPrixMoyen(String prixMoyen) {
         this.prixMoyen = prixMoyen;
     }
 
-    public float getPrixM2Moyen() {
+    public String getPrixM2Moyen() {
         return this.prixM2Moyen;
     }
 
-    public void setPrixM2Moyen(float prixM2Moyen) {
+    public void setPrixM2Moyen(String prixM2Moyen) {
         this.prixM2Moyen = prixM2Moyen;
     }
 
-    public float getSurfaceMoy() {
+    public String getSurfaceMoy() {
         return this.surfaceMoy;
     }
 
-    public void setSurfaceMoy(float surfaceMoy) {
+    public void setSurfaceMoy(String surfaceMoy) {
         this.surfaceMoy = surfaceMoy;
     }
 
-    public float getDepCulturellesTotal() {
+    public String getDepCulturellesTotal() {
         return this.depCulturellesTotal;
     }
 
-    public void setDepCulturellesTotal(float depCulturellesTotal) {
+    public void setDepCulturellesTotal(String depCulturellesTotal) {
         this.depCulturellesTotal = depCulturellesTotal;
     }
 
-    public float getBudgetTotal() {
+    public String getBudgetTotal() {
         return this.budgetTotal;
     }
 
-    public void setBudgetTotal(float budgetTotal) {
+    public void setBudgetTotal(String budgetTotal) {
         this.budgetTotal = budgetTotal;
     }
 
-    public float getPopulation() {
+    public String getPopulation() {
         return this.population;
     }
 
-    public void setPopulation(float population) {
+    public void setPopulation(String population) {
         this.population = population;
     }
 
@@ -109,35 +109,5 @@ public class AnneeCommune {
                 + getDepCulturellesTotal() + ", laCommune=" + getLaCommune() + ", nbAppart=" + getNbAppart() + ", nbMaison=" + getNbMaison()
                 + ", population=" + getPopulation() + ", prixM2Moyen=" + getPrixM2Moyen() + ", prixMoyen=" + getPrixMoyen()
                 + ", surfaceMoy=" + getSurfaceMoy() + "]";
-    }
-
-    String compareValues(String nomDonnee, double valeur1, double valeur2, String nomCommune1, String nomCommune2) {
-        if (valeur1 > valeur2) {
-            return nomDonnee + " de " + nomCommune1 + " est superieur à " + nomCommune2 + "\n";
-        } else if (valeur1 < valeur2) {
-            return nomDonnee + " de " + nomCommune1 + " est inferieur à " + nomCommune2 + "\n";
-        } else if (valeur1 == valeur2) {
-            return nomDonnee + " de " + nomCommune1 + " est egal à " + nomCommune2 + "\n";
-        } else {
-            return "";
-        }
-    }
-    
-    public String compareTo(AnneeCommune otherAnneeCommune) {
-        String result = "";
-    
-        String nomCommune1 = this.getLaCommune().getNomCommune();
-        String nomCommune2 = otherAnneeCommune.getLaCommune().getNomCommune();
-    
-        result += compareValues("\tLe budget total", this.getBudgetTotal(), otherAnneeCommune.getBudgetTotal(), nomCommune1, nomCommune2);
-        result += compareValues("\tLes dépenses culturelles totales", this.getDepCulturellesTotal(), otherAnneeCommune.getDepCulturellesTotal(), nomCommune1, nomCommune2);
-        result += compareValues("\tLe nombre d'appartements vendu", this.getNbAppart(), otherAnneeCommune.getNbAppart(), nomCommune1, nomCommune2);
-        result += compareValues("\tLe nombre de maisons vendu", this.getNbMaison(), otherAnneeCommune.getNbMaison(), nomCommune1, nomCommune2);
-        result += compareValues("\tLe prix moyen du m2", this.getPrixM2Moyen(), otherAnneeCommune.getPrixM2Moyen(), nomCommune1, nomCommune2);
-        result += compareValues("\tLe prix moyen des logements", this.getPrixMoyen(), otherAnneeCommune.getPrixMoyen(), nomCommune1, nomCommune2);
-        result += compareValues("\tLa surface moyenne des logements", this.getSurfaceMoy(), otherAnneeCommune.getSurfaceMoy(), nomCommune1, nomCommune2);
-    
-        return result;
-    }
-    
+    }    
 }

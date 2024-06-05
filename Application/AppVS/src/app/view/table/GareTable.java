@@ -10,7 +10,6 @@ import app.model.data.*;
 
 public class GareTable extends TableView<Gare> {
     private AppController controller; // Reference to the controller for event handling
-    private GareFileAccess gareFileAccess;
         
     
     public GareTable(ArrayList<Gare> gares, AppController controller, Boolean isAdmin) {

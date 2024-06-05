@@ -37,7 +37,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private Donnee donnee;
     private DonneeDetailVue donneeDetailVue;
     private DepartementFileAccess departementFileAccess;
-
+    // private AnneeFileAccess anneeFileAccess;
 
     public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetailVue donneeDetailVue) {
         this.primaryStage = primary;
@@ -53,20 +53,22 @@ public class AppController implements EventHandler<ActionEvent> {
         this.gareDAO = new GareDAO();
         this.departementDAO = new DepartementDAO();
     
+        this.departementFileAccess = new DepartementFileAccess();
+        this.userFileAccess = new UserFileAccess();
+        this.communeFileAccess = new CommuneFileAccess();
+        this.aeroportFileAccess = new AeroportFileAccess();
+        // this.anneeFileAccess = new AnneeFileAccess();
+
         
         this.CompteAdminScene = CompteAdminScene;
-        this.userFileAccess = new UserFileAccess();
         this.CompteAdminScene.init(this, userFileAccess);
         this.modifierScene = modifierScene;
-        this.departementFileAccess = new DepartementFileAccess();
 
-        this.communeFileAccess = new CommuneFileAccess();
         this.donnee = donnee;
         this.donnee.init(this, communeFileAccess, this.role);
 
-        this.aeroportFileAccess = new AeroportFileAccess();
         this.donneeDetailVue = donneeDetailVue;
-        this.donneeDetailVue.init(this, aeroportFileAccess, this.role, "0");
+        this.donneeDetailVue.init(this, this.role, "0");
         initEventHandlers();
     }
 
@@ -79,6 +81,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.user = user;
         this.compte = compte;
         this.departementFileAccess = new DepartementFileAccess();
+        // this.anneeFileAccess = new AnneeFileAccess();
 
 
         this.userDAO = new UserDAO();
@@ -100,7 +103,12 @@ public class AppController implements EventHandler<ActionEvent> {
 
         this.aeroportFileAccess = new AeroportFileAccess();
         this.donneeDetailVue = donneeDetailVue;
-        this.donneeDetailVue.init(this, aeroportFileAccess, this.role, "0");
+        this.donneeDetailVue.init(this, this.role, "0");
+        initEventHandlers();
+    }
+
+    public void updateAppController() {
+        
         initEventHandlers();
     }
  
@@ -166,6 +174,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDetailVue.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
+        // this.donneeDetailVue.getComboBox().setOnAction(this);
 
     }
 
@@ -215,12 +224,26 @@ public class AppController implements EventHandler<ActionEvent> {
             } else if (this.communeDAO.exists(sourceId)) {
                 // this.donneeDetailVue.setCommune(this.communeDAO.findByCodePostal(sourceId));
                 boutonInfoClick(sourceId);
+                System.out.println("Commune");
             }
         }
     } 
 
     // private void boutonCarteNavBarreClick() {
     // }
+
+    private void changeAnnee(String comboBoxValue) {
+        // this.donneeDetailVue.setAnnee(comboBoxValue);
+        // this.donneeDetailVue.setTable(this.donneeDetailVue.getTable());
+        Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+        updateAppController();
+        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+
+    }
 
     private void boutonInfoClick(String sourceId) {
         this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess);
@@ -229,7 +252,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+        updateAppController();
+        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     private void boutonNotionClick() {
@@ -275,7 +299,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+        updateAppController();
+        // new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     private void boutonInscriptionInscriptionClick() {
@@ -324,14 +349,16 @@ public class AppController implements EventHandler<ActionEvent> {
                 this.accueil.setNavBarre(this.accueil.getNavBarre().refresh(false));
             }
             this.estConnecte = true;
-            new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+            updateAppController();
+            // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
         }
     }
 
     public void deconnecterUtilisateur() {
         this.compte.setNavBarre(this.compte.getNavBarre().refresh(this.user, this.role));
         this.estConnecte = false;
-        new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+        updateAppController();
+        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     public void inscrireUtilisateur() {
@@ -386,7 +413,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+        updateAppController();
+        // new AppController(primaryStage, connexion, accueil, inscription, estConnecte, user, compte, role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
 
     public void updateLogin(String initLogin, String newLogin) {
@@ -418,7 +446,8 @@ public class AppController implements EventHandler<ActionEvent> {
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
+        updateAppController();
+        // new AppController(this.primaryStage, this.connexion, this.accueil, this.inscription, this.estConnecte, this.user, this.compte, this.role, main, CompteAdminScene, modifierScene, donnee, donneeDetailVue);
     }
     
 }
