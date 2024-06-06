@@ -21,4 +21,13 @@ public class AnneeFileAccess {
         this.annees = u.findAll();
     }
 
+    public Annee getAnneeById(String annee) {
+        for (Annee an : this.annees) {
+            if (an.getAnnee().equals(annee)) {
+                return an;
+            }
+        }
+        return null;
+    }
+
 }

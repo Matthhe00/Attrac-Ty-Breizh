@@ -16,13 +16,14 @@ public class DonneeDetailVue {
     private NavBarre navBarre;
     private Stage primaryStage;
     private ComboBox<String> anneeBox;
-    private Label nomCommune, nomDepartementLabel, numeroLabel, prixm2Label, prixMoyenLabel, surfaceMoyenneLabel, nbMaisonLabel, nbAppartLabel;
+    private Label nomCommune, nomDepartementLabel, numeroLabel, prixm2Label, prixMoyenLabel, surfaceMoyenneLabel, nbMaisonLabel, nbAppartLabel, inflationLabel;
     private AeroportTable aeroportTable;
     private GareTable gareTable;
     private VoisineTable voisineTable;
     private Commune commune;
     private Departement departement;
     private AnneeCommune anneeCommune;
+    private Annee annee;
 
     public DonneeDetailVue(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -51,6 +52,7 @@ public class DonneeDetailVue {
         this.surfaceMoyenneLabel = new Label("Données");
         this.nbMaisonLabel = new Label("Données");
         this.nbAppartLabel = new Label("Données");
+        this.inflationLabel = new Label("Données");
 
         this.commune = new Commune("idCommune", "nomCommune", "leDepartement");
         this.departement = new Departement("idDepartement", "nomDepartement", "100");
@@ -78,12 +80,20 @@ public class DonneeDetailVue {
 
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
-        configurerLabel(this.nomCommune, 150, 430, "my-label-commune", root);
-        configurerLabel(this.nomDepartementLabel, 150, 530, "my-label-commune", root);
-        configurerLabel(this.numeroLabel, 150, 480, "my-label-commune", root);
+        configurerLabel(this.nomCommune, 110, 430, "my-label-commune", root);
+        configurerLabel(this.nomDepartementLabel, 110, 530, "my-label-commune", root);
+        configurerLabel(this.numeroLabel, 110, 480, "my-label-commune", root);
+        configurerLabel(this.prixm2Label, 570, 397, "my-label-commune-b", root);
+        configurerLabel(this.prixMoyenLabel, 570, 462, "my-label-commune-b", root);
+        configurerLabel(this.surfaceMoyenneLabel, 830, 462, "my-label-commune-b", root);
+        configurerLabel(this.inflationLabel, 800, 397, "my-label-commune-b", root);
+        configurerLabel(this.nbMaisonLabel, 1110, 462, "my-label-commune-b", root);
+        configurerLabel(this.nbAppartLabel, 1110, 397, "my-label-commune-b", root);
+        
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
         configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
         configurerTable(this.voisineTable, 680,533, "my-table", root, 492, 150);
+
         configurerComboBox(this.anneeBox, 365, 140, 135, 45, "my-combo-box", root);
     }
     
@@ -155,6 +165,12 @@ public class DonneeDetailVue {
         return this.anneeBox;
     }
 
+    public void setAnnee(String annee) {
+        this.anneeBox.setValue(annee);
+        
+        this.inflationLabel.setText(this.anneeCommune.getAnnee().getTauxInflation());
+    }
+
     public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess) {
         //initialisation des variables de donnees
         this.commune = communeFileAccess.getCommuneById(idCommune);
@@ -170,4 +186,58 @@ public class DonneeDetailVue {
         this.numeroLabel.setText(idCommune);
         this.nomDepartementLabel.setText(this.departement.getNomDep());
     }
+
+    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess, String a, AnneeCommuneFileAccess anneeCommuneFileAccess, AnneeFileAccess anneeFileAccess) {
+        //initialisation des variables de donnees
+        if (a != null) {
+            this.commune = communeFileAccess.getCommuneById(idCommune);
+            this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
+            this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
+            this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
+            this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
+            this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
+            this.annee = anneeFileAccess.getAnneeById(a);
+            this.anneeCommune = anneeCommuneFileAccess.getAnneeCommuneById(a,idCommune);        
+    
+            //mise a jour des donnees affichees
+            this.nomCommune.setText(this.commune.getNomCommune());
+            this.numeroLabel.setText(idCommune);
+            this.nomDepartementLabel.setText(this.departement.getNomDep());
+            this.prixm2Label.setText(this.anneeCommune.getPrixM2Moyen());
+            this.prixMoyenLabel.setText(this.anneeCommune.getPrixMoyen());
+            this.surfaceMoyenneLabel.setText(this.anneeCommune.getSurfaceMoy());
+            this.nbMaisonLabel.setText(this.anneeCommune.getNbMaison());
+            this.nbAppartLabel.setText(this.anneeCommune.getNbAppart());
+            this.inflationLabel.setText(this.anneeCommune.getAnnee().getTauxInflation());
+            this.anneeBox.setValue(a);
+        } else {
+            this.commune = communeFileAccess.getCommuneById(idCommune);
+            this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
+            this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
+            this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
+            this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
+            this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
+            this.annee = anneeFileAccess.getAnneeById(a);
+            this.anneeCommune = anneeCommuneFileAccess.getAnneeCommuneById(a,idCommune);        
+    
+            //mise a jour des donnees affichees
+            this.nomCommune.setText(this.commune.getNomCommune());
+            this.numeroLabel.setText(idCommune);
+            this.nomDepartementLabel.setText(this.departement.getNomDep());
+            this.anneeBox.setValue(a);
+        }
+    }
+
+    public void resetValues() {
+        this.nomCommune.setText("Données");
+        this.numeroLabel.setText("Données");
+        this.nomDepartementLabel.setText("Données");
+        this.prixm2Label.setText("Données");
+        this.prixMoyenLabel.setText("Données");
+        this.surfaceMoyenneLabel.setText("Données");
+        this.nbMaisonLabel.setText("Données");
+        this.nbAppartLabel.setText("Données");
+        this.inflationLabel.setText("Données");
+    }
+
 }

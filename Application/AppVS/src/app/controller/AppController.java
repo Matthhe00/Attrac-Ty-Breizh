@@ -31,6 +31,8 @@ public class AppController implements EventHandler<ActionEvent> {
     private User user;
     private boolean role = false;
     private boolean estConnecte = false;
+    private String annee;
+    private String idCommune;
     private Main main;
     private UserFileAccess userFileAccess;
     private AeroportFileAccess aeroportFileAccess;
@@ -58,16 +60,16 @@ public class AppController implements EventHandler<ActionEvent> {
         this.aeroportDAO = new AeroportDAO();
         this.gareDAO = new GareDAO();
         this.departementDAO = new DepartementDAO();
-        // this.anneeDAO = new AnneeDAO();
-        // this.anneeCommuneDAO = new AnneeCommuneDAO();
+        this.anneeDAO = new AnneeDAO();
+        this.anneeCommuneDAO = new AnneeCommuneDAO();
 
     
         this.departementFileAccess = new DepartementFileAccess();
         this.userFileAccess = new UserFileAccess();
         this.communeFileAccess = new CommuneFileAccess();
         this.aeroportFileAccess = new AeroportFileAccess();
-        // this.anneeFileAccess = new AnneeFileAccess();
-        // this.anneeCommuneFileAccess = new AnneeCommuneFileAccess();
+        this.anneeFileAccess = new AnneeFileAccess();
+        this.anneeCommuneFileAccess = new AnneeCommuneFileAccess();
 
         
         this.CompteAdminScene = CompteAdminScene;
@@ -156,6 +158,7 @@ public class AppController implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         Object source = event.getSource();
+        System.out.println("Event: " + event);
         if (source == this.connexion.getConnexionButton() && !this.estConnecte && !this.connexion.getIndentField().getText().isEmpty() && !this.connexion.getPasswordField().getText().isEmpty()) {
             boutonConnexionConnexionClick();
         } else if (source == this.connexion.getInscriptionButton()) {
@@ -192,33 +195,20 @@ public class AppController implements EventHandler<ActionEvent> {
             if (source instanceof Button) {
                 Button sources = (Button) event.getSource();
                 String sourceId = sources.getId();
+                this.idCommune = sourceId;
     
                 if (this.userDAO.exists(sourceId)) {
                     boutonSupprimerClickAdmin(sourceId);
                     boutonListeCompteClick();
                     boutonListeCompteClick();
                 } else if (this.communeDAO.exists(sourceId)) {
-                    // this.donneeDetailVue.setCommune(this.communeDAO.findByCodePostal(sourceId));
                     boutonInfoClick(sourceId);
-                    System.out.println("Commune");
                 }
             } else if (source instanceof ComboBox) {
                 ComboBox sources = (ComboBox) event.getSource();
                 String selectedAction = sources.getValue().toString();
-    
-                switch (selectedAction) {
-                    case "Action1":
-                        // Handle Action1
-                        System.out.println("Action1");
-                        break;
-                    case "Action2":
-                        // Handle Action2
-                        break;
-                    // Add more cases as needed
-                    default:
-                        // Handle unknown action
-                        break;
-                }
+                this.annee = selectedAction;
+                updateAnnee(selectedAction);
             }
         }
     } 
@@ -228,7 +218,17 @@ public class AppController implements EventHandler<ActionEvent> {
 
 
     private void boutonInfoClick(String sourceId) {
-        this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess);
+        this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess);
+        Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+        updateAppController();
+    }
+
+    public void updateAnnee(String annee) {
+        this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -435,6 +435,8 @@ public class AppController implements EventHandler<ActionEvent> {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
+        this.donneeDetailVue.getComboBox().setValue(null);
+        this.donneeDetailVue.resetValues();
     }
     
 }

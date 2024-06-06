@@ -20,4 +20,13 @@ public class AnneeCommuneFileAccess {
         AnneeCommuneDAO u =  new AnneeCommuneDAO();
         this.annees = u.findAll();
     }
+
+    public AnneeCommune getAnneeCommuneById(String annee, String idCommune) {
+        for (AnneeCommune an : this.annees) {
+            if (an.getAnnee().getAnnee().equals(annee) && an.getLaCommune().getIdCommune().equals(idCommune)) {
+                return an;
+            }
+        }
+        return null;
+    }
 }
