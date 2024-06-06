@@ -17,6 +17,7 @@ public class DonneeDetailVue {
     private Stage primaryStage;
     private ComboBox<String> anneeBox;
     private Label nomCommune, nomDepartementLabel, numeroLabel, prixm2Label, prixMoyenLabel, surfaceMoyenneLabel, nbMaisonLabel, nbAppartLabel, inflationLabel;
+    private Button exportDataButton;
     private AeroportTable aeroportTable;
     private GareTable gareTable;
     private VoisineTable voisineTable;
@@ -53,6 +54,7 @@ public class DonneeDetailVue {
         this.nbMaisonLabel = new Label("Données");
         this.nbAppartLabel = new Label("Données");
         this.inflationLabel = new Label("Données");
+        this.exportDataButton = new Button("Exporter les données");
 
         this.commune = new Commune("idCommune", "nomCommune", "leDepartement");
         this.departement = new Departement("idDepartement", "nomDepartement", "100");
@@ -89,6 +91,7 @@ public class DonneeDetailVue {
         configurerLabel(this.inflationLabel, 800, 397, "my-label-commune-b", root);
         configurerLabel(this.nbMaisonLabel, 1110, 462, "my-label-commune-b", root);
         configurerLabel(this.nbAppartLabel, 1110, 397, "my-label-commune-b", root);
+        configurerBouton(this.exportDataButton, 140, 600, "my-button", root);
         
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
         configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
@@ -104,6 +107,15 @@ public class DonneeDetailVue {
         anneeBox.setPrefHeight(height);
         anneeBox.getStyleClass().add(styleClass);
         root.getChildren().add(anneeBox);
+    }
+
+    private void configurerBouton(Button bouton, int x, int y, String styleClass, Pane root) {
+        bouton.setLayoutX(x);
+        bouton.setLayoutY(y);
+        // bouton.setPrefWidth(largeur);
+        // bouton.setPrefHeight(hauteur);
+        bouton.getStyleClass().add(styleClass);
+        root.getChildren().add(bouton);
     }
 
     private void configurerLabel(Label label, int x, int y, String style, Pane root) {
@@ -238,6 +250,10 @@ public class DonneeDetailVue {
         this.nbMaisonLabel.setText("Données");
         this.nbAppartLabel.setText("Données");
         this.inflationLabel.setText("Données");
+    }
+
+    public Button getExportDataButton() {
+        return this.exportDataButton;
     }
 
 }

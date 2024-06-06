@@ -1,0 +1,13 @@
+BELLE-ISLE-EN-TERRE - 22005 - Pas de gare
+
+2018 - Prix m² moyen : 840.25 - Prix moyen : 88159.0 - Surface moyenne : 100.5 - Nombre de maison vendu : 20 - Nombre d'appartement vendu : 0
+2019 - Prix m² moyen : 968.2 - Prix moyen : 80994.8 - Surface moyenne : 86.4667 - Nombre de maison vendu : 15 - Nombre d'appartement vendu : 0
+2020 - Prix m² moyen : 1081.2 - Prix moyen : 91775.0 - Surface moyenne : 93.3 - Nombre de maison vendu : 19 - Nombre d'appartement vendu : 1
+2021 - Prix m² moyen : 1038.55 - Prix moyen : 91662.1 - Surface moyenne : 90.3793 - Nombre de maison vendu : 29 - Nombre d'appartement vendu : 0
+
+Communes voisines : 
+LOC-ENVEL - 22129 
+LOUARGAT - 22135 
+PLOUGONVER - 22216 
+PLOUNEVEZ-MOEDEC - 22228 
+TREGROM - 22359 

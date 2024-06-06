@@ -152,13 +152,14 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDetailVue.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
         this.donneeDetailVue.getComboBox().setOnAction(this);
+        this.donneeDetailVue.getExportDataButton().setOnAction(this);
 
     }
 
     @Override
     public void handle(ActionEvent event) {
         Object source = event.getSource();
-        System.out.println("Event: " + event);
+        // System.out.println("Event: " + event);
         if (source == this.connexion.getConnexionButton() && !this.estConnecte && !this.connexion.getIndentField().getText().isEmpty() && !this.connexion.getPasswordField().getText().isEmpty()) {
             boutonConnexionConnexionClick();
         } else if (source == this.connexion.getInscriptionButton()) {
@@ -191,6 +192,8 @@ public class AppController implements EventHandler<ActionEvent> {
             boutonListeCompteClick();
         } else if (source == this.CompteAdminScene.getAjouterButton()){
             inscrireUtilisateurAdmin();
+        } else if (source == this.donneeDetailVue.getExportDataButton()) {
+            exportDataCommune();
         } else {
             if (source instanceof Button) {
                 Button sources = (Button) event.getSource();
@@ -216,6 +219,10 @@ public class AppController implements EventHandler<ActionEvent> {
     // private void boutonCarteNavBarreClick() {
     // }
 
+
+    private void exportDataCommune() {
+        this.anneeCommuneFileAccess.writeToTextFile("anneeCommune.txt", this.idCommune);
+    }
 
     private void boutonInfoClick(String sourceId) {
         this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess);
