@@ -97,7 +97,7 @@ public class DonneeDetailVue {
         configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
         configurerTable(this.voisineTable, 680,533, "my-table", root, 492, 150);
 
-        configurerComboBox(this.anneeBox, 365, 140, 135, 45, "my-combo-box", root);
+        configurerComboBox(this.anneeBox, 345, 140, 135, 45, "my-combo-box", root);
     }
     
     private void configurerComboBox(ComboBox<String> anneeBox, int x, int y, int width, int height, String styleClass, Pane root) {

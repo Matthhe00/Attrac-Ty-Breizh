@@ -57,7 +57,7 @@ public class AnneeCommuneFileAccess {
             //ajout données annuelles
             for(int i = 2018; i <= 2021; i++) {
                 AnneeCommune anneeCommune = u.findAnneeCommune(String.valueOf(i), idCommune);
-                String anneeCommuneData = i + " - Prix m² moyen : " + anneeCommune.getPrixM2Moyen() + " - Prix moyen : " + anneeCommune.getPrixMoyen() + " - Surface moyenne : " + anneeCommune.getSurfaceMoy() + " - Nombre de maison vendu : " +anneeCommune.getNbMaison() + " - Nombre d'appartement vendu : " + anneeCommune.getNbAppart();
+                String anneeCommuneData = i + " - Prix m2 moyen : " + anneeCommune.getPrixM2Moyen() + " - Prix moyen : " + anneeCommune.getPrixMoyen() + " - Surface moyenne : " + anneeCommune.getSurfaceMoy() + " - Nombre de maison vendu : " +anneeCommune.getNbMaison() + " - Nombre d'appartement vendu : " + anneeCommune.getNbAppart();
                 
                 bw.write(anneeCommuneData.trim());
                 bw.newLine();

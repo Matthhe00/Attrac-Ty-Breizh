@@ -209,9 +209,13 @@ public class AppController implements EventHandler<ActionEvent> {
                 }
             } else if (source instanceof ComboBox) {
                 ComboBox sources = (ComboBox) event.getSource();
-                String selectedAction = sources.getValue().toString();
-                this.annee = selectedAction;
-                updateAnnee(selectedAction);
+                if (sources.getValue() == null) {
+                    return;
+                } else {
+                    String selectedAction = sources.getValue().toString();
+                    this.annee = selectedAction;
+                    updateAnnee(selectedAction);
+                }
             }
         }
     } 
