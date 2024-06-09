@@ -1,0 +1,306 @@
+.my-button {
+    -fx-background-color: #38B6FF;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-cursor: hand;
+}
+
+.my-button:hover {
+    -fx-background-color: #1f6892;
+    -fx-text-fill: white;
+}
+
+.my-label-ins {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-label-con {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.my-label-error {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ff0000;
+}
+
+.my-field-user-con {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #8f8e8e48;
+    -fx-background-radius: 15px;
+    -fx-padding: 10px 20px;
+}
+
+.my-field-user-con:placeholder {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+}
+
+.my-button-nav-barre {
+    -fx-background-color: #38B6FF;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-cursor: hand;
+    -fx-margin: 10px 20px; /* Add horizontal margin */
+}
+
+.my-button-nav-barre:hover {
+    -fx-background-color: #1f6892;
+    -fx-text-fill: white;
+}
+
+.my-button-modif {
+    -fx-background-color: #36b64c;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-cursor: hand;
+    -fx-margin: 10px 20px; /* Add horizontal margin */
+}
+
+.my-button-modif:hover {
+    -fx-background-color: #1f8c3f;
+    -fx-text-fill: white;
+}
+
+.my-button-nav-barre-deco {
+    -fx-background-color: #f15555;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-cursor: hand;
+    -fx-margin: 10px 20px; /* Add horizontal margin */
+}
+
+.my-button-nav-barre-deco:hover {
+    -fx-background-color: #c92b2b;
+    -fx-text-fill: white;
+}
+
+
+.my-button-sup:hover {
+    -fx-background-color: #c92b2b;
+    -fx-text-fill: white;
+}
+
+.nav-barre {
+    -fx-background-color: #8f8e8e00;
+    -fx-padding: 18px 80px;
+}
+
+.my-label-user-con{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-button-label {
+    -fx-background-color: #ffffff00;
+    -fx-text-fill: #38B6FF;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.my-button-label:hover {
+    -fx-text-fill: #1f6892;
+}
+
+/* app.css */
+
+/* app.css */
+
+.table-view {
+    -fx-background-color: #74747434;
+    -fx-background-radius: 15px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #e2e2e200;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #38B6FF;
+    -fx-background-radius: 15px;
+}
+
+.table-view .column-header:hover {
+    -fx-background-color: #1f6892;
+    -fx-background-radius: 15px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell-background {
+    -fx-background-color: #74747434;
+    -fx-border-radius: 15px;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #8b8b8b00;
+    -fx-border-radius: 10px;
+}
+
+.table-view .table-cell {
+    -fx-border-color: #8f8e8e48;
+    -fx-background-color: #8b8b8b00;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: #8b8b8b00;
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #888;
+    -fx-background-radius: 10px;
+}
+
+/* Style the track (the "path" the thumb slides on) */
+.table-view .scroll-bar .track {
+    -fx-background-color: #555;
+    -fx-background-radius: 10px;
+}
+
+/* Style the buttons at the ends of the scrollbar (if present) */
+.table-view .scroll-bar .increment-button,
+.table-view .scroll-bar .decrement-button {
+    -fx-background-color: #666;
+}
+
+.table-view .table-cell:selected {
+    -fx-background-color: #1f6892;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.my-button-sup {
+    -fx-background-color: #f15555;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+.my-button-info {
+    -fx-background-color: #38B6FF;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+.my-button-info:hover {
+    -fx-background-color: #1f6892;
+    -fx-text-fill: #ffffff;
+}
+
+/* Style for CheckBox */
+.my-checkbox {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.my-checkbox:hover {
+    -fx-text-fill: #9b9b9b;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.my-checkbox .box {
+    -fx-background-color: #fafafa;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+.my-checkbox .box:hover {
+    -fx-background-color: #9b9b9b;
+}
+
+
+
+.my-label-titre {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-combo-box {
+    -fx-background-color: #8f8e8e48;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+}
+
+.my-combo-box:hover {
+    -fx-background-color: #8f8e8e48;
+    -fx-text-fill: white;
+}
+
+.my-combo-box .list-cell {
+    -fx-background-color: #585858;
+    -fx-text-fill: #ffffff;
+}
+
+.my-combo-box .list-cell:hover {
+    -fx-background-color: #2e3a41;
+    -fx-text-fill: white;
+}
+
+.my-combo-box .list-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.my-combo-box .arrow {
+    -fx-background-color: #ffffffb6;
+}
+
+.my-label-commune {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.my-label-commune-b {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #38B6FF;
+}

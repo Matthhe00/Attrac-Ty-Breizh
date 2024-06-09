@@ -1,5 +1,7 @@
 package app.view.admin;
 
+import java.util.ArrayList;
+
 import app.controller.AppController;
 import app.model.data.User;
 import javafx.collections.FXCollections;
@@ -23,10 +25,9 @@ public class CompteAdminTable extends TableView<User> {
      * @param UserFileAccess The access object for User file operations.
      * @param controller The controller object for event handling.
      */
-    public CompteAdminTable(UserFileAccess UserFileAccess, AppController controller) {
+    public CompteAdminTable(ArrayList<User> u, AppController controller) {
         this.controller = controller;
-        this.UserFileAccess = UserFileAccess;
-        ObservableList<User> data = FXCollections.observableArrayList(UserFileAccess.getUsers());
+        ObservableList<User> data = FXCollections.observableArrayList(u);
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
         this.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());

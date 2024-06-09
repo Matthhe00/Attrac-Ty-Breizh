@@ -21,6 +21,7 @@ public class Donnee extends Pane {
     private Label donneLabel;
     private TextField searchField;
     private CommuneTable donneTable;
+    private Button exportDataButton;
 
     public Donnee(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -46,6 +47,7 @@ public class Donnee extends Pane {
         this.tri7 = new CheckBox("Tri 7");
         this.tri8 = new CheckBox("Tri 8");
         this.donneLabel = new Label("Données");
+        this.exportDataButton = new Button("Exporter les données");
         this.searchField = new TextField();
     }
 
@@ -73,6 +75,8 @@ public class Donnee extends Pane {
         root.getChildren().add(this.navBarre);
         configurerLabel(this.donneLabel, 790, 135, 200, 50, "my-label-titre", root);
         configurerTextField(this.searchField, 135, 180, 350, 50, "Rechercher", "my-field-user-con", root);
+        configurerBouton(this.exportDataButton, 170, 550, "my-button", root);
+
         // configurerTable(this.donneTable, 575, 195, "my-table", root);
         configurerTable(this.donneTable, 595, 195, "my-table", root, 522, 430);
         
@@ -99,13 +103,13 @@ public class Donnee extends Pane {
         }
     
         int x = 50;
-        int y = 350;
+        int y = 300;
         for (int i = 0; i < checkBoxes.size(); i++) {
             CheckBox checkBox = checkBoxes.get(i);
             if (i % 2 == 0) {
-                x = 150;
+                x = 130;
             } else {
-                x = 300;
+                x = 320;
             }
             configurerCheckBox(checkBox, x, y, 100, 50, "my-checkbox", root);
             if (i % 2 != 0) {
@@ -121,6 +125,13 @@ public class Donnee extends Pane {
         checkBox.setPrefHeight(height);
         checkBox.getStyleClass().add(styleClass);
         root.getChildren().add(checkBox);
+    }
+
+    private void configurerBouton(Button bouton, int x, int y, String styleClass, Pane root) {
+        bouton.setLayoutX(x);
+        bouton.setLayoutY(y);
+        bouton.getStyleClass().add(styleClass);
+        root.getChildren().add(bouton);
     }
 
     private void configurerLabel(Label label, int x, int y, int width, int height, String style, Pane root) {
@@ -200,6 +211,10 @@ public class Donnee extends Pane {
 
     public TextField getSearchField() {
         return this.searchField;
+    }
+
+    public Button getExportDataButton() {
+        return this.exportDataButton;
     }
 
 }

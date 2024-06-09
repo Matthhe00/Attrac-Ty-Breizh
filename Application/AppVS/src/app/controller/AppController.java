@@ -143,6 +143,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee.getNavBarre().getModifieButton().setOnAction(this);
         this.donnee.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donnee.getNavBarre().getAccueilButton().setOnAction(this);
+        this.donnee.getExportDataButton().setOnAction(this);
 
         // gestion des événements de la classe DonneeDetailVue
         this.donneeDetailVue.getNavBarre().getcompteButton().setOnAction(this);
@@ -194,6 +195,8 @@ public class AppController implements EventHandler<ActionEvent> {
             inscrireUtilisateurAdmin();
         } else if (source == this.donneeDetailVue.getExportDataButton()) {
             exportDataCommune();
+        } else if (source == this.donnee.getExportDataButton()) {
+            exportDataBase();
         } else {
             if (source instanceof Button) {
                 Button sources = (Button) event.getSource();
@@ -224,11 +227,16 @@ public class AppController implements EventHandler<ActionEvent> {
     // }
 
 
-    private void exportDataCommune() {
-        this.anneeCommuneFileAccess.writeToTextFile("anneeCommune.txt", this.idCommune);
+    public void exportDataCommune() {
+        // this.anneeCommuneFileAccess.writeToTextFile("anneeCommune.txt", this.idCommune);
+        this.anneeCommuneFileAccess.writeCommuneToCSVFile("commune", this.idCommune);
+    }
+    
+    public void exportDataBase() {
+        this.anneeCommuneFileAccess.writeDonneeToCSVFile("BaseDeDonnee");
     }
 
-    private void boutonInfoClick(String sourceId) {
+    public void boutonInfoClick(String sourceId) {
         this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
@@ -248,7 +256,7 @@ public class AppController implements EventHandler<ActionEvent> {
         updateAppController();
     }
 
-    private void boutonNotionClick() {
+    public void boutonNotionClick() {
         try {
             this.main.getHostServices().showDocument("https://a1-2-sae2.notion.site/Attractivit-des-communes-bretonnes-e554c010050d45e996431ba36e920265");
         } catch (Exception e) {
@@ -256,7 +264,7 @@ public class AppController implements EventHandler<ActionEvent> {
         }
     }
 
-    private void boutonConnexionConnexionClick() {
+    public void boutonConnexionConnexionClick() {
         connecterUtilisateur();
         if (this.estConnecte) {
             Pane root = this.accueil.creerRootAccueil();
@@ -269,7 +277,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
     }
 
-    private void boutonDeconnexionNavBarreClick() {
+    public void boutonDeconnexionNavBarreClick() {
         deconnecterUtilisateur();
         Pane root = this.connexion.creerRootConnexion();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
@@ -280,7 +288,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
     }
 
-    private void boutonInscriptionConnexionClick() {
+    public void boutonInscriptionConnexionClick() {
         Pane root = this.inscription.creerRootInscription();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -290,7 +298,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
     }
 
-    private void boutonCompteNavBarreClick() {
+    public void boutonCompteNavBarreClick() {
         this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
         Pane root = this.compte.creerRootCompte(this.user.getRole(), this.user.getLogin(), this.user.getPwd(), this.role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
@@ -300,7 +308,7 @@ public class AppController implements EventHandler<ActionEvent> {
         updateAppController();
     }
 
-    private void boutonInscriptionInscriptionClick() {
+    public void boutonInscriptionInscriptionClick() {
         if (!this.userDAO.exists(this.inscription.getIndentField().getText()) && !this.inscription.getIndentField().getText().isEmpty() && !this.inscription.getPasswordField().getText().isEmpty()){
             Pane root = this.connexion.creerRootConnexion();
             Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
@@ -317,7 +325,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
     }
 
-    private void boutonConnexionInscriptionClick() {
+    public void boutonConnexionInscriptionClick() {
         Pane root = this.connexion.creerRootConnexion();
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -369,11 +377,13 @@ public class AppController implements EventHandler<ActionEvent> {
     public void inscrireUtilisateurAdmin() {
         if (!this.userDAO.exists(this.CompteAdminScene.getLoginField().getText()) && !this.CompteAdminScene.getLoginField().getText().isEmpty() && !this.CompteAdminScene.getPasswordField().getText().isEmpty()){
             user = new User(this.CompteAdminScene.getLoginField().getText(), this.CompteAdminScene.getPasswordField().getText());
-            userDAO.create(user);
+            this.userDAO.create(user);
+            this.userFileAccess.setList();
             boutonListeCompteClick();
             boutonListeCompteClick();
+        } else {
+            this.CompteAdminScene.getErrorLabel().setText("Identifiant déjà utilisé");
         }
-
     }
 
     public User utilisateurExiste() {
@@ -417,10 +427,18 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void updateLogin(String initLogin, String newLogin) {
-        this.userDAO.updateLogin(initLogin, newLogin);
-        this.userFileAccess.setList();
-        boutonListeCompteClick();
-        boutonListeCompteClick();
+        if (this.userDAO.exists(newLogin)) {
+            this.userFileAccess.setList();
+            boutonListeCompteClick();
+            boutonListeCompteClick();
+            return;
+        } else {
+            this.userDAO.updateLogin(initLogin, newLogin);
+            this.userFileAccess.setList();
+            boutonListeCompteClick();
+            boutonListeCompteClick();
+        }
+
     }
 
     public void updatePwd(User user, String newPwd) {
@@ -439,7 +457,7 @@ public class AppController implements EventHandler<ActionEvent> {
         boutonListeCompteClick();
     }
 
-    private void boutonDonneesNavBarreClick() {
+    public void boutonDonneesNavBarreClick() {
         Pane root = this.donnee.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());

@@ -112,8 +112,6 @@ public class DonneeDetailVue {
     private void configurerBouton(Button bouton, int x, int y, String styleClass, Pane root) {
         bouton.setLayoutX(x);
         bouton.setLayoutY(y);
-        // bouton.setPrefWidth(largeur);
-        // bouton.setPrefHeight(hauteur);
         bouton.getStyleClass().add(styleClass);
         root.getChildren().add(bouton);
     }

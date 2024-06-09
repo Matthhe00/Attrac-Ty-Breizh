@@ -19,16 +19,18 @@ public class CompteAdminScene extends Pane {
     private CompteAdminTable compteAdminTable;
     private Button ajouterButton;
     private TextField loginField, passwordField;
+    private Label errorLabel;
 
-    public void init(AppController appController, UserFileAccess userFileAccess) {
+    public void init(AppController appController, UserFileAccess user) {
 
-        this.compteAdminTable = new CompteAdminTable(userFileAccess, appController);
+        this.compteAdminTable = new CompteAdminTable(user.getUsers(), appController);
     }
 
     public void initUIComponents() {
         this.ajouterButton = new Button("Ajouter");
         this.loginField = new TextField();
         this.passwordField = new TextField();
+        this.errorLabel = new Label();
     }
 
     public CompteAdminScene(Stage primaryStage) {
@@ -67,6 +69,7 @@ public class CompteAdminScene extends Pane {
         configurerBouton(ajouterButton, 250, 450, 100, 30, "my-button", root);
         configurerTextField(loginField, 175, 305, 260, 45, "Identifiant", "my-field-user-con", root);
         configurerTextField(passwordField, 175, 380, 260, 45, "Mot de passe", "my-field-user-con", root);
+        configurerLabel(errorLabel, 225, 510, 260, 45, "my-label-error", root);
     }
 
     private void configurerTable(CompteAdminTable t, int x, int y, String style, Pane root) {
@@ -74,6 +77,15 @@ public class CompteAdminScene extends Pane {
         t.setLayoutY(y);
         t.getStyleClass().add(style);
         root.getChildren().add(t);
+    }
+
+    private void configurerLabel(Label label, int x, int y, int width, int height, String styleClass, Pane root) {
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+        label.setPrefWidth(width);
+        label.setPrefHeight(height);
+        label.getStyleClass().add(styleClass);
+        root.getChildren().add(label);
     }
 
     private void configurerBouton(Button button, int x, int y, int width, int height, String styleClass, Pane root) {
@@ -93,6 +105,10 @@ public class CompteAdminScene extends Pane {
         champ.setPromptText(promptText);
         champ.getStyleClass().add(styleClass);
         root.getChildren().add(champ);
+    }
+
+    public Label getErrorLabel() {
+        return this.errorLabel;
     }
 
     public NavBarre getNavBarre() {
