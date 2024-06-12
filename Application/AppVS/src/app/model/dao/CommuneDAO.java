@@ -92,5 +92,40 @@ public class CommuneDAO extends DAO<Commune> {
         }
         return null;
     }
+
+    public ArrayList<Commune> findByNomCommune(String nomRecherche) {
+        ArrayList<Commune> communesTrouvees = new ArrayList<>();
+        String sql = "SELECT * FROM Commune WHERE NOMCOMMUNE LIKE ?";
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(sql)) {
+            st.setString(1, "%" + nomRecherche + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String idCommune = rs.getString("IDCOMMUNE");
+                String nomCommune = rs.getString("NOMCOMMUNE");
+                String departement = rs.getString("LEDEPARTEMENT");
+                communesTrouvees.add(new Commune(idCommune, nomCommune, departement));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return communesTrouvees;
+    }
+
+    public ArrayList<Commune> findWithQuerry(String sql) {
+        ArrayList<Commune> communes = new ArrayList<>();
+        try (Connection con = getConnection(); Statement st = con.createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String idCommune = rs.getString("IDCOMMUNE");
+                String nomCommune = rs.getString("NOMCOMMUNE");
+                String departement = rs.getString("LEDEPARTEMENT");
+                communes.add(new Commune(idCommune, nomCommune, departement));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return communes;
+    }
     
 }

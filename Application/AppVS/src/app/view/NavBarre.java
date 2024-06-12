@@ -35,8 +35,8 @@ public class NavBarre extends GridPane{
         this.setHgap(30);
 
         this.compteButton = new Button("Compte");
-        this.carteButton = new Button("Carte");
-        this.donneesButton = new Button("Données");
+        this.carteButton = new Button("Départements");
+        this.donneesButton = new Button("Communes");
         this.modifieButton = new Button("Modifier");
         this.deconnexion = new Button("Déconnexion");
         this.accueilButton = new Button("Accueil");
@@ -46,20 +46,20 @@ public class NavBarre extends GridPane{
             this.add(compteButton, 1, 0);
             this.add(carteButton, 2, 0);
             this.add(donneesButton, 3, 0);
-            this.add(deconnexion, 20, 0);
+            this.add(deconnexion, 18, 0);
         } else if (modifie) {
             this.add(accueilButton, 0, 0);
             this.add(compteButton, 1, 0);
             this.add(carteButton, 2, 0);
             this.add(donneesButton, 3, 0);
             this.add(modifieButton, 4, 0);
-            this.add(deconnexion, 16, 0);
+            this.add(deconnexion, 14, 0);
         } else {
             this.add(accueilButton, 0, 0);
             this.add(compteButton, 1, 0);
             this.add(carteButton, 2, 0);
             this.add(donneesButton, 3, 0);
-            this.add(deconnexion, 20, 0);
+            this.add(deconnexion, 18, 0);
         }
 
         this.getStyleClass().add("nav-barre"); // Ajouter une classe CSS

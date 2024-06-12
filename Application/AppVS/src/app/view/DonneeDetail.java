@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import resource.utils.Constants;
 
-public class DonneeDetailVue {
+public class DonneeDetail {
     private Image icon, backgroundImage;
     private BackgroundImage background;
     private NavBarre navBarre;
@@ -26,7 +26,7 @@ public class DonneeDetailVue {
     private AnneeCommune anneeCommune;
     private Annee annee;
 
-    public DonneeDetailVue(Stage primaryStage) {
+    public DonneeDetail(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image(Constants.BACKGROUND_DONNEE_DETAIL_PATH);

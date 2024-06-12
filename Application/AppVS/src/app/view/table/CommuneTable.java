@@ -1,5 +1,7 @@
 package app.view.table;
 
+import java.util.ArrayList;
+
 import app.controller.AppController;
 import javafx.collections.*;
 import javafx.geometry.Pos;
@@ -86,5 +88,12 @@ public class CommuneTable extends TableView<Commune> {
         // Setting the size of the table
         this.setMaxSize(600, 800);
     }
+
+    public void setCommunes(ArrayList<Commune> communes) {
+        ObservableList<Commune> data = FXCollections.observableArrayList(communes);
+        this.setItems(data);
+    }
+
+    
 
 }

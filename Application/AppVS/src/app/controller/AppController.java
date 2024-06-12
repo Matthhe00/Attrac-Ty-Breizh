@@ -10,10 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import resource.utils.Constants;
+import java.util.ArrayList;
 
 public class AppController implements EventHandler<ActionEvent> {
     private Stage primaryStage;
@@ -31,8 +34,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private User user;
     private boolean role = false;
     private boolean estConnecte = false;
-    private String annee;
-    private String idCommune;
+    private String annee, idCommune, querry;
     private Main main;
     private UserFileAccess userFileAccess;
     private AeroportFileAccess aeroportFileAccess;
@@ -42,12 +44,13 @@ public class AppController implements EventHandler<ActionEvent> {
     private CompteAdminScene CompteAdminScene;
     private ModifierScene modifierScene;
     private Donnee donnee;
-    private DonneeDetailVue donneeDetailVue;
+    private DonneeDetail donneeDetailVue;
     private DepartementFileAccess departementFileAccess;
+    private ArrayList<Commune> communes;
 
     // private AnneeFileAccess anneeFileAccess;
 
-    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetailVue donneeDetailVue) {
+    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetail donneeDetailVue) {
         this.primaryStage = primary;
         this.connexion = connexion;
         this.accueil = accueil;
@@ -62,6 +65,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.departementDAO = new DepartementDAO();
         this.anneeDAO = new AnneeDAO();
         this.anneeCommuneDAO = new AnneeCommuneDAO();
+        this.communes = this.communeDAO.findAll();
 
     
         this.departementFileAccess = new DepartementFileAccess();
@@ -144,6 +148,16 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donnee.getNavBarre().getAccueilButton().setOnAction(this);
         this.donnee.getExportDataButton().setOnAction(this);
+        this.donnee.getSearchField().setOnAction(this);
+        this.donnee.getPrixField().setOnAction(this);
+        this.donnee.getTri1().setOnAction(this);
+        this.donnee.getTri2().setOnAction(this);
+        this.donnee.getTri3().setOnAction(this);
+        this.donnee.getTri4().setOnAction(this);
+        this.donnee.getTri5().setOnAction(this);
+        this.donnee.getTri6().setOnAction(this);
+        this.donnee.getTri7().setOnAction(this);
+        this.donnee.getTri8().setOnAction(this);
 
         // gestion des événements de la classe DonneeDetailVue
         this.donneeDetailVue.getNavBarre().getcompteButton().setOnAction(this);
@@ -160,7 +174,6 @@ public class AppController implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         Object source = event.getSource();
-        // System.out.println("Event: " + event);
         if (source == this.connexion.getConnexionButton() && !this.estConnecte && !this.connexion.getIndentField().getText().isEmpty() && !this.connexion.getPasswordField().getText().isEmpty()) {
             boutonConnexionConnexionClick();
         } else if (source == this.connexion.getInscriptionButton()) {
@@ -218,6 +231,69 @@ public class AppController implements EventHandler<ActionEvent> {
                     String selectedAction = sources.getValue().toString();
                     this.annee = selectedAction;
                     updateAnnee(selectedAction);
+                }
+            } else if (source instanceof TextField) {
+                TextField sources = (TextField) event.getSource();
+                if (sources.getId().equals("searchField")) {
+                    if(sources.getText().isEmpty()){
+                        this.donnee.setCommuneTable(communes);
+                    } else if (!sources.getText().matches(".*\\d.*") && sources.getText().length() > 1) {
+                        this.donnee.getErrorLabel().setText("");
+                        if (this.communeDAO.findByNomCommune(sources.getText()).size() > 0) {
+                            this.donnee.setCommuneTable(this.communeDAO.findByNomCommune(sources.getText()));
+                        } else if (this.communeDAO.findByCodePostal(sources.getText()) != null) {
+                            this.donnee.getSearchField().clear();
+                            this.donnee.setCommuneTable(communes);
+                        } else if (this.communeDAO.findByNomCommune(sources.getText()).size() == 0) {
+                            this.donnee.getErrorLabel().setText("Aucun résultat trouvé");
+                            this.donnee.getSearchField().clear();
+                            this.donnee.setCommuneTable(communes);
+                        }
+                        
+                    } else {
+                        // Gérer le cas où le texte contient des chiffres
+                        this.donnee.getErrorLabel().setText("Erreur de syntaxe");
+                        this.donnee.getSearchField().clear();
+                        this.donnee.setCommuneTable(communes);
+                    }
+                }
+            } else if (source instanceof CheckBox) {
+                CheckBox sources = (CheckBox) event.getSource();
+                CheckBox val1 = null;
+                CheckBox val2 = null;
+                if (sources.getId().equals("35") && sources.isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri1().isSelected()) {
+                    this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '35'";
+                    this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+                } else if (sources.getId().equals("56") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri2().isSelected()){
+                    this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '56'";
+                    this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+                } else if (sources.getId().equals("29") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri3().isSelected()){
+                    this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '29'";
+                    this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+                } else if (sources.getId().equals("22") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri4().isSelected()){
+                    this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '22'";
+                    this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+                } else if (sources.getId().equals("Gare") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri5().isSelected()){
+                    this.querry = "SELECT * FROM Commune JOIN Gare ON Commune.idCommune = Gare.laCommune ORDER BY Commune.idCommune";
+                    this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+                } else if (sources.getId().equals("prix") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri6().isSelected()){
+                    if(this.donnee.getPrixField().getText().isEmpty()){
+                        this.donnee.getErrorLabel().setText("Champ vide");
+                    } else if (this.donnee.getPrixField().getText().matches(".*\\d.*")) {
+                        this.querry = "SELECT * FROM Commune JOIN DonneesAnnuelles ON Commune.idCommune = DonneesAnnuelles.laCommune WHERE DonneesAnnuelles.lAnnee = 2021 AND DonneesAnnuelles.prixM2Moyen < " + this.donnee.getPrixField().getText() + " ORDER BY DonneesAnnuelles.prixM2Moyen";
+                        this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+                        this.donnee.getErrorLabel().setText("");
+                        this.donnee.getPrixField().clear();
+                    } else {
+                        this.donnee.getErrorLabel().setText("Erreur de syntaxe");
+                    }
+                } else if (sources.getId().equals("tri7") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri8().isSelected()) {
+                    System.out.println("tri7");
+                } else if (sources.getId().equals("tri8") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected()){
+                    System.out.println("tri8");
+                } else if (!this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected()) {
+                    this.donnee.setCommuneTable(communes);
+                    this.donnee.getErrorLabel().setText("");
                 }
             }
         }
@@ -458,6 +534,7 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void boutonDonneesNavBarreClick() {
+        this.donnee.getSearchField().clear();
         Pane root = this.donnee.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -466,6 +543,10 @@ public class AppController implements EventHandler<ActionEvent> {
         updateAppController();
         this.donneeDetailVue.getComboBox().setValue(null);
         this.donneeDetailVue.resetValues();
+    }
+
+    public void resetCommuneTable() {
+        this.donnee.setCommuneTable(communes);
     }
     
 }

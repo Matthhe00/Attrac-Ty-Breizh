@@ -8,12 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import app.model.data.*;
 
-public class GareTable extends TableView<Gare> {
-    private AppController controller; // Reference to the controller for event handling
-        
+public class GareTable extends TableView<Gare> {        
     
     public GareTable(ArrayList<Gare> gares, AppController controller, Boolean isAdmin) {
-        this.controller = controller;
         ObservableList<Gare> data = FXCollections.observableArrayList(gares);
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);

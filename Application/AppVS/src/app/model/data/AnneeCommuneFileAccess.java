@@ -149,14 +149,12 @@ public class AnneeCommuneFileAccess {
     }
 
     public void writeDonneeToCSVFile(String fileName) {
-        AnneeCommuneDAO u = new AnneeCommuneDAO();
         CommuneDAO c = new CommuneDAO();
-        GareDAO g = new GareDAO();
 
         StringBuilder stringBuilder = new StringBuilder();
 
         // Header row
-        stringBuilder.append("Nom Commune;Code Postale\n");
+        stringBuilder.append("Nom Commune;Code Postale;Département\n");
 
         // Commune information
         for (Commune commune : c.findAll()) {
@@ -164,43 +162,7 @@ public class AnneeCommuneFileAccess {
             String communeCode = commune.getIdCommune();
 
             // Append commune data
-            stringBuilder.append(communeName).append(";").append(communeCode).append("\n");
-
-            // Annual data header
-            stringBuilder.append("\nAnnee;Prixm2moyen;prixMoyen;Surface moy;nbMaisonVe;nbAppartVend\n");
-
-            // AnneeCommune data
-            for (int i = 2018; i <= 2021; i++) {
-                AnneeCommune anneeCommune = u.findAnneeCommune(String.valueOf(i), communeCode);
-                stringBuilder.append(i).append(";")
-                            .append(anneeCommune.getPrixM2Moyen()).append(";")
-                            .append(anneeCommune.getPrixMoyen()).append(";")
-                            .append(anneeCommune.getSurfaceMoy()).append(";")
-                            .append(anneeCommune.getNbMaison()).append(";")
-                            .append(anneeCommune.getNbAppart()).append("\n");
-            }
-
-            // Adding neighboring communes
-            ArrayList<Commune> communesVoisines = c.findAllVoisine(communeCode);
-            if (communesVoisines.size() > 0) {
-                stringBuilder.append("\nCommune Voisine;Code Postale\n");
-
-                for (Commune voisin : communesVoisines) {
-                    stringBuilder.append(voisin.getNomCommune()).append(";")
-                                .append(voisin.getIdCommune()).append("\n");
-                }
-            }
-
-            // Adding gare list after neighboring communes
-            ArrayList<Gare> gares = g.findByCommune(communeCode);
-            if (!gares.isEmpty()) {
-                stringBuilder.append("\nGare;Marchandise;Voyageur\n");
-                for (Gare gare : gares) {
-                    stringBuilder.append(gare.getNomGare()).append(";")
-                                .append(gare.getEstFret()).append(";")
-                                .append(gare.getEstVoyageur()).append("\n"); // Assuming 1 as a placeholder for gare count
-                }
-            }
+            stringBuilder.append(communeName).append(";").append(communeCode).append(";").append(commune.getLeDepartement()).append("\n");
         }
 
         if (!fileName.endsWith(".csv")) {

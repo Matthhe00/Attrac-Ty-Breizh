@@ -13,11 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 
-import app.model.data.UserFileAccess;
-
-
 public class CompteAdminTable extends TableView<User> {
-    private UserFileAccess UserFileAccess; // Access to User file operations
     private AppController controller; // Reference to the controller for event handling
 
     /**

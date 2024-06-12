@@ -10,10 +10,8 @@ import app.model.data.*;
 
 
 public class AeroportTable extends TableView<Aeroport> {
-    private AppController controller; // Reference to the controller for event handling        
     
     public AeroportTable(ArrayList<Aeroport> aeroports, AppController controller, Boolean isAdmin) {
-        this.controller = controller;
         ObservableList<Aeroport> data = FXCollections.observableArrayList(aeroports);
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);

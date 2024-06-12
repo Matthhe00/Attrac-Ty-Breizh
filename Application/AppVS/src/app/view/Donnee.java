@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 import app.controller.AppController;
+import app.model.data.Commune;
 import app.model.data.CommuneFileAccess;
 import app.view.table.CommuneTable;
 import javafx.scene.Scene;
@@ -18,8 +19,8 @@ public class Donnee extends Pane {
     private NavBarre navBarre;
     private Stage primaryStage;
     private CheckBox tri1, tri2, tri3, tri4, tri5, tri6, tri7, tri8;
-    private Label donneLabel;
-    private TextField searchField;
+    private Label donneLabel, errorLabel;
+    private TextField searchField, prixField;
     private CommuneTable donneTable;
     private Button exportDataButton;
 
@@ -37,18 +38,38 @@ public class Donnee extends Pane {
         this.donneTable = new CommuneTable(communeFileAccess, appController);
     }
 
+    public void setCommuneTable(ArrayList<Commune> communes) {
+        this.donneTable.setCommunes(communes);
+    }
+
     public void initUIComponents() {
-        this.tri1 = new CheckBox("Tri 1");
-        this.tri2 = new CheckBox("Tri 2");
-        this.tri3 = new CheckBox("Tri 3");
-        this.tri4 = new CheckBox("Tri 4");
-        this.tri5 = new CheckBox("Tri 5");
-        this.tri6 = new CheckBox("Tri 6");
+        this.tri1 = new CheckBox("Ile et Vilaine");
+        this.tri1.setId("35");
+
+        this.tri2 = new CheckBox("Morbihan");
+        this.tri2.setId("56");
+
+        this.tri3 = new CheckBox("Finistère");
+        this.tri3.setId("29");
+
+        this.tri4 = new CheckBox("Côtes d'Armor");
+        this.tri4.setId("22");
+
+        this.tri5 = new CheckBox("Gare");
+        this.tri5.setId("Gare");
+
+        this.tri6 = new CheckBox("prix du m² < ");
+        this.tri6.setId("prix");
+
         this.tri7 = new CheckBox("Tri 7");
         this.tri8 = new CheckBox("Tri 8");
-        this.donneLabel = new Label("Données");
+        this.donneLabel = new Label("Communes");
+        this.errorLabel = new Label("");
         this.exportDataButton = new Button("Exporter les données");
         this.searchField = new TextField();
+        this.prixField = new TextField("0");
+        this.searchField.setId("searchField");
+        this.prixField.setId("prixField");
     }
 
 
@@ -64,7 +85,7 @@ public class Donnee extends Pane {
     }
 
     public Pane creerRootDonnee(boolean estConnecte, boolean estAdmin) {
-        this.navBarre = this.navBarre.refresh(estConnecte, estAdmin);
+        this.navBarre = this.navBarre.refresh(estConnecte, false);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
         configurerComposants(root);
@@ -74,10 +95,11 @@ public class Donnee extends Pane {
     private void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
         configurerLabel(this.donneLabel, 790, 135, 200, 50, "my-label-titre", root);
+        configurerLabel(this.errorLabel, 150, 220, 200, 50, "my-label-error", root);
         configurerTextField(this.searchField, 135, 180, 350, 50, "Rechercher", "my-field-user-con", root);
+        configurerTextField(this.prixField, 390, 395, 80, 20, "Prix", "my-field-user-con", root);
         configurerBouton(this.exportDataButton, 170, 550, "my-button", root);
 
-        // configurerTable(this.donneTable, 575, 195, "my-table", root);
         configurerTable(this.donneTable, 595, 195, "my-table", root, 522, 430);
         
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
@@ -90,6 +112,7 @@ public class Donnee extends Pane {
         checkBoxes.add(this.tri7);
         checkBoxes.add(this.tri8);
     
+        // Groupe 1 : Les 4 premiers CheckBox
         for (CheckBox checkBox : checkBoxes) {
             checkBox.selectedProperty().addListener((obs, wasPreviouslySelected, isNowSelected) -> {
                 if (isNowSelected) {
@@ -101,17 +124,18 @@ public class Donnee extends Pane {
                 }
             });
         }
-    
-        int x = 50;
+        
+        int x = 30;
         int y = 300;
+        // Positionnement des CheckBox
         for (int i = 0; i < checkBoxes.size(); i++) {
             CheckBox checkBox = checkBoxes.get(i);
             if (i % 2 == 0) {
-                x = 130;
+                x = 90;
             } else {
-                x = 320;
+                x = 260;
             }
-            configurerCheckBox(checkBox, x, y, 100, 50, "my-checkbox", root);
+            configurerCheckBox(checkBox, x, y, 200, 50, "my-checkbox", root);
             if (i % 2 != 0) {
                 y += 50;
             }
@@ -121,8 +145,8 @@ public class Donnee extends Pane {
     private void configurerCheckBox(CheckBox checkBox, int x, int y, int width, int height, String styleClass, Pane root) {
         checkBox.setLayoutX(x);
         checkBox.setLayoutY(y);
-        checkBox.setPrefWidth(width);
-        checkBox.setPrefHeight(height);
+        // checkBox.setPrefWidth(width);
+        // checkBox.setPrefHeight(height);
         checkBox.getStyleClass().add(styleClass);
         root.getChildren().add(checkBox);
     }
@@ -209,12 +233,20 @@ public class Donnee extends Pane {
         return this.donneLabel;
     }
 
+    public Label getErrorLabel() {
+        return this.errorLabel;
+    }
+
     public TextField getSearchField() {
         return this.searchField;
     }
 
     public Button getExportDataButton() {
         return this.exportDataButton;
+    }
+
+    public TextField getPrixField() {
+        return this.prixField;
     }
 
 }
