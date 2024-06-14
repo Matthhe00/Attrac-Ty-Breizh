@@ -20,7 +20,7 @@ public class DonneeDepartement {
     public DonneeDepartement(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
-        this.backgroundImage = new Image(Constants.BACKGROUND_DONNEE_PATH);
+        this.backgroundImage = new Image(Constants.BACKGROUND_DONNEE_DEPARTEMENT_PATH);
         this.background = new BackgroundImage(this.backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(100, 100, true, true, false, true));
         
         this.navBarre = new NavBarre(true, true);

@@ -18,10 +18,10 @@ public abstract class Constants {
 	public static final String BACKGROUND_COMPTE_ADMIN_PATH = "resource/image/BackgroundCompteAdmin.png";
 	public static final String BACKGROUND_DONNEE_PATH = "resource/image/BackgroundDonnee.png";
 	public static final String BACKGROUND_DONNEE_DETAIL_PATH = "resource/image/BackgroundDonneeCommune.png";
+	public static final String BACKGROUND_DONNEE_DEPARTEMENT_PATH = "resource/image/BackgroundDonneeDepartement.png";
+	public static final String BACKGROUND_DONNEE_DEPARTEMENT_DETAIL_PATH = "resource/image/BackgroundDonneeRegion.png";
 
 	public static final String CARTE_PATH = "resource/image/RegionBretagne.svg";
-
-    
 
 	public static final String DB_NAME = "bd_communeb";
 	public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
