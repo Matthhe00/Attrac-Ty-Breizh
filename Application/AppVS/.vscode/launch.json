@@ -6,10 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GoogleMapsJavaFX",
+            "request": "launch",
+            "mainClass": "app.GoogleMapsJavaFX",
+            "projectName": "AppVS_84aee466"
+        },
+        {
+            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "app.Main",
-            "vmArgs": "--module-path C:/LocalApps/JavaFX/lib --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path C:/LocalApps/JavaFX/lib --add-modules javafx.controls,javafx.fxml,javafx.web"
         }
     ]
 }
