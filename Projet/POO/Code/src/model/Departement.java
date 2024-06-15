@@ -64,4 +64,15 @@ public class Departement {
     public String toString() {
         return "Departement [idDep=" + idDep + ", nomDep=" + nomDep + ", invesCulturel2019=" + invesCulturel2019 + "]";
     }
+
+    public void rechercheAerport(String nomAeroport){
+        for(Aeroport aeroport : this.listeAeroports){
+            if(aeroport.getNom().equals(nomAeroport)){
+                String res = aeroport.toString();
+                System.out.println(res);
+            }
+        }
+    }
+
+    
 }

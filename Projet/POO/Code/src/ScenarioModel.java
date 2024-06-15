@@ -1,107 +1,24 @@
 import model.*;
 
 public class ScenarioModel {
-
-    private Annee annee2020;
-    private Annee annee2021;
-    private Annee annee2022;
-
-    private Departement departement;
-    private Commune commune1;
-    private Commune commune2;
-    private Commune commune3;
-    private Commune commune4;
-    private Commune commune5;
-
-    private Aeroport aeroport;
-    private Gare gare;
-    private Gare gare2;
-    private Gare gare3;
-    
-    private AnneeCommune anneeCommune10;
-    private AnneeCommune anneeCommune11;
-    private AnneeCommune anneeCommune12;
-    
-    private AnneeCommune anneeCommune20;
-    private AnneeCommune anneeCommune21;
-    private AnneeCommune anneeCommune22;
-
-    private AnneeCommune anneeCommune30;
-    private AnneeCommune anneeCommune31;
-    private AnneeCommune anneeCommune32;
-
-    private AnneeCommune anneeCommune40;
-    private AnneeCommune anneeCommune41;
-    private AnneeCommune anneeCommune42;
-
-    private AnneeCommune anneeCommune50;
-    private AnneeCommune anneeCommune51;
-    private AnneeCommune anneeCommune52;
-
     public static void main (String[] args) {
-
-        // Creation des objets et initialisation des relations
-        Annee annee2020 = new Annee(2020, 1.5f);
-        Annee annee2021 = new Annee(2021, 1.6f);
-        Annee annee2022 = new Annee(2022, 1.7f);
-
-        Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
-        Commune commune1 = new Commune(1, "Rennes", departement);
-        Commune commune2 = new Commune(2, "Cesson-Sévigné", departement);
-        Commune commune3 = new Commune(3, "Saint-Grégoire", departement);
-        Commune commune4 = new Commune(4, "Pacé", departement);
-        Commune commune5 = new Commune(5, "Betton", departement);
-
-        commune1.addCommuneVoisine(commune2);
-        commune1.addCommuneVoisine(commune3);
-
-        commune2.addCommuneVoisine(commune1);
-        commune2.addCommuneVoisine(commune3);
-        commune2.addCommuneVoisine(commune4);
-
-        commune3.addCommuneVoisine(commune1);
-        commune3.addCommuneVoisine(commune2);
-
-        commune4.addCommuneVoisine(commune2);
-        commune4.addCommuneVoisine(commune5);
-
-        commune5.addCommuneVoisine(commune4);
-
-        Aeroport aeroport = new Aeroport(departement, "Rennes Aeroport", "Rennes Saint-Jacques");
-        Gare gare = new Gare(1, "Rennes Gare", false, true, commune1);
-        Gare gare2 = new Gare(2, "Cesson-Sévigné Gare", false, true, commune2);
-        Gare gare3 = new Gare(3, "Saint-Grégoire Gare", true, true, commune3);
-    
-        AnneeCommune anneeCommune10 = new AnneeCommune(annee2020, commune1, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-        AnneeCommune anneeCommune11 = new AnneeCommune(annee2021, commune1, 2, 2, 200000, 2000, 200, 200000, 2000000, 20000);
-        AnneeCommune anneeCommune12 = new AnneeCommune(annee2022, commune1, 3, 3, 300000, 3000, 300, 300000, 3000000, 30000);
-
-        AnneeCommune anneeCommune20 = new AnneeCommune(annee2020, commune2, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-        AnneeCommune anneeCommune21 = new AnneeCommune(annee2021, commune2, 2, 2, 200000, 2000, 200, 200000, 2000000, 20000);
-        AnneeCommune anneeCommune22 = new AnneeCommune(annee2022, commune2, 3, 3, 300000, 3000, 300, 300000, 3000000, 30000);
-
-        AnneeCommune anneeCommune30 = new AnneeCommune(annee2020, commune3, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-        AnneeCommune anneeCommune31 = new AnneeCommune(annee2021, commune3, 2, 2, 200000, 2000, 200, 200000, 2000000, 20000);
-        AnneeCommune anneeCommune32 = new AnneeCommune(annee2022, commune3, 3, 3, 300000, 3000, 300, 300000, 3000000, 30000);
-
-        AnneeCommune anneeCommune40 = new AnneeCommune(annee2020, commune4, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-        AnneeCommune anneeCommune41 = new AnneeCommune(annee2021, commune4, 2, 2, 200000, 2000, 200, 200000, 2000000, 20000);
-        AnneeCommune anneeCommune42 = new AnneeCommune(annee2022, commune4, 3, 3, 300000, 3000, 300, 300000, 3000000, 30000);
-
-        AnneeCommune anneeCommune50 = new AnneeCommune(annee2020, commune5, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-        AnneeCommune anneeCommune51 = new AnneeCommune(annee2021, commune5, 2, 2, 200000, 2000, 200, 200000, 2000000, 20000);
-        AnneeCommune anneeCommune52 = new AnneeCommune(annee2022, commune5, 3, 3, 300000, 3000, 300, 300000, 3000000, 30000);
-
         // Scenario 
-        testConstruteur();
+        // testConstruteur();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testGetters();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testSetters();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testCommuneVoisine();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testCompareToAnneeCommune();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testAnneeMaxInflation();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testCommuneMaxCommuneVoisine();
         System.out.println("\n/---------------------------------------------/\n");
-        testGetters();
-        System.out.println("\n/---------------------------------------------/\n");
-        testSetters();
-        System.out.println("\n/---------------------------------------------/\n");
-        testCommuneVoisine();
-        System.out.println("\n/---------------------------------------------/\n");
-        testCompareToAnneeCommune();
+        testRechercheAerport();
+        
     }
 //--------------------------------------------------------------------------------------------------------------------------------
 
@@ -370,29 +287,6 @@ public class ScenarioModel {
             
     }
 
-//--------------------------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Test de la méthode compareTo de la classe AnneeCommune
-     */
-    public static void testCompareToAnneeCommune() {
-        System.out.println("Test compareTo AnneeCommune :");
-        System.out.println("Cas normal :");
-        try {
-            Annee annee = new Annee(2020, 1.5f);
-            Departement departement35 = new Departement(35, "Ille-et-Vilaine", 1000000);
-            Departement departement56 = new Departement(56, "Morbihan", 102300);
-            Commune commune = new Commune(1, "Rennes", departement35);
-            Commune commune2 = new Commune(2, "Vannes",departement56);
-            AnneeCommune anneeCommune = new AnneeCommune(annee, commune, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
-            AnneeCommune anneeCommune2 = new AnneeCommune(annee, commune2, 2, 2,12410, 1000, 1, 1, 1, 1);
-            String ret  = anneeCommune.compareTo(anneeCommune2);
-            System.out.println(ret);
-
-        } catch (Exception e) {
-            System.out.println(" : Test échoué");
-        }
-    }
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
@@ -428,4 +322,126 @@ public class ScenarioModel {
         }
     }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test de la méthode compareTo de la classe AnneeCommune
+     */
+    public static void testCompareToAnneeCommune() {
+        System.out.println("Test compareTo AnneeCommune :");
+        System.out.println("Cas normal :");
+        try {
+            Annee annee = new Annee(2020, 1.5f);
+            Departement departement35 = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Departement departement56 = new Departement(56, "Morbihan", 102300);
+            Commune commune = new Commune(1, "Rennes", departement35);
+            Commune commune2 = new Commune(2, "Vannes",departement56);
+            AnneeCommune anneeCommune = new AnneeCommune(annee, commune, 1, 1, 100000, 1000, 100, 100000, 1000000, 10000);
+            AnneeCommune anneeCommune2 = new AnneeCommune(annee, commune2, 2, 2,12410, 1000, 1, 1, 1, 1);
+            int[] ret  = anneeCommune.compareTo(anneeCommune2);
+            if (ret[0] == -1 && ret[1] == -1 && ret[2] == 1 && ret[3] == 0 && ret[4] == 1 && ret[5] == 1 && ret[6] == 1 && ret[7] == 1) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test de la méthode anneeMaxInflation de la classe Annee
+     */
+    public static void testAnneeMaxInflation() {
+        System.out.println("Test anneeMaxInflation Annee :");
+        System.out.println("Cas normal :");
+        try {
+            Annee annee1 = new Annee(2020, 1.5f);
+            Annee annee2 = new Annee(2021, 1.6f);
+            Annee annee3 = new Annee(2022, 1.7f);
+            Annee annee4 = new Annee(2023, 1.1f);
+            Annee[] annees = {annee1, annee2, annee3, annee4};
+            Annee anneeMax = annee1.anneeMaxInflation(annees);
+            if (anneeMax == annee3) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Test de la méthode communeMaxCommuneVoisine de la classe Commune
+     */
+    public static void testCommuneMaxCommuneVoisine() {
+        System.out.println("Test communeMaxCommuneVoisine Commune :");
+        System.out.println("Cas normal :");
+        try {
+            Departement departement35 = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Departement departement56 = new Departement(56, "Morbihan", 102300);
+            Commune commune1 = new Commune(1, "Rennes", departement35);
+            Commune commune2 = new Commune(2, "Cesson-Sévigné", departement35);
+            Commune commune3 = new Commune(3, "Saint-Grégoire", departement35);
+            Commune commune4 = new Commune(4, "Betton", departement35);
+            Commune commune5 = new Commune(5, "Chantepie", departement35);
+            Commune commune6 = new Commune(6, "Noyal-Chatillon-sur-seiche", departement35);
+            Commune commune7 = new Commune(4, "Vannes", departement56);
+            Commune commune8 = new Commune(5, "Séné", departement56);
+            Commune commune9 = new Commune(6, "Saint-Avé", departement56);
+            Commune commune10 = new Commune(7, "Saint-Nolf", departement56);
+
+
+            commune1.addCommuneVoisine(commune2);
+            commune1.addCommuneVoisine(commune3);
+            commune1.addCommuneVoisine(commune4);
+            commune1.addCommuneVoisine(commune5);
+            commune1.addCommuneVoisine(commune6);
+            commune1.addCommuneVoisine(commune7);
+
+            commune7.addCommuneVoisine(commune8);
+            commune7.addCommuneVoisine(commune9);
+            commune7.addCommuneVoisine(commune10);
+
+
+            Commune[] communesVoisinesRennes = {commune2, commune3, commune4, commune5, commune6, commune7};
+            Commune communeMax = commune1.communeMaxCommuneVoisine(communesVoisinesRennes);
+            System.out.println(communeMax);
+            if (communeMax == commune1) {
+                System.out.println(" : Test réussi");
+            } else {
+                System.out.println(" : Test échoué");
+            }
+
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    public static void testRechercheAerport(){
+        System.out.println("Test rechercheAerport Departement :");
+        System.out.println("Cas normal :");
+        try {
+            Departement departement = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Aeroport aeroport1 = new Aeroport(departement, "Rennes Aeroport", "Rennes Saint-Jacques");
+            Aeroport aeroport2 = new Aeroport(departement, "Rennes Aeroport 2", "Rennes Saint-Jacques 2");
+            Aeroport aeroport3 = new Aeroport(departement, "Rennes Aeroport 3", "Rennes Saint-Jacques 3");
+            departement.addAeroport(aeroport1);
+            departement.addAeroport(aeroport2);
+            departement.addAeroport(aeroport3);
+            departement.rechercheAerport("Rennes Aeroport 2");
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
 }

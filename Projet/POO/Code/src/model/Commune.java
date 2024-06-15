@@ -78,4 +78,20 @@ public class Commune {
     public String toString() {
         return "Commune [idCommune=" + idCommune + ", leDepartement=" + getLeDepartement() + ", nomCommune=" + nomCommune + "]";
     }
+
+    public Commune communeMaxCommuneVoisine(Commune[] communeVoisines){
+        Commune communeMax;
+        if(communeVoisines == null){
+            communeMax = null;
+        }else{
+            communeMax = this;
+            for (int i = 1; i < communeVoisines.length; i++) {
+                if(communeVoisines[i].getCommuneVoisine().size() > communeMax.getCommuneVoisine().size()){
+                    communeMax = communeVoisines[i];
+                }
+            }
+        }
+        return communeMax;
+    }
+    
 }
