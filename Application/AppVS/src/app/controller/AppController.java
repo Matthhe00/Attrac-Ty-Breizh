@@ -85,7 +85,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         this.donnee = donnee;
         this.donnee.init(this, communeFileAccess, this.role);
-        this.donneeDepartementDetail.init(this, communeFileAccess, this.role);
+        this.donneeDepartementDetail.init(this, communeFileAccess, this.role, aeroportFileAccess);
 
         this.donneeDetailVue = donneeDetailVue;
         this.donneeDetailVue.init(this, this.role, "0");
@@ -193,7 +193,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDepartementDetail.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getAccueilButton().setOnAction(this);
-        
 
     }
 
@@ -333,7 +332,8 @@ public class AppController implements EventHandler<ActionEvent> {
     public void boutonDepartementClick(String id) {
         this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '" + id + "'";
         this.donneeDepartementDetail.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-        Pane root = this.donneeDepartementDetail.creerRootDonnee(estConnecte, role);
+        System.out.println("Departement " + this.departementFileAccess.getDepartementById(id).getNomDep());
+        Pane root = this.donneeDepartementDetail.creerRootDonnee(estConnecte, role, this.departementFileAccess.getDepartementById(id), this.aeroportFileAccess, this);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
