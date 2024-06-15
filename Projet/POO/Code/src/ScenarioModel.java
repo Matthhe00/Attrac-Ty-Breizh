@@ -16,8 +16,10 @@ public class ScenarioModel {
         // testAnneeMaxInflation();
         // System.out.println("\n/---------------------------------------------/\n");
         // testCommuneMaxCommuneVoisine();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testRechercheAerport();
         System.out.println("\n/---------------------------------------------/\n");
-        testRechercheAerport();
+        testDestinationAeroport();
         
     }
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -444,4 +446,27 @@ public class ScenarioModel {
             System.out.println(" : Test échoué");
         }
     }
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    public static void testDestinationAeroport(){
+        System.out.println("Test destinationAeroport Aeroport :");
+        System.out.println("Cas normal :");
+        try {
+            Departement departement35 = new Departement(35, "Ille-et-Vilaine", 1000000);
+            Departement departement56 = new Departement(56, "Morbihan", 1000000);
+            Departement departement29 = new Departement(29, "Finistère", 1000000);
+            Aeroport aeroport1 = new Aeroport(departement35, "Rennes Aeroport", "Rennes Saint-Jacques");
+            Aeroport aeroport2 = new Aeroport(departement56, "Lorient Aeroport", "Lorient");
+            Aeroport aeroport3 = new Aeroport(departement29, "Brest Aeroport", "Brest");
+            aeroport1.addDestinationAeroport(aeroport2);
+            aeroport1.addDestinationAeroport(aeroport3);
+            aeroport1.rechercheDestinationAeroport("Lorient Aeroport");
+            System.out.println(" : Test réussi");
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
+
+
 }

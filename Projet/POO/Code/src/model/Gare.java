@@ -60,4 +60,6 @@ public class Gare {
                 + getLaCommune() + ", nomGare=" + getNomGare() + "]";
     }
 
+    
+
 }
