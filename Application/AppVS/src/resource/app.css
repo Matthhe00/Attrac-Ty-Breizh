@@ -215,6 +215,42 @@
     -fx-border-radius: 5px;
 }
 
+.my-button-dep-fini {
+    -fx-background-color: #00000000;
+}
+
+.my-button-dep-cote {
+    -fx-background-color: #00000000;
+}
+
+.my-button-dep-ille {
+    -fx-background-color: #00000000;
+}
+
+.my-button-dep-morb {
+    -fx-background-color: #00000000;
+}
+
+.my-button-dep-fini:hover {
+    -fx-background-image: url('image/Departement/departement-finistere-over.png');
+    -fx-background-size: cover;
+}
+
+.my-button-dep-cote:hover {
+    -fx-background-image: url('image/Departement/departement-cotes-d-armor-over.png');
+    -fx-background-size: cover;
+}
+
+.my-button-dep-ille:hover {
+    -fx-background-image: url('image/Departement/departement-ille-et-vilaine-over.png');
+    -fx-background-size: cover;
+}
+
+.my-button-dep-morb:hover {
+    -fx-background-image: url('image/Departement/departement-morbihan-over.png');
+    -fx-background-size: cover;
+}
+
 .my-button-info {
     -fx-background-color: #38B6FF;
     -fx-text-fill: #ffffff;
@@ -304,3 +340,5 @@
     -fx-font-weight: bold;
     -fx-text-fill: #38B6FF;
 }
+
+

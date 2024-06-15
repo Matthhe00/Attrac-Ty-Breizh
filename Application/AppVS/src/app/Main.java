@@ -28,9 +28,11 @@ public class Main extends Application {
         Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
         CompteAdminScene vueCompteAdminScene = new CompteAdminScene(primaryStage);
         ModifierScene vueModifierScene = new ModifierScene(primaryStage); 
-        Donnee vueDonnee = new Donnee(primaryStage);
-        DonneeDetail vueDonneeDetailVue = new DonneeDetail(primaryStage);
-        new AppController(primaryStage, vueConnexion, vueAccueil, vueInscription, vueCompte, this, vueCompteAdminScene, vueModifierScene, vueDonnee, vueDonneeDetailVue);
+        DonneeCommune vueDonnee = new DonneeCommune(primaryStage);
+        DonneeCommuneDetail vueDonneeDetailVue = new DonneeCommuneDetail(primaryStage);
+        DonneeDepartement vuDonneeDepartement = new DonneeDepartement(primaryStage);
+        DonneeDepartementDetail vueDonneeDepartementDetail = new DonneeDepartementDetail(primaryStage);
+        new AppController(primaryStage, vueConnexion, vueAccueil, vueInscription, vueCompte, this, vueCompteAdminScene, vueModifierScene, vueDonnee, vueDonneeDetailVue, vuDonneeDepartement, vueDonneeDepartementDetail);
         primaryStage.setScene(vueConnexion.creerSceneConnexion());
         primaryStage.show();
 

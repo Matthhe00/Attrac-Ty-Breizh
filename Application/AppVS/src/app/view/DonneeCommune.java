@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import resource.utils.*;;
 
-public class Donnee extends Pane {
+public class DonneeCommune extends Pane {
     private Image icon, backgroundImage;
     private BackgroundImage background;
     private NavBarre navBarre;
@@ -24,7 +24,7 @@ public class Donnee extends Pane {
     private CommuneTable donneTable;
     private Button exportDataButton;
 
-    public Donnee(Stage primaryStage) {
+    public DonneeCommune(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image(Constants.BACKGROUND_DONNEE_PATH);

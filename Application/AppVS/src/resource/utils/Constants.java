@@ -20,6 +20,10 @@ public abstract class Constants {
 	public static final String BACKGROUND_DONNEE_DETAIL_PATH = "resource/image/BackgroundDonneeCommune.png";
 	public static final String BACKGROUND_DONNEE_DEPARTEMENT_PATH = "resource/image/BackgroundDonneeDepartement.png";
 	public static final String BACKGROUND_DONNEE_DEPARTEMENT_DETAIL_PATH = "resource/image/BackgroundDonneeRegion.png";
+	public static final String FINISTERE_PATH = "resource/image/Departement/departement-finistere.png";
+	public static final String MORBIHAN_PATH = "resource/image/Departement/departement-morbihan.png";
+	public static final String COTE_D_ARMOR_PATH = "resource/image/Departement/departement-cotes-d-armor.png";
+	public static final String ILLE_ET_VILAINE_PATH = "resource/image/Departement/departement-ille-et-vilaine.png";
 
 	public static final String CARTE_PATH = "resource/image/RegionBretagne.svg";
 

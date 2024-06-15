@@ -5,7 +5,7 @@ import javafx.scene.layout.GridPane;
 
 public class NavBarre extends GridPane{
     private Button compteButton;
-    private Button carteButton;
+    private Button departementButton;
     private Button donneesButton;
     private Button modifieButton;
     private Button deconnexion;
@@ -35,7 +35,7 @@ public class NavBarre extends GridPane{
         this.setHgap(30);
 
         this.compteButton = new Button("Compte");
-        this.carteButton = new Button("Départements");
+        this.departementButton = new Button("Départements");
         this.donneesButton = new Button("Communes");
         this.modifieButton = new Button("Modifier");
         this.deconnexion = new Button("Déconnexion");
@@ -44,27 +44,27 @@ public class NavBarre extends GridPane{
         if (!estConnecte) {
             this.add(accueilButton, 0, 0);
             this.add(compteButton, 1, 0);
-            this.add(carteButton, 2, 0);
+            this.add(departementButton, 2, 0);
             this.add(donneesButton, 3, 0);
             this.add(deconnexion, 18, 0);
         } else if (modifie) {
             this.add(accueilButton, 0, 0);
             this.add(compteButton, 1, 0);
-            this.add(carteButton, 2, 0);
+            this.add(departementButton, 2, 0);
             this.add(donneesButton, 3, 0);
             this.add(modifieButton, 4, 0);
             this.add(deconnexion, 14, 0);
         } else {
             this.add(accueilButton, 0, 0);
             this.add(compteButton, 1, 0);
-            this.add(carteButton, 2, 0);
+            this.add(departementButton, 2, 0);
             this.add(donneesButton, 3, 0);
             this.add(deconnexion, 18, 0);
         }
 
         this.getStyleClass().add("nav-barre"); // Ajouter une classe CSS
         this.accueilButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
-        this.carteButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
+        this.departementButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.compteButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.donneesButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.modifieButton.getStyleClass().add("my-button-modif"); // Ajouter une classe CSS
@@ -92,8 +92,8 @@ public class NavBarre extends GridPane{
         return this.compteButton;
     }
 
-    public Button getCarteButton() {
-        return this.carteButton;
+    public Button getdepartementButton() {
+        return this.departementButton;
     }
 
     public Button getDonneesButton() {

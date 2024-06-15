@@ -43,20 +43,24 @@ public class AppController implements EventHandler<ActionEvent> {
     private CommuneFileAccess communeFileAccess;
     private CompteAdminScene CompteAdminScene;
     private ModifierScene modifierScene;
-    private Donnee donnee;
-    private DonneeDetail donneeDetailVue;
+    private DonneeCommune donnee;
+    private DonneeCommuneDetail donneeDetailVue;
     private DepartementFileAccess departementFileAccess;
     private ArrayList<Commune> communes;
+    private DonneeDepartement donneeDepartement;
+    private DonneeDepartementDetail donneeDepartementDetail;
 
     // private AnneeFileAccess anneeFileAccess;
 
-    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, Donnee donnee, DonneeDetail donneeDetailVue) {
+    public AppController(Stage primary, Connexion connexion, Accueil accueil, Inscription inscription, Compte compte, Main main, CompteAdminScene CompteAdminScene, ModifierScene modifierScene, DonneeCommune donnee, DonneeCommuneDetail donneeDetailVue, DonneeDepartement donneeDepartement, DonneeDepartementDetail donneeDepartementDetail) {
         this.primaryStage = primary;
         this.connexion = connexion;
         this.accueil = accueil;
         this.inscription = inscription;
         this.compte = compte;
         this.main = main;
+        this.donneeDepartement = donneeDepartement;
+        this.donneeDepartementDetail = donneeDepartementDetail;
 
         this.userDAO = new UserDAO();
         this.communeDAO = new CommuneDAO();
@@ -65,8 +69,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.departementDAO = new DepartementDAO();
         this.anneeDAO = new AnneeDAO();
         this.anneeCommuneDAO = new AnneeCommuneDAO();
-        this.communes = this.communeDAO.findAll();
-
     
         this.departementFileAccess = new DepartementFileAccess();
         this.userFileAccess = new UserFileAccess();
@@ -74,6 +76,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.aeroportFileAccess = new AeroportFileAccess();
         this.anneeFileAccess = new AnneeFileAccess();
         this.anneeCommuneFileAccess = new AnneeCommuneFileAccess();
+        this.communes = this.communeFileAccess.getCommunes();
 
         
         this.CompteAdminScene = CompteAdminScene;
@@ -82,6 +85,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         this.donnee = donnee;
         this.donnee.init(this, communeFileAccess, this.role);
+        this.donneeDepartementDetail.init(this, communeFileAccess, this.role);
 
         this.donneeDetailVue = donneeDetailVue;
         this.donneeDetailVue.init(this, this.role, "0");
@@ -101,7 +105,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         // gestion des événements de la classe Accueil
         this.accueil.getNavBarre().getcompteButton().setOnAction(this);
-        this.accueil.getNavBarre().getCarteButton().setOnAction(this);
+        this.accueil.getNavBarre().getdepartementButton().setOnAction(this);
         this.accueil.getNavBarre().getDonneesButton().setOnAction(this);
         this.accueil.getNavBarre().getModifieButton().setOnAction(this);
         this.accueil.getNavBarre().getDeconnexionButton().setOnAction(this);
@@ -114,7 +118,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         // gestion des événements de la classe Compte
         this.compte.getNavBarre().getcompteButton().setOnAction(this);
-        this.compte.getNavBarre().getCarteButton().setOnAction(this);
+        this.compte.getNavBarre().getdepartementButton().setOnAction(this);
         this.compte.getNavBarre().getDonneesButton().setOnAction(this);
         this.compte.getNavBarre().getModifieButton().setOnAction(this);
         this.compte.getNavBarre().getDeconnexionButton().setOnAction(this);
@@ -125,7 +129,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         // gestion des événements de la classe CompteAdminScene
         this.CompteAdminScene.getNavBarre().getcompteButton().setOnAction(this);
-        this.CompteAdminScene.getNavBarre().getCarteButton().setOnAction(this);
+        this.CompteAdminScene.getNavBarre().getdepartementButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getDonneesButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getModifieButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getDeconnexionButton().setOnAction(this);
@@ -134,7 +138,7 @@ public class AppController implements EventHandler<ActionEvent> {
         
         // gestion des événements de la classe ModifierScene
         this.modifierScene.getNavBarre().getcompteButton().setOnAction(this);
-        this.modifierScene.getNavBarre().getCarteButton().setOnAction(this);
+        this.modifierScene.getNavBarre().getdepartementButton().setOnAction(this);
         this.modifierScene.getNavBarre().getDonneesButton().setOnAction(this);
         this.modifierScene.getNavBarre().getModifieButton().setOnAction(this);
         this.modifierScene.getNavBarre().getDeconnexionButton().setOnAction(this);
@@ -142,7 +146,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
         // gestion des événements de la classe Donnee
         this.donnee.getNavBarre().getcompteButton().setOnAction(this);
-        this.donnee.getNavBarre().getCarteButton().setOnAction(this);
+        this.donnee.getNavBarre().getdepartementButton().setOnAction(this);
         this.donnee.getNavBarre().getDonneesButton().setOnAction(this);
         this.donnee.getNavBarre().getModifieButton().setOnAction(this);
         this.donnee.getNavBarre().getDeconnexionButton().setOnAction(this);
@@ -161,13 +165,35 @@ public class AppController implements EventHandler<ActionEvent> {
 
         // gestion des événements de la classe DonneeDetailVue
         this.donneeDetailVue.getNavBarre().getcompteButton().setOnAction(this);
-        this.donneeDetailVue.getNavBarre().getCarteButton().setOnAction(this);
+        this.donneeDetailVue.getNavBarre().getdepartementButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getDonneesButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
         this.donneeDetailVue.getComboBox().setOnAction(this);
         this.donneeDetailVue.getExportDataButton().setOnAction(this);
+
+
+        //gestion des événements de la classe DonneeDetailVue
+        this.donneeDepartement.getNavBarre().getcompteButton().setOnAction(this);
+        this.donneeDepartement.getNavBarre().getdepartementButton().setOnAction(this);
+        this.donneeDepartement.getNavBarre().getDonneesButton().setOnAction(this);
+        this.donneeDepartement.getNavBarre().getModifieButton().setOnAction(this);
+        this.donneeDepartement.getNavBarre().getDeconnexionButton().setOnAction(this);
+        this.donneeDepartement.getNavBarre().getAccueilButton().setOnAction(this);
+        this.donneeDepartement.getFinistere().setOnAction(this);
+        this.donneeDepartement.getIlleEtVilaine().setOnAction(this);
+        this.donneeDepartement.getCoteDArmor().setOnAction(this);
+        this.donneeDepartement.getMorbihan().setOnAction(this);
+
+        // gestion des événements des boutons de la classe DonneeDepartementDetail
+        this.donneeDepartementDetail.getNavBarre().getcompteButton().setOnAction(this);
+        this.donneeDepartementDetail.getNavBarre().getdepartementButton().setOnAction(this);
+        this.donneeDepartementDetail.getNavBarre().getDonneesButton().setOnAction(this);
+        this.donneeDepartementDetail.getNavBarre().getModifieButton().setOnAction(this);
+        this.donneeDepartementDetail.getNavBarre().getDeconnexionButton().setOnAction(this);
+        this.donneeDepartementDetail.getNavBarre().getAccueilButton().setOnAction(this);
+        
 
     }
 
@@ -182,21 +208,20 @@ public class AppController implements EventHandler<ActionEvent> {
             boutonInscriptionInscriptionClick();
         } else if (source == this.inscription.getConnexionButton()) {
             boutonConnexionInscriptionClick();
-        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.CompteAdminScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.modifierScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donnee.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donneeDetailVue.getNavBarre().getDeconnexionButton() && this.estConnecte)){
+        } else if ((source == this.accueil.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.compte.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.CompteAdminScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.modifierScene.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donnee.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donneeDetailVue.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donneeDepartement.getNavBarre().getDeconnexionButton() && this.estConnecte) || (source == this.donneeDepartementDetail.getNavBarre().getDeconnexionButton() && this.estConnecte)){
             boutonDeconnexionNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.donnee.getNavBarre().getcompteButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getcompteButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getcompteButton() && this.estConnecte || source == this.compte.getNavBarre().getcompteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getcompteButton() && this.estConnecte || source == this.donnee.getNavBarre().getcompteButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getcompteButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getcompteButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getcompteButton() && this.estConnecte){
             boutonCompteNavBarreClick();
-        } else if (source == this.accueil.getNavBarre().getCarteButton() && this.estConnecte || source == this.compte.getNavBarre().getCarteButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getCarteButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getCarteButton() && this.estConnecte || source == this.donnee.getNavBarre().getCarteButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getCarteButton() && this.estConnecte) {
-            // boutonCarteNavBarreClick();
-            System.out.println("Carte");
-        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getDonneesButton() && this.estConnecte) {
+        } else if (source == this.accueil.getNavBarre().getdepartementButton() && this.estConnecte || source == this.compte.getNavBarre().getdepartementButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getdepartementButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donnee.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getdepartementButton() && this.estConnecte){
+            boutonDepartementNavBarreClick();
+        } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getDonneesButton() && this.estConnecte){
             boutonDonneesNavBarreClick();
         } else if (source == this.donnee.getNavBarre().getModifieButton() && this.estConnecte && this.role) {
             // boutonModifieNavBarreClick();
             System.out.println("Modifie");
         } else if (source == this.accueil.getNotion()) {
             boutonNotionClick();
-        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donnee.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getAccueilButton() && this.estConnecte){
+        } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.modifierScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donnee.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getAccueilButton() && this.estConnecte){
             boutonAccueilNavBarreClick();
         } else if (source == this.compte.getModificationButton() && this.estConnecte) {
             modifierUtilisateur();
@@ -210,6 +235,14 @@ public class AppController implements EventHandler<ActionEvent> {
             exportDataCommune();
         } else if (source == this.donnee.getExportDataButton()) {
             exportDataBase();
+        } else if (source == this.donneeDepartement.getFinistere()) {
+            boutonDepartementClick("29");
+        } else if (source == this.donneeDepartement.getCoteDArmor()) {
+            boutonDepartementClick("22");
+        } else if (source == this.donneeDepartement.getIlleEtVilaine()) {
+            boutonDepartementClick("35");
+        } else if (source == this.donneeDepartement.getMorbihan()) {
+            boutonDepartementClick("56");
         } else {
             if (source instanceof Button) {
                 Button sources = (Button) event.getSource();
@@ -259,8 +292,6 @@ public class AppController implements EventHandler<ActionEvent> {
                 }
             } else if (source instanceof CheckBox) {
                 CheckBox sources = (CheckBox) event.getSource();
-                CheckBox val1 = null;
-                CheckBox val2 = null;
                 if (sources.getId().equals("35") && sources.isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri1().isSelected()) {
                     this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '35'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
@@ -299,8 +330,26 @@ public class AppController implements EventHandler<ActionEvent> {
         }
     } 
 
-    // private void boutonCarteNavBarreClick() {
-    // }
+    public void boutonDepartementClick(String id) {
+        this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '" + id + "'";
+        this.donneeDepartementDetail.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
+        Pane root = this.donneeDepartementDetail.creerRootDonnee(estConnecte, role);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+        updateAppController();
+        System.out.println("Departement " + id);
+    }
+
+    public void boutonDepartementNavBarreClick() {
+        Pane root = this.donneeDepartement.creerRootDonnee(estConnecte, role);
+        Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
+        scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+        updateAppController();
+    }
 
 
     public void exportDataCommune() {
