@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import model.*;
 
 public class ScenarioModel {
@@ -16,10 +18,12 @@ public class ScenarioModel {
         // testAnneeMaxInflation();
         // System.out.println("\n/---------------------------------------------/\n");
         // testCommuneMaxCommuneVoisine();
-        // System.out.println("\n/---------------------------------------------/\n");
-        // testRechercheAerport();
         System.out.println("\n/---------------------------------------------/\n");
-        testDestinationAeroport();
+        testRechercheAerport();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testDestinationAeroport();
+        // System.out.println("\n/---------------------------------------------/\n");
+        // testDestinationGare();
         
     }
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -468,5 +472,40 @@ public class ScenarioModel {
         }
     }
 
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    public static void testDestinationGare(){
+        System.out.println("Test destinationGare Gare :");
+        System.out.println("Cas normal :");
+        try {
+            Departement departement35 = new Departement(35, "Ille-et-Vilaine", 1000000);
+
+            Commune commune1 = new Commune(1, "Rennes", departement35);
+            Commune commune2 = new Commune(2, "Cesson-Sévigné", departement35);
+            Commune commune3 = new Commune(3, "Saint-Grégoire", departement35);
+            Commune commune4 = new Commune(4, "Betton", departement35);
+            Commune commune5 = new Commune(5, "Chantepie", departement35);
+
+            Gare gare1 = new Gare(1, "Rennes Gare", false, true, commune1);
+            Gare gare2 = new Gare(2, "Cesson-Sévigné Gare", false, true, commune2);
+            Gare gare3 = new Gare(3, "Saint-Grégoire Gare", false, true, commune3);
+            Gare gare4 = new Gare(4, "Betton Gare", false, true, commune4);
+
+
+            Gare gare5 = new Gare(5, "Chantepie Gare", false, true, commune5);
+
+            ArrayList<Gare>  al= new ArrayList<Gare>();
+            al.add(gare2);
+            al.add(gare3);
+            al.add(gare4);
+            al.add(gare5);
+            gare1.setDestinationGare(al);
+            
+            gare1.rechercheDestinationGare("Cesson-Sévigné Gare");
+            System.out.println(" : Test réussi");   
+        } catch (Exception e) {
+            System.out.println(" : Test échoué");
+        }
+    }
 
 }

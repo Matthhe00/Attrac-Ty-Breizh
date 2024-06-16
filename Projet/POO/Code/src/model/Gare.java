@@ -1,10 +1,14 @@
 package model;
+
+import java.util.ArrayList;
+
 public class Gare {
     private int codeGare;
     private String nomGare;
     private boolean estFret;
     private boolean estVoyageur;
     private Commune laCommune;
+    private ArrayList<Gare> gareDestination;
 
     public Gare(int codeGare, String nomGare, boolean estFret, boolean estVoyageur, Commune laCommune) {
         this.codeGare = codeGare;
@@ -60,6 +64,36 @@ public class Gare {
                 + getLaCommune() + ", nomGare=" + getNomGare() + "]";
     }
 
-    
+    public void addDestinationGare(Gare gare){
+        if(gare != null){
+            this.gareDestination.add(gare);
+        }
+    }
 
+    public void removeDestinationGare(Gare gare){
+        if(gare != null){
+            this.gareDestination.remove(gare);
+        }
+    }
+
+    public ArrayList<Gare> getDestinationGare() {
+        return this.gareDestination;
+    }
+
+    public void setDestinationGare(ArrayList<Gare> gareDestination) {
+        this.gareDestination = gareDestination;
+    }
+
+    public void rechercheDestinationGare(String nomGare){
+        boolean trouve = false;
+        for(Gare gare : this.gareDestination){
+            if(gare.getNomGare().equals(nomGare)){
+                System.out.println("La gare de " + this.nomGare + " dessert bien à " + nomGare);
+                trouve = true;
+            }
+        }
+        if(!trouve){
+            System.out.println("La gare de " + this.nomGare + " ne dessert bien à " + nomGare);
+        }
+    }
 }

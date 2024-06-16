@@ -66,11 +66,16 @@ public class Departement {
     }
 
     public void rechercheAerport(String nomAeroport){
+        boolean trouve = false;
         for(Aeroport aeroport : this.listeAeroports){
             if(aeroport.getNom().equals(nomAeroport)){
-                String res = aeroport.toString();
-                System.out.println(res);
+                trouve = true;
+                System.out.println("L'aeroport de " + nomAeroport + " existe dans le departement " + this.idDep);
             }
+        }
+
+        if(!trouve){
+            System.out.println("L'aeroport de " + nomAeroport + " n'est pas dans le departement");
         }
     }
 
