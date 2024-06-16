@@ -3,9 +3,22 @@ import java.util.ArrayList;
 import model.*;
 
 /**
- * Classe de test pour chaque méthode des différentes classes
+ * Classe ScenarioModel
+ * Pour tester les classes du package model
  */
 public class ScenarioModel {
+
+    /**
+     * Constructeur de la classe ScenarioModel
+     */
+    public ScenarioModel() {
+    }
+//--------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Méthode main pour lancer les tests
+     * @param args les arguments de la ligne de commande
+     */
     public static void main (String[] args) {
         // Scenario 
         testConstruteur();
