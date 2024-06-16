@@ -44,7 +44,7 @@ public class Aeroport {
         return "Aeroport [adresse=" + getAdresse() + ", leDepartement=" + getLeDepartement() + ", nom=" + getNom() + "]";
     }
 
-    
+
 
     public void addDestinationAeroport(Aeroport aeroport){
         if(aeroport != null){
@@ -66,18 +66,12 @@ public class Aeroport {
         this.aeroportsDestination = aeroportsDestination;
     }
 
-    public void rechercheDestinationAeroport(String nomAeroport){
-        boolean trouve = false;
+    public ArrayList<Aeroport> rechercheDestinationAeroport(){
+        ArrayList<Aeroport> ret = new ArrayList<>(); 
         for(Aeroport aeroport : this.aeroportsDestination){
-            if(aeroport.getNom().equals(nomAeroport)){
-                System.out.println("L'aeroport de " + this.nom + " dessert bien à " + nomAeroport);
-                trouve = true;
-            }
+            ret.add(aeroport);
         }
-
-        if(!trouve){
-            System.out.println("L'aeroport de " + this.nom + " ne dessert pas à " + nomAeroport);
-        }
+        return ret;
     }
 
 }

@@ -65,18 +65,12 @@ public class Departement {
         return "Departement [idDep=" + idDep + ", nomDep=" + nomDep + ", invesCulturel2019=" + invesCulturel2019 + "]";
     }
 
-    public void rechercheAerport(String nomAeroport){
-        boolean trouve = false;
+    public ArrayList<Aeroport> rechercheAeroport(){
+        ArrayList<Aeroport> ret = new ArrayList<>();
         for(Aeroport aeroport : this.listeAeroports){
-            if(aeroport.getNom().equals(nomAeroport)){
-                trouve = true;
-                System.out.println("L'aeroport de " + nomAeroport + " existe dans le departement " + this.idDep);
-            }
+            ret.add(aeroport);
         }
-
-        if(!trouve){
-            System.out.println("L'aeroport de " + nomAeroport + " n'est pas dans le departement");
-        }
+        return ret;
     }
 
     

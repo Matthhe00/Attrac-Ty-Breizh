@@ -16,6 +16,7 @@ public class Gare {
         this.estFret = estFret;
         this.estVoyageur = estVoyageur;
         this.laCommune = laCommune;
+        this.gareDestination = new ArrayList<Gare>();
 
     }
     
@@ -80,20 +81,15 @@ public class Gare {
         return this.gareDestination;
     }
 
-    public void setDestinationGare(ArrayList<Gare> gareDestination) {
-        this.gareDestination = gareDestination;
+    public void setDestinationGare(ArrayList<Gare> garesDestination) {
+        this.gareDestination = garesDestination;
     }
 
-    public void rechercheDestinationGare(String nomGare){
-        boolean trouve = false;
+    public ArrayList<Gare> rechercheDestinationGare(){
+        ArrayList<Gare> ret = new ArrayList<>(); 
         for(Gare gare : this.gareDestination){
-            if(gare.getNomGare().equals(nomGare)){
-                System.out.println("La gare de " + this.nomGare + " dessert bien à " + nomGare);
-                trouve = true;
-            }
+            ret.add(gare);
         }
-        if(!trouve){
-            System.out.println("La gare de " + this.nomGare + " ne dessert bien à " + nomGare);
-        }
+        return ret;
     }
 }
