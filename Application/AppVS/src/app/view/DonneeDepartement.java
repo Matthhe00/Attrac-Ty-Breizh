@@ -1,4 +1,4 @@
-package app.view;
+package app.view; 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import resource.utils.Constants;
 
 
-public class DonneeDepartement {
+ public class DonneeDepartement {
     private Image icon, backgroundImage, finistereImage, morbihanImage, illeEtVilaineImage, coteDArmorImage, finistereImageHover, morbihanImageHover, illeEtVilaineImageHover, coteDArmorImageHover;
     private ImageView finistereImageView, morbihanImageView, illeEtVilainImageView, coteDArmorImageView, finistereImageHoverView, morbihanImageHoverView, illeEtVilaineImageHoverView, coteDArmorImageHoverView;
     private BackgroundImage background;
