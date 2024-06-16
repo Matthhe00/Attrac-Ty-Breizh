@@ -11,13 +11,9 @@ import javafx.scene.layout.*;
 import app.model.data.*;
 
 public class CommuneTable extends TableView<Commune> {
-    private AppController controller; // Reference to the controller for event handling
-    private CommuneFileAccess CommuneFileAccess;
 
-    public CommuneTable(CommuneFileAccess communeFileAccess, AppController controller) {
-        this.controller = controller;
-        this.CommuneFileAccess = communeFileAccess;
-        ObservableList<Commune> data = FXCollections.observableArrayList(CommuneFileAccess.getCommunes());
+    public CommuneTable(CommuneFileAccess c, AppController controller) {
+        ObservableList<Commune> data = FXCollections.observableArrayList(c.getCommunes());
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
         this.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());

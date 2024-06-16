@@ -341,4 +341,15 @@
     -fx-text-fill: #38B6FF;
 }
 
+.my-label-commune-bt {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #38B6FF;
+}
+
+.my-image {
+    -fx-background-: 15px;
+    -fx-background-radius: 15px;
+}
+
 

@@ -1,8 +1,4 @@
 package app.view;
-
-import app.controller.AppController;
-import app.model.data.*;
-import app.view.table.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;

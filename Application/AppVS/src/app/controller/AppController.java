@@ -70,12 +70,37 @@ public class AppController implements EventHandler<ActionEvent> {
         this.anneeDAO = new AnneeDAO();
         this.anneeCommuneDAO = new AnneeCommuneDAO();
     
+        long startTime, endTime;
+
+        startTime = System.currentTimeMillis();
         this.departementFileAccess = new DepartementFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("departementFileAccess - Execution time: " + (endTime - startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
         this.userFileAccess = new UserFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("userFileAccess - Execution time: " + (endTime - startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
         this.communeFileAccess = new CommuneFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("communeFileAccess - Execution time: " + (endTime - startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
         this.aeroportFileAccess = new AeroportFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("aeroportFileAccess - Execution time: " + (endTime - startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
         this.anneeFileAccess = new AnneeFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("anneeFileAccess - Execution time: " + (endTime - startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
         this.anneeCommuneFileAccess = new AnneeCommuneFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("anneeCommuneFileAccess - Execution time: " + (endTime - startTime) + "ms");
         this.communes = this.communeFileAccess.getCommunes();
 
         
@@ -247,6 +272,7 @@ public class AppController implements EventHandler<ActionEvent> {
                 Button sources = (Button) event.getSource();
                 String sourceId = sources.getId();
                 this.idCommune = sourceId;
+                System.out.println(sources);
     
                 if (this.userDAO.exists(sourceId)) {
                     boutonSupprimerClickAdmin(sourceId);
@@ -362,7 +388,7 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void boutonInfoClick(String sourceId) {
-        this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess);
+        this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());

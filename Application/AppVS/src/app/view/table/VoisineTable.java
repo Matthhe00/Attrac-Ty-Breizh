@@ -11,10 +11,8 @@ import javafx.scene.layout.*;
 import app.model.data.*;
 
 public class VoisineTable extends TableView<Commune> {
-    private AppController controller; // Reference to the controller for event handling
 
     public VoisineTable(ArrayList<Commune> c, AppController controller, String idCommune) {
-        this.controller = controller;
         ObservableList<Commune> data = FXCollections.observableArrayList(c);
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
@@ -35,18 +33,18 @@ public class VoisineTable extends TableView<Commune> {
 
         TableColumn<Commune, String> otherCol = new TableColumn<>("Autre");
         otherCol.setCellFactory(i -> new TableCell<Commune, String>() {
-            Button info1 = new Button("+Informations");
-            FlowPane pane = new FlowPane(info1);
+            Button infoButton = new Button("+Informations");
+            FlowPane pane = new FlowPane(infoButton);
             
             @Override
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                info1.getStyleClass().add("my-button-info");
+                infoButton.getStyleClass().add("my-button-info");
                 if (!empty) {
                     Commune Commune = getTableView().getItems().get(getIndex());
                     pane.setAlignment(Pos.CENTER);
-                    info1.setId(Commune.getIdCommune()); 
-                    info1.setOnAction(controller);
+                    infoButton.setId(Commune.getIdCommune()); 
+                    infoButton.setOnAction(controller);
                     setGraphic(pane);
                     setText(null);
                     setAlignment(Pos.CENTER);

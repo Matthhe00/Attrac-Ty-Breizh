@@ -22,19 +22,24 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Connexion vueConnexion = new Connexion(primaryStage);
-        Accueil vueAccueil = new Accueil(primaryStage);
-        Inscription vueInscription = new Inscription(primaryStage);
-        Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
-        CompteAdminScene vueCompteAdminScene = new CompteAdminScene(primaryStage);
-        ModifierScene vueModifierScene = new ModifierScene(primaryStage); 
-        DonneeCommune vueDonnee = new DonneeCommune(primaryStage);
-        DonneeCommuneDetail vueDonneeDetailVue = new DonneeCommuneDetail(primaryStage);
-        DonneeDepartement vuDonneeDepartement = new DonneeDepartement(primaryStage);
-        DonneeDepartementDetail vueDonneeDepartementDetail = new DonneeDepartementDetail(primaryStage);
-        new AppController(primaryStage, vueConnexion, vueAccueil, vueInscription, vueCompte, this, vueCompteAdminScene, vueModifierScene, vueDonnee, vueDonneeDetailVue, vuDonneeDepartement, vueDonneeDepartementDetail);
-        primaryStage.setScene(vueConnexion.creerSceneConnexion());
-        primaryStage.show();
+        try {
+            Connexion vueConnexion = new Connexion(primaryStage);
+            Accueil vueAccueil = new Accueil(primaryStage);
+            Inscription vueInscription = new Inscription(primaryStage);
+            Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
+            CompteAdminScene vueCompteAdminScene = new CompteAdminScene(primaryStage);
+            ModifierScene vueModifierScene = new ModifierScene(primaryStage); 
+            DonneeCommune vueDonnee = new DonneeCommune(primaryStage);
+            DonneeCommuneDetail vueDonneeDetailVue = new DonneeCommuneDetail(primaryStage);
+            DonneeDepartement vuDonneeDepartement = new DonneeDepartement(primaryStage);
+            DonneeDepartementDetail vueDonneeDepartementDetail = new DonneeDepartementDetail(primaryStage);
+            new AppController(primaryStage, vueConnexion, vueAccueil, vueInscription, vueCompte, this, vueCompteAdminScene, vueModifierScene, vueDonnee, vueDonneeDetailVue, vuDonneeDepartement, vueDonneeDepartementDetail);
+            primaryStage.setScene(vueConnexion.creerSceneConnexion());
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println("Erreur: " + e.getMessage());
+        }
+
 
     }
 }
