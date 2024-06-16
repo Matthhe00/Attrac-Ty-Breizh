@@ -14,7 +14,7 @@ import resource.utils.Constants;
     private BackgroundImage background;
     private NavBarre navBarre;
     private Stage primaryStage;
-    private Button finistere, morbihan, illeEtVilaine, coteDArmor;
+    private Button finistere, morbihan, illeEtVilaine, coteDArmor, exportButton;
 
     public DonneeDepartement(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -27,6 +27,8 @@ import resource.utils.Constants;
     }
 
     public void initUIComponents() {
+        this.exportButton = new Button("Exporter les données");
+
         this.finistereImage = new Image(Constants.FINISTERE_PATH);
         this.morbihanImage = new Image(Constants.MORBIHAN_PATH);
         this.illeEtVilaineImage = new Image(Constants.ILLE_ET_VILAINE_PATH);
@@ -104,6 +106,7 @@ import resource.utils.Constants;
 
     public void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
+        configurerButton(this.exportButton, 950, 150, "my-button", root);
         configurerBouton(this.finistere, 15, 180 + 80, 60, 60, "my-button-dep-fini", root);
         // Côtes-d'Armor au nord
         configurerBouton(this.coteDArmor, 290, 80 + 80, 60, 60, "my-button-dep-cote", root);
@@ -116,10 +119,16 @@ import resource.utils.Constants;
     private void configurerBouton(Button bouton, int x, int y, int l, int h, String styleClass, Pane root) {
         bouton.setLayoutX(x);
         bouton.setLayoutY(y);
-
         bouton.setPrefHeight(h);
         bouton.getStyleClass().add(styleClass);
         root.getChildren().add(bouton);
+    }
+
+    private void configurerButton(Button button, int x, int y, String style, Pane root) {
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.getStyleClass().add(style);
+        root.getChildren().add(button);
     }
 
     public void updateNavBarre(boolean estConnecte) {
@@ -148,5 +157,9 @@ import resource.utils.Constants;
 
     public Button getCoteDArmor() {
         return this.coteDArmor;
+    }
+    
+    public Button getExportButton() {
+        return this.exportButton;
     }
 }

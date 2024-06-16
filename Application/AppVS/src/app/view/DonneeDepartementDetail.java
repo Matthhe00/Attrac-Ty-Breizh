@@ -67,6 +67,7 @@ public class DonneeDepartementDetail {
         this.nbCommune = new Label();
         this.nbGare = new Label();
         this.nbAeroport = new Label();
+
     }
 
     public Scene creerSceneDonnee() {
@@ -152,5 +153,9 @@ public class DonneeDepartementDetail {
 
     public Label getInvesCulturel() {
         return this.invesCulturel;
+    }
+
+    public Departement getDepartement() {
+        return this.departement;
     }
 }

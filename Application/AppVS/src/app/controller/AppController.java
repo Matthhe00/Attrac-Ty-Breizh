@@ -210,6 +210,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDepartement.getIlleEtVilaine().setOnAction(this);
         this.donneeDepartement.getCoteDArmor().setOnAction(this);
         this.donneeDepartement.getMorbihan().setOnAction(this);
+        this.donneeDepartement.getExportButton().setOnAction(this);
 
         // gestion des événements des boutons de la classe DonneeDepartementDetail
         this.donneeDepartementDetail.getNavBarre().getcompteButton().setOnAction(this);
@@ -259,6 +260,8 @@ public class AppController implements EventHandler<ActionEvent> {
             exportDataCommune();
         } else if (source == this.donnee.getExportDataButton()) {
             exportDataBase();
+        } else if (source == this.donneeDepartement.getExportButton()) {
+            exportDataDepartement();
         } else if (source == this.donneeDepartement.getFinistere()) {
             boutonDepartementClick("29");
         } else if (source == this.donneeDepartement.getCoteDArmor()) {
@@ -272,7 +275,6 @@ public class AppController implements EventHandler<ActionEvent> {
                 Button sources = (Button) event.getSource();
                 String sourceId = sources.getId();
                 this.idCommune = sourceId;
-                System.out.println(sources);
     
                 if (this.userDAO.exists(sourceId)) {
                     boutonSupprimerClickAdmin(sourceId);
@@ -358,14 +360,12 @@ public class AppController implements EventHandler<ActionEvent> {
     public void boutonDepartementClick(String id) {
         this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '" + id + "'";
         this.donneeDepartementDetail.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-        System.out.println("Departement " + this.departementFileAccess.getDepartementById(id).getNomDep());
         Pane root = this.donneeDepartementDetail.creerRootDonnee(estConnecte, role, this.departementFileAccess.getDepartementById(id), this.aeroportFileAccess, this);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
-        System.out.println("Departement " + id);
     }
 
     public void boutonDepartementNavBarreClick() {
@@ -377,10 +377,12 @@ public class AppController implements EventHandler<ActionEvent> {
         updateAppController();
     }
 
+    public void exportDataDepartement() {
+        this.departementFileAccess.writeDepartementToCSVFile("Departement");
+    }
 
     public void exportDataCommune() {
-        // this.anneeCommuneFileAccess.writeToTextFile("anneeCommune.txt", this.idCommune);
-        this.anneeCommuneFileAccess.writeCommuneToCSVFile("commune", this.idCommune);
+        this.anneeCommuneFileAccess.writeCommuneToCSVFile("Commune", this.idCommune);
     }
     
     public void exportDataBase() {
