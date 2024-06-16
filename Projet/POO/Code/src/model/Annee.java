@@ -3,7 +3,7 @@ package model;
 /**
  * Classe Annee 
  * Pour chaque année, on a un taux d'inflation
- * * @author Schell Yanis, Jules-Vachet Mattheo, Gauffeny Paul
+ * @author Schell Yanis, Jules-Vachet Mattheo, Gauffeny Paul
  */
 public class Annee {
 
