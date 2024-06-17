@@ -28,7 +28,7 @@ public class Main extends Application {
             Inscription vueInscription = new Inscription(primaryStage);
             Compte vueCompte = new Compte(primaryStage, "role", "ident", "password");
             CompteAdminScene vueCompteAdminScene = new CompteAdminScene(primaryStage);
-            ModifierScene vueModifierScene = new ModifierScene(primaryStage); 
+            ModifierCommuneScene vueModifierScene = new ModifierCommuneScene(primaryStage); 
             DonneeCommune vueDonnee = new DonneeCommune(primaryStage);
             DonneeCommuneDetail vueDonneeDetailVue = new DonneeCommuneDetail(primaryStage);
             DonneeDepartement vuDonneeDepartement = new DonneeDepartement(primaryStage);

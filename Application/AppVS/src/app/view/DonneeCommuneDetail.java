@@ -17,7 +17,7 @@ public class DonneeCommuneDetail {
     private Stage primaryStage;
     private ComboBox<String> anneeBox;
     private Label nomCommune, nomDepartementLabel, numeroLabel, prixm2Label, prixMoyenLabel, surfaceMoyenneLabel, nbMaisonLabel, nbAppartLabel, inflationLabel;
-    private Button exportDataButton;
+    private Button exportDataButton, ajouterGare, ajouterAeroport;
     private AeroportTable aeroportTable;
     private GareTable gareTable;
     private VoisineTable voisineTable;
@@ -55,6 +55,8 @@ public class DonneeCommuneDetail {
         this.nbAppartLabel = new Label("Données");
         this.inflationLabel = new Label("Données");
         this.exportDataButton = new Button("Exporter les données");
+        this.ajouterGare = new Button("+");
+        this.ajouterAeroport = new Button("+");
 
         this.commune = new Commune("idCommune", "nomCommune", "leDepartement");
         this.departement = new Departement("idDepartement", "nomDepartement", "100");
@@ -92,6 +94,7 @@ public class DonneeCommuneDetail {
         configurerLabel(this.nbMaisonLabel, 1110, 462, "my-label-commune-b", root);
         configurerLabel(this.nbAppartLabel, 1110, 397, "my-label-commune-b", root);
         configurerBouton(this.exportDataButton, 140, 600, "my-button", root);
+        configurerBouton(this.ajouterAeroport, 600, 180, "my-button", root);
         
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
         configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
@@ -181,14 +184,14 @@ public class DonneeCommuneDetail {
         this.inflationLabel.setText(this.anneeCommune.getAnnee().getTauxInflation());
     }
 
-    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess) {
+    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess, AppController c, Boolean isAdmin) {
         //initialisation des variables de donnees
         this.commune = communeFileAccess.getCommuneById(idCommune);
         this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
         this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
-        this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
-        this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
-        this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
+        this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), c, isAdmin);
+        this.gareTable = new GareTable(this.commune.getListeGares(), c, isAdmin);
+        this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), c, idCommune);
         
 
         //mise a jour des donnees affichees
@@ -197,15 +200,15 @@ public class DonneeCommuneDetail {
         this.nomDepartementLabel.setText(this.departement.getNomDep());
     }
 
-    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess, String a, AnneeCommuneFileAccess anneeCommuneFileAccess, AnneeFileAccess anneeFileAccess) {
+    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess, String a, AnneeCommuneFileAccess anneeCommuneFileAccess, AnneeFileAccess anneeFileAccess, AppController c, Boolean isAdmin) {
         //initialisation des variables de donnees
         if (a != null) {
             this.commune = communeFileAccess.getCommuneById(idCommune);
             this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
             this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
-            this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
-            this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
-            this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
+            this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), c, isAdmin);
+            this.gareTable = new GareTable(this.commune.getListeGares(), c, isAdmin);
+            this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), c, idCommune);
             this.annee = anneeFileAccess.getAnneeById(a);
             this.anneeCommune = anneeCommuneFileAccess.getAnneeCommuneById(a,idCommune);        
     
@@ -224,9 +227,9 @@ public class DonneeCommuneDetail {
             this.commune = communeFileAccess.getCommuneById(idCommune);
             this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
             this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
-            this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), null, false);
-            this.gareTable = new GareTable(this.commune.getListeGares(), null, false);
-            this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), null, idCommune);
+            this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), c, isAdmin);
+            this.gareTable = new GareTable(this.commune.getListeGares(), c, isAdmin);
+            this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), c, idCommune);
             this.annee = anneeFileAccess.getAnneeById(a);
             this.anneeCommune = anneeCommuneFileAccess.getAnneeCommuneById(a,idCommune);        
     

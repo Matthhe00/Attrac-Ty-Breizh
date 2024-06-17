@@ -2,19 +2,20 @@ package app.view.admin;
 
 import app.view.NavBarre;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import resource.utils.Constants;
 
-public class ModifierScene {
+public class ModifierCommuneScene {
     private Stage primaryStage;
     private Image icon, backgroundImage;
     private BackgroundImage background;
     private NavBarre navBarre;
-
+    // private Bouton newGare, newAnnee, 
     
-    public ModifierScene(Stage primaryStage) {
+    public ModifierCommuneScene(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.icon = new Image(Constants.ICON_PATH);
         this.backgroundImage = new Image(Constants.BACKGROUND_CONNEXION_PATH);
