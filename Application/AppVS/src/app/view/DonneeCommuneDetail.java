@@ -1,5 +1,6 @@
 package app.view;
 
+import java.util.ArrayList;
 import app.controller.AppController;
 import app.model.data.*;
 import app.view.table.*;
@@ -63,6 +64,10 @@ public class DonneeCommuneDetail {
         
     }
 
+    public void setGareTable(ArrayList<Gare> gares) {
+        this.gareTable.setGares(gares);
+    }
+
     public Scene creerSceneDonnee() {
         Pane root = creerRootDonnee(false, false);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
@@ -78,11 +83,11 @@ public class DonneeCommuneDetail {
         this.navBarre = this.navBarre.refresh(estConnecte, estAdmin);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        configurerComposants(root);
+        configurerComposants(root, estAdmin);
         return root;
     }
 
-    private void configurerComposants(Pane root) {
+    private void configurerComposants(Pane root, boolean estAdmin) {
         root.getChildren().add(this.navBarre);
         configurerLabel(this.nomCommune, 110, 430, "my-label-commune", root);
         configurerLabel(this.nomDepartementLabel, 110, 530, "my-label-commune", root);
@@ -94,7 +99,11 @@ public class DonneeCommuneDetail {
         configurerLabel(this.nbMaisonLabel, 1110, 462, "my-label-commune-b", root);
         configurerLabel(this.nbAppartLabel, 1110, 397, "my-label-commune-b", root);
         configurerBouton(this.exportDataButton, 140, 600, "my-button", root);
-        configurerBouton(this.ajouterAeroport, 600, 180, "my-button", root);
+
+        if (estAdmin) {
+            configurerBouton(this.ajouterGare, 580, 185, "my-button", root);
+            configurerBouton(this.ajouterAeroport, 580, 310, "my-button", root);
+        }
         
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
         configurerTable(this.gareTable, 650, 120, "my-table", root, 482, 105);
@@ -242,9 +251,9 @@ public class DonneeCommuneDetail {
     }
 
     public void resetValues() {
-        this.nomCommune.setText("Données");
-        this.numeroLabel.setText("Données");
-        this.nomDepartementLabel.setText("Données");
+        // this.nomCommune.setText("Données");
+        // this.numeroLabel.setText("Données");
+        // this.nomDepartementLabel.setText("Données");
         this.prixm2Label.setText("Données");
         this.prixMoyenLabel.setText("Données");
         this.surfaceMoyenneLabel.setText("Données");
@@ -255,6 +264,18 @@ public class DonneeCommuneDetail {
 
     public Button getExportDataButton() {
         return this.exportDataButton;
+    }
+
+    public Button getAjouterGare() {
+        return this.ajouterGare;
+    }
+
+    public Button getAjouterAeroport() {
+        return this.ajouterAeroport;
+    }
+
+    public Label getCodeCommune() {
+        return this.numeroLabel;
     }
 
 }

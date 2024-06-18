@@ -90,6 +90,10 @@ public class CommuneTable extends TableView<Commune> {
         this.setItems(data);
     }
 
+    public void refreshTable(CommuneFileAccess c) {
+        ObservableList<Commune> data = FXCollections.observableArrayList(c.getCommunes());
+        this.setItems(data);
+    }
     
 
 }

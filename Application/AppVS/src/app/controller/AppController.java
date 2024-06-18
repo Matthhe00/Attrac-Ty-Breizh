@@ -38,6 +38,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private Main main;
     private UserFileAccess userFileAccess;
     private AeroportFileAccess aeroportFileAccess;
+    private GareFileAccess gareFileAccess;
     private AnneeFileAccess anneeFileAccess;
     private AnneeCommuneFileAccess anneeCommuneFileAccess;
     private CommuneFileAccess communeFileAccess;
@@ -88,6 +89,11 @@ public class AppController implements EventHandler<ActionEvent> {
         System.out.println("communeFileAccess - Execution time: " + (endTime - startTime) + "ms");
 
         startTime = System.currentTimeMillis();
+        this.gareFileAccess = new GareFileAccess();
+        endTime = System.currentTimeMillis();
+        System.out.println("gareFileAccess - Execution time: " + (endTime - startTime) + "ms");
+
+        startTime = System.currentTimeMillis();
         this.aeroportFileAccess = new AeroportFileAccess();
         endTime = System.currentTimeMillis();
         System.out.println("aeroportFileAccess - Execution time: " + (endTime - startTime) + "ms");
@@ -117,7 +123,6 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void updateAppController() {
-        
         initEventHandlers();
     }
  
@@ -196,7 +201,8 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
         this.donneeDetailVue.getComboBox().setOnAction(this);
         this.donneeDetailVue.getExportDataButton().setOnAction(this);
-
+        this.donneeDetailVue.getAjouterGare().setOnAction(this);
+        this.donneeDetailVue.getAjouterAeroport().setOnAction(this);
 
         //gestion des événements de la classe DonneeDetailVue
         this.donneeDepartement.getNavBarre().getcompteButton().setOnAction(this);
@@ -218,7 +224,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDepartementDetail.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getAccueilButton().setOnAction(this);
-
     }
 
     @Override
@@ -263,6 +268,12 @@ public class AppController implements EventHandler<ActionEvent> {
             exportDataDepartement();
         } else if (source == this.donneeDepartement.getFinistere()) {
             boutonDepartementClick("29");
+        } else if (source == this.donneeDetailVue.getAjouterGare()) {
+            System.out.println("Ajouter Gare");
+            ajouterGare(this.donneeDetailVue.getCodeCommune().getText());
+        } else if (source == this.donneeDetailVue.getAjouterAeroport()) {
+            System.out.println("Ajouter Aeroport");
+            // ajouterAeroport(this.donneeDetailVue.getCodeCommune().getText());
         } else if (source == this.donneeDepartement.getCoteDArmor()) {
             boutonDepartementClick("22");
         } else if (source == this.donneeDepartement.getIlleEtVilaine()) {
@@ -282,6 +293,7 @@ public class AppController implements EventHandler<ActionEvent> {
                 } else if (this.communeDAO.exists(sourceId)) {
                     boutonInfoClick(sourceId);
                     this.donneeDetailVue.getComboBox().setValue(null);
+                    this.donneeDetailVue.resetValues();
                 }
             } else if (source instanceof ComboBox) {
                 ComboBox sources = (ComboBox) event.getSource();
@@ -329,7 +341,7 @@ public class AppController implements EventHandler<ActionEvent> {
                     this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '29'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
                 } else if (sources.getId().equals("22") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri4().isSelected()){
-                    this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '22'";
+                    this.querry = "SELECT DISTINCT * FROM COMMUNE WHERE leDepartement = '22'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
                 } else if (sources.getId().equals("Gare") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri5().isSelected()){
                     this.querry = "SELECT * FROM Commune JOIN Gare ON Commune.idCommune = Gare.laCommune ORDER BY Commune.idCommune";
@@ -356,6 +368,14 @@ public class AppController implements EventHandler<ActionEvent> {
             }
         }
     } 
+
+    public void ajouterGare(String codeCommune) {
+        Gare gare = new Gare("a","0","0", codeCommune);
+        this.gareDAO.create(gare);
+        this.gareFileAccess.setList();
+        this.donneeDetailVue.setGareTable(this.gareDAO.findWithQuerry("SELECT * FROM Gare WHERE laCommune = '" + codeCommune + "'"));
+        // this.donneeDetailVue.setLaCommune(codeCommune, this.communeFileAccess, this.departementFileAccess, this, this.role);
+    }
 
     public void boutonDepartementClick(String id) {
         this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '" + id + "'";

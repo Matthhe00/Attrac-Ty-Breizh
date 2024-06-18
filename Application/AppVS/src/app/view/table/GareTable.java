@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import app.controller.AppController;
 import javafx.collections.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.*;
+import javafx.scene.layout.FlowPane;
 import app.model.data.*;
 
 public class GareTable extends TableView<Gare> {        
     
     public GareTable(ArrayList<Gare> gares, AppController controller, Boolean isAdmin) {
         ObservableList<Gare> data = FXCollections.observableArrayList(gares);
-        System.out.println(isAdmin);
-
         this.setEditable(true);
         this.getSelectionModel().setCellSelectionEnabled(true);
         this.getStylesheets().add(getClass().getResource("../../../resource/app.css").toExternalForm());
@@ -46,25 +46,56 @@ public class GareTable extends TableView<Gare> {
         if (isAdmin) departCol.setEditable(true);
         else departCol.setEditable(false);
         departCol.setMinWidth(140);
-
+        TableColumn<Gare, String> otherCol = new TableColumn<>("Actions");
+        if(isAdmin) {
+                otherCol.setCellFactory(i -> new TableCell<Gare, String>() {
+                Button deleteButton = new Button("Supprimer");
+                FlowPane pane = new FlowPane(deleteButton);
+                
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    deleteButton.getStyleClass().add("my-button-sup");
+                    if (!empty) {
+                        Gare gare = getTableView().getItems().get(getIndex());
+                        pane.setAlignment(Pos.CENTER);
+                        // Supposant que Gare a une propriété identifiant unique, par exemple `codeGare`
+                        deleteButton.setId(String.valueOf(gare.getCodeGare())); 
+                        deleteButton.setOnAction(controller); // Assurez-vous que `controller` est correctement défini pour gérer l'action
+                        setGraphic(pane);
+                        setText(null);
+                        setAlignment(Pos.CENTER);
+                    } else {
+                        setGraphic(null);
+                        setText(null);
+                    }
+                }
+            });
+            otherCol.setMinWidth(130);
+        }
         
 
         // Adding data to the table
         this.setItems(data);
         this.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
         this.getColumns().add(nomCol);
         this.getColumns().add(adresseCol);
         this.getColumns().add(departCol);
-
+        if(isAdmin) this.getColumns().add(otherCol);
 
         // Ajouter des classes CSS aux colonnes
-
         nomCol.getStyleClass().add("my-table-col");
         adresseCol.getStyleClass().add("my-table-col");
         departCol.getStyleClass().add("my-table-col");
+        otherCol.getStyleClass().add("my-table-col");
 
         // Setting the size of the table
         this.setMaxSize(600, 800);
     }
+
+    public void setGares(ArrayList<Gare> gares) {
+        ObservableList<Gare> data = FXCollections.observableArrayList(gares);
+        this.setItems(data);
+    }
+
 }

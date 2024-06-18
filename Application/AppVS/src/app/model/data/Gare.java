@@ -1,4 +1,8 @@
 package app.model.data;
+import java.util.Random;
+
+import app.model.dao.GareDAO;
+
 public class Gare {
     private String codeGare;
     private String nomGare;
@@ -12,7 +16,21 @@ public class Gare {
         this.estFret = estFret;
         this.estVoyageur = estVoyageur;
         this.laCommune = laCommune;
+    }
 
+
+    public Gare(String nomGare, String estFret, String estVoyageur, String laCommune) {
+        Random random = new Random();
+        String code = "" + random.nextInt(10001);
+        GareDAO gareDAO = new GareDAO();
+        while (gareDAO.exist(code)) {
+            code = "" + code;
+        }
+        this.codeGare = code; // Génère un nombre aléatoire entre 0 et 10000
+        this.nomGare = nomGare;
+        this.estFret = estFret;
+        this.estVoyageur = estVoyageur;
+        this.laCommune = laCommune;
     }
     
     public String getCodeGare() {

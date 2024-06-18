@@ -52,8 +52,13 @@ public class GareDAO extends DAO<Gare> {
 
     @Override
     public int create(Gare element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        String query = "INSERT INTO GARE (CODEGARE, NOMGARE, ESTFRET, ESTVOYAGEUR, LACOMMUNE) VALUES ('" + element.getCodeGare() + "','" + element.getNomGare() + "','" + element.getEstFret() + "','" + element.getEstVoyageur() + "','" + element.getLaCommune() + "')";
+        try (Connection con = getConnection(); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
     }
 
     @Override
@@ -92,4 +97,44 @@ public class GareDAO extends DAO<Gare> {
         return gares;
     }
     
+    public boolean exist(String codeGare) {
+        try (Connection con = getConnection (); Statement st = con.createStatement ()) {
+            ResultSet rs = st.executeQuery("SELECT * FROM Gare WHERE CODEGARE = '" + codeGare + "'");
+            return rs.next();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public ArrayList<Gare> findWithQuerry(String query) {
+        ArrayList <Gare> gares = new ArrayList <>();
+        try (Connection con = getConnection (); Statement st = con.createStatement ()) {
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                String codeGare = rs.getString("CODEGARE");
+                String nomGare = rs.getString("NOMGARE");
+                String estFret = rs.getString("ESTFRET");
+                String estVoyageur = rs.getString("ESTVOYAGEUR");
+                String laCommune = rs.getString("LACOMMUNE");
+                if (estFret.equals("1")) {
+                    estFret = "Oui";
+                } else if (estFret.equals("0")){
+                    estFret = "Non";
+                } 
+                
+                if (estVoyageur.equals("1")) {
+                    estVoyageur = "Oui";
+                } else if (estVoyageur.equals("0")){
+                    estVoyageur = "Non";
+                }
+                gares.add(new Gare(codeGare, nomGare, estFret, estVoyageur, laCommune));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return gares;
+    }
+
 }
