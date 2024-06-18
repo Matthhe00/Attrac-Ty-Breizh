@@ -46,8 +46,13 @@ public class GareDAO extends DAO<Gare> {
 
     @Override
     public int delete(Gare element, String login) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String query = "DELETE FROM Gare WHERE CODEGARE = '" + element.getCodeGare() + "'";
+        try (Connection con = getConnection(); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
     }
 
     @Override
@@ -135,6 +140,36 @@ public class GareDAO extends DAO<Gare> {
             ex.printStackTrace();
         }
         return gares;
+    }
+
+    public int updateNom(String codeGare, String newNom) {
+        String query = "UPDATE Gare SET NOMGARE = '" + newNom + "' WHERE CODEGARE = '" + codeGare + "'";
+        try (Connection con = getConnection(); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
+    }
+
+    public int updateFret(String codeGare, String newFret) {
+        String query = "UPDATE Gare SET ESTFRET = '" + newFret + "' WHERE  CODEGARE = '" + codeGare + "'";
+        try (Connection con = getConnection(); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
+    }
+
+    public int updateVoyageur(String codeGare, String newVoyageur) {
+        String query = "UPDATE Gare SET ESTVOYAGEUR = '" + newVoyageur + "' WHERE  CODEGARE = '" + codeGare + "'";
+        try (Connection con = getConnection(); Statement st = con.createStatement ()) {
+            return st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace ();
+            return -1;
+        }
     }
 
 }

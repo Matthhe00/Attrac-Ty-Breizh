@@ -136,7 +136,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.accueil.getNavBarre().getcompteButton().setOnAction(this);
         this.accueil.getNavBarre().getdepartementButton().setOnAction(this);
         this.accueil.getNavBarre().getDonneesButton().setOnAction(this);
-        this.accueil.getNavBarre().getModifieButton().setOnAction(this);
         this.accueil.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.accueil.getNavBarre().getAccueilButton().setOnAction(this);
         this.accueil.getNotion().setOnAction(this);
@@ -149,7 +148,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.compte.getNavBarre().getcompteButton().setOnAction(this);
         this.compte.getNavBarre().getdepartementButton().setOnAction(this);
         this.compte.getNavBarre().getDonneesButton().setOnAction(this);
-        this.compte.getNavBarre().getModifieButton().setOnAction(this);
         this.compte.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.compte.getNavBarre().getAccueilButton().setOnAction(this);
         this.compte.getModificationButton().setOnAction(this);
@@ -160,7 +158,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.CompteAdminScene.getNavBarre().getcompteButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getdepartementButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getDonneesButton().setOnAction(this);
-        this.CompteAdminScene.getNavBarre().getModifieButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.CompteAdminScene.getNavBarre().getAccueilButton().setOnAction(this);
         this.CompteAdminScene.getAjouterButton().setOnAction(this);
@@ -169,7 +166,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.modifierCommuneScene.getNavBarre().getcompteButton().setOnAction(this);
         this.modifierCommuneScene.getNavBarre().getdepartementButton().setOnAction(this);
         this.modifierCommuneScene.getNavBarre().getDonneesButton().setOnAction(this);
-        this.modifierCommuneScene.getNavBarre().getModifieButton().setOnAction(this);
         this.modifierCommuneScene.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.modifierCommuneScene.getNavBarre().getAccueilButton().setOnAction(this);
 
@@ -177,7 +173,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee.getNavBarre().getcompteButton().setOnAction(this);
         this.donnee.getNavBarre().getdepartementButton().setOnAction(this);
         this.donnee.getNavBarre().getDonneesButton().setOnAction(this);
-        this.donnee.getNavBarre().getModifieButton().setOnAction(this);
         this.donnee.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donnee.getNavBarre().getAccueilButton().setOnAction(this);
         this.donnee.getExportDataButton().setOnAction(this);
@@ -196,7 +191,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDetailVue.getNavBarre().getcompteButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getdepartementButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getDonneesButton().setOnAction(this);
-        this.donneeDetailVue.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDetailVue.getNavBarre().getAccueilButton().setOnAction(this);
         this.donneeDetailVue.getComboBox().setOnAction(this);
@@ -208,7 +202,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDepartement.getNavBarre().getcompteButton().setOnAction(this);
         this.donneeDepartement.getNavBarre().getdepartementButton().setOnAction(this);
         this.donneeDepartement.getNavBarre().getDonneesButton().setOnAction(this);
-        this.donneeDepartement.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDepartement.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDepartement.getNavBarre().getAccueilButton().setOnAction(this);
         this.donneeDepartement.getFinistere().setOnAction(this);
@@ -221,7 +214,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDepartementDetail.getNavBarre().getcompteButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getdepartementButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getDonneesButton().setOnAction(this);
-        this.donneeDepartementDetail.getNavBarre().getModifieButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getAccueilButton().setOnAction(this);
     }
@@ -245,9 +237,6 @@ public class AppController implements EventHandler<ActionEvent> {
             boutonDepartementNavBarreClick();
         } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getDonneesButton() && this.estConnecte){
             boutonDonneesNavBarreClick();
-        } else if (source == this.donnee.getNavBarre().getModifieButton() && this.estConnecte && this.role) {
-            // boutonModifieNavBarreClick();
-            System.out.println("Modifie");
         } else if (source == this.accueil.getNotion()) {
             boutonNotionClick();
         } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.modifierCommuneScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donnee.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getAccueilButton() && this.estConnecte){
@@ -294,7 +283,14 @@ public class AppController implements EventHandler<ActionEvent> {
                     boutonInfoClick(sourceId);
                     this.donneeDetailVue.getComboBox().setValue(null);
                     this.donneeDetailVue.resetValues();
+                } else if (this.gareDAO.exist(sourceId)) {
+                    boutonSupprimerGareClick(sourceId);
+                    boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
+                    boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
                 }
+                // } else if (this.aeroportDAO.exist(sourceId)) {
+                //     boutonSupprimerAeroportClick(sourceId);
+                // }
             } else if (source instanceof ComboBox) {
                 ComboBox sources = (ComboBox) event.getSource();
                 if (sources.getValue() == null) {
@@ -374,7 +370,8 @@ public class AppController implements EventHandler<ActionEvent> {
         this.gareDAO.create(gare);
         this.gareFileAccess.setList();
         this.donneeDetailVue.setGareTable(this.gareDAO.findWithQuerry("SELECT * FROM Gare WHERE laCommune = '" + codeCommune + "'"));
-        // this.donneeDetailVue.setLaCommune(codeCommune, this.communeFileAccess, this.departementFileAccess, this, this.role);
+        
+        updateAppController();
     }
 
     public void boutonDepartementClick(String id) {
@@ -410,8 +407,8 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void boutonInfoClick(String sourceId) {
-        this.donneeDetailVue.init(this, this.role, sourceId);
         this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess, this, this.role);
+        this.donneeDetailVue.init(this, this.role, sourceId, this.gareFileAccess, this.aeroportFileAccess, this.communeFileAccess);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -421,7 +418,7 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void updateAnnee(String annee) {
-        this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role);
+        this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -589,6 +586,18 @@ public class AppController implements EventHandler<ActionEvent> {
         this.userFileAccess.deleteUser(this.userFileAccess.getUser(user));
     }
 
+    public void boutonSupprimerGareClick(String sourceId) {
+        this.gareDAO.delete(this.gareFileAccess.getGare(sourceId), "");
+        this.gareFileAccess.setList();
+    }
+
+    public void updateGareNom(Gare gare, String newValue) {
+        this.gareDAO.updateNom(gare.getCodeGare(), newValue);
+        this.gareFileAccess.setList();
+        this.donneeDetailVue.setLaCommune(gare.getLaCommune(), this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
+        boutonInfoClick(gare.getLaCommune());
+    }
+
     public void boutonListeCompteClick() {
         // this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
         Pane root = this.CompteAdminScene.creerRootCompte();
@@ -647,7 +656,18 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee.setCommuneTable(communes);
     }
 
-    public void updateGareNom(String oldValue, String newValue) {
+    public void updateGareFret(Gare gare, String newValue) {
+        this.gareDAO.updateFret(gare.getCodeGare(), newValue);
+        this.gareFileAccess.setList();
+        this.donneeDetailVue.setLaCommune(gare.getLaCommune(), this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
+        boutonInfoClick(gare.getLaCommune());
+    }
+
+    public void updateGareVoyageur(Gare gare, String newValue) {
+        this.gareDAO.updateVoyageur(gare.getCodeGare(), newValue);
+        this.gareFileAccess.setList();
+        this.donneeDetailVue.setLaCommune(gare.getLaCommune(), this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
+        boutonInfoClick(gare.getLaCommune());
     }
     
 }

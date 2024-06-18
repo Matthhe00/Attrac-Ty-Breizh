@@ -53,4 +53,14 @@ public class AeroportFileAccess {
         AeroportDAO u =  new AeroportDAO();
         this.Aeroports = u.findAll();
     }
+
+    public ArrayList<Aeroport> getAeroportByDepartement(String departement) {
+        ArrayList<Aeroport> Aeroports = new ArrayList<Aeroport>();
+        for (Aeroport Aeroport : this.Aeroports) {
+            if (Aeroport.getLeDepartement().equals(departement)) {
+                Aeroports.add(Aeroport);
+            }
+        }
+        return Aeroports;
+    }
 }

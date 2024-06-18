@@ -26,7 +26,7 @@ public class GareTable extends TableView<Gare> {
         nomCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nomCol.setOnEditCommit((CellEditEvent<Gare, String> t) -> {
             if (!t.getNewValue().equals("")) {
-                controller.updateGareNom(t.getOldValue(), t.getNewValue());
+                controller.updateGareNom(t.getRowValue(), t.getNewValue());
             }
         });
         if (isAdmin) nomCol.setEditable(true);
@@ -36,6 +36,11 @@ public class GareTable extends TableView<Gare> {
         TableColumn<Gare, String> adresseCol = new TableColumn<>("Gare Marchandise");
         adresseCol.setCellValueFactory(new PropertyValueFactory<>("estFret"));
         adresseCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        adresseCol.setOnEditCommit((CellEditEvent<Gare, String> t) -> {
+            if (!t.getNewValue().equals("")) {
+                controller.updateGareFret(t.getRowValue(), t.getNewValue());
+            }
+        });
         if (isAdmin) adresseCol.setEditable(true);
         else adresseCol.setEditable(false);
         adresseCol.setMinWidth(140);
@@ -43,6 +48,11 @@ public class GareTable extends TableView<Gare> {
         TableColumn<Gare, String> departCol = new TableColumn<>("Gare Voyageur");
         departCol.setCellValueFactory(new PropertyValueFactory<>("estVoyageur"));
         departCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        departCol.setOnEditCommit((CellEditEvent<Gare, String> t) -> {
+            if (!t.getNewValue().equals("")) {
+                controller.updateGareVoyageur(t.getRowValue(), t.getNewValue());
+            }
+        });
         if (isAdmin) departCol.setEditable(true);
         else departCol.setEditable(false);
         departCol.setMinWidth(140);

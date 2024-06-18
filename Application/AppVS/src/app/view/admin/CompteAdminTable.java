@@ -37,7 +37,6 @@ public class CompteAdminTable extends TableView<User> {
         loginCol.setOnEditCommit((CellEditEvent<User, String> t) -> {
             if (!t.getNewValue().equals("")) {
                 controller.updateLogin(t.getOldValue(), t.getNewValue());
-                System.out.println("Login changed");
             }
         });
         loginCol.setMinWidth(130);

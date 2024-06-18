@@ -2,6 +2,7 @@ package app.view;
 
 import java.util.ArrayList;
 import app.controller.AppController;
+import app.model.dao.*;
 import app.model.data.*;
 import app.view.table.*;
 import javafx.scene.Scene;
@@ -41,6 +42,12 @@ public class DonneeCommuneDetail {
         this.gareTable = new GareTable(this.commune.getListeGares(), appController, isAdmin);
         this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), appController, isAdmin);
         this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), appController, idCommune);
+    }
+
+    public void init(AppController appController, Boolean isAdmin, String idCommune, GareFileAccess gareFileAccess, AeroportFileAccess aeroportFileAccess, CommuneFileAccess communeFileAccess) {
+        this.gareTable = new GareTable(gareFileAccess.getGareByCommune(idCommune), appController, isAdmin);
+        this.aeroportTable = new AeroportTable(aeroportFileAccess.getAeroportByDepartement(this.departement.getIdDep()), appController, isAdmin);
+        this.voisineTable = new VoisineTable(communeFileAccess.getCommuneVoisine(idCommune), appController, idCommune);
     }
 
     public void initUIComponents() {
@@ -101,8 +108,8 @@ public class DonneeCommuneDetail {
         configurerBouton(this.exportDataButton, 140, 600, "my-button", root);
 
         if (estAdmin) {
-            configurerBouton(this.ajouterGare, 580, 185, "my-button", root);
-            configurerBouton(this.ajouterAeroport, 580, 310, "my-button", root);
+            configurerBouton(this.ajouterGare, 570, 180, "my-button", root);
+            configurerBouton(this.ajouterAeroport, 570, 305, "my-button", root);
         }
         
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
@@ -209,14 +216,14 @@ public class DonneeCommuneDetail {
         this.nomDepartementLabel.setText(this.departement.getNomDep());
     }
 
-    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess, String a, AnneeCommuneFileAccess anneeCommuneFileAccess, AnneeFileAccess anneeFileAccess, AppController c, Boolean isAdmin) {
+    public void setLaCommune(String idCommune, CommuneFileAccess communeFileAccess, DepartementFileAccess departementFileAccess, String a, AnneeCommuneFileAccess anneeCommuneFileAccess, AnneeFileAccess anneeFileAccess, AppController c, Boolean isAdmin, GareDAO gareDAO) {
         //initialisation des variables de donnees
         if (a != null) {
             this.commune = communeFileAccess.getCommuneById(idCommune);
             this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
             this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
             this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), c, isAdmin);
-            this.gareTable = new GareTable(this.commune.getListeGares(), c, isAdmin);
+            this.gareTable = new GareTable(gareDAO.findWithQuerry("SELECT * FROM Gare WHERE laCommune = '" + idCommune + "'"), c, isAdmin);
             this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), c, idCommune);
             this.annee = anneeFileAccess.getAnneeById(a);
             this.anneeCommune = anneeCommuneFileAccess.getAnneeCommuneById(a,idCommune);        
@@ -237,7 +244,7 @@ public class DonneeCommuneDetail {
             this.commune.setCommuneVoisine(communeFileAccess.getCommuneVoisine(idCommune));
             this.departement = departementFileAccess.getDepartementById(this.commune.getLeDepartement());
             this.aeroportTable = new AeroportTable(this.departement.getListeAeroports(), c, isAdmin);
-            this.gareTable = new GareTable(this.commune.getListeGares(), c, isAdmin);
+            this.gareTable = new GareTable(gareDAO.findWithQuerry("SELECT * FROM Gare WHERE laCommune = '" + idCommune + "'"), c, isAdmin);
             this.voisineTable = new VoisineTable(this.commune.getCommuneVoisine(), c, idCommune);
             this.annee = anneeFileAccess.getAnneeById(a);
             this.anneeCommune = anneeCommuneFileAccess.getAnneeCommuneById(a,idCommune);        
