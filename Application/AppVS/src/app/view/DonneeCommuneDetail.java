@@ -108,8 +108,8 @@ public class DonneeCommuneDetail {
         configurerBouton(this.exportDataButton, 140, 600, "my-button", root);
 
         if (estAdmin) {
-            configurerBouton(this.ajouterGare, 570, 180, "my-button", root);
-            configurerBouton(this.ajouterAeroport, 570, 305, "my-button", root);
+            configurerBouton(this.ajouterGare, 570, 180, "my-button-add", root);
+            configurerBouton(this.ajouterAeroport, 570, 305, "my-button-add", root);
         }
         
         configurerTable(this.aeroportTable, 650, 250, "my-table", root, 482, 105);
@@ -285,4 +285,11 @@ public class DonneeCommuneDetail {
         return this.numeroLabel;
     }
 
+    public Commune getCommune() {
+        return this.commune;
+    }
+
+    public void setAeroportTable(ArrayList<Aeroport> withQuerry) {
+        this.aeroportTable.setAeroports(withQuerry);
+    }
 }

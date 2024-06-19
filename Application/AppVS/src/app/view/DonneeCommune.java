@@ -249,4 +249,15 @@ public class DonneeCommune extends Pane {
         return this.prixField;
     }
 
+    public void resetCheckBox() {
+        this.tri1.setSelected(false);
+        this.tri2.setSelected(false);
+        this.tri3.setSelected(false);
+        this.tri4.setSelected(false);
+        this.tri5.setSelected(false);
+        this.tri6.setSelected(false);
+        this.tri7.setSelected(false);
+        this.tri8.setSelected(false);
+    }
+
 }

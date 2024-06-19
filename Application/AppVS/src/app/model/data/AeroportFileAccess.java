@@ -63,4 +63,13 @@ public class AeroportFileAccess {
         }
         return Aeroports;
     }
+
+    public Aeroport getAeroportByNom(String nom) {
+        for (Aeroport Aeroport : this.Aeroports) {
+            if (Aeroport.getNom().equals(nom)) {
+                return Aeroport;
+            }
+        }
+        return null;
+    }
 }

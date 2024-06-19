@@ -261,8 +261,7 @@ public class AppController implements EventHandler<ActionEvent> {
             System.out.println("Ajouter Gare");
             ajouterGare(this.donneeDetailVue.getCodeCommune().getText());
         } else if (source == this.donneeDetailVue.getAjouterAeroport()) {
-            System.out.println("Ajouter Aeroport");
-            // ajouterAeroport(this.donneeDetailVue.getCodeCommune().getText());
+            ajouterAeroport(this.donneeDetailVue.getCodeCommune().getText());
         } else if (source == this.donneeDepartement.getCoteDArmor()) {
             boutonDepartementClick("22");
         } else if (source == this.donneeDepartement.getIlleEtVilaine()) {
@@ -284,13 +283,17 @@ public class AppController implements EventHandler<ActionEvent> {
                     this.donneeDetailVue.getComboBox().setValue(null);
                     this.donneeDetailVue.resetValues();
                 } else if (this.gareDAO.exist(sourceId)) {
+                    String codeCommune = this.gareFileAccess.getGare(sourceId).getLaCommune();
                     boutonSupprimerGareClick(sourceId);
+                    boutonInfoClick(codeCommune);
+                    boutonInfoClick(codeCommune);
+                    updateAppController();
+                } else if (this.aeroportDAO.exist(sourceId)) {
+                    boutonSupprimerAeroportClick(sourceId);
                     boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
                     boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
+                    updateAppController();
                 }
-                // } else if (this.aeroportDAO.exist(sourceId)) {
-                //     boutonSupprimerAeroportClick(sourceId);
-                // }
             } else if (source instanceof ComboBox) {
                 ComboBox sources = (ComboBox) event.getSource();
                 if (sources.getValue() == null) {
@@ -365,12 +368,26 @@ public class AppController implements EventHandler<ActionEvent> {
         }
     } 
 
+    public void boutonSupprimerAeroportClick(String sourceId) {
+        this.aeroportDAO.delete(this.aeroportFileAccess.getAeroportByNom(sourceId), "");
+        this.aeroportFileAccess.setList();
+        // this.donneeDetailVue.setAeroportTable(this.aeroportDAO.findWithQuerry("SELECT * FROM Aeroport WHERE leDepartement = '" + this.aeroportFileAccess.getAeroportByNom(sourceId).getLeDepartement() + "'"));
+        // updateAppController();
+    }
+
     public void ajouterGare(String codeCommune) {
         Gare gare = new Gare("a","0","0", codeCommune);
         this.gareDAO.create(gare);
         this.gareFileAccess.setList();
         this.donneeDetailVue.setGareTable(this.gareDAO.findWithQuerry("SELECT * FROM Gare WHERE laCommune = '" + codeCommune + "'"));
-        
+        updateAppController();
+    }
+
+    public void ajouterAeroport(String codeCommune) {
+        Aeroport aeroport = new Aeroport(this.communeFileAccess.getCommuneById(codeCommune).getLeDepartement(), "nom","adresse" );
+        this.aeroportDAO.create(aeroport);
+        this.aeroportFileAccess.setList();
+        this.donneeDetailVue.setAeroportTable(this.aeroportDAO.findWithQuerry("SELECT * FROM Aeroport WHERE leDepartement = '" + this.communeFileAccess.getCommuneById(codeCommune).getLeDepartement() + "'"));
         updateAppController();
     }
 
@@ -419,6 +436,7 @@ public class AppController implements EventHandler<ActionEvent> {
 
     public void updateAnnee(String annee) {
         this.donneeDetailVue.setLaCommune(this.idCommune, this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
+        this.donneeDetailVue.init(this, this.role, this.idCommune, this.gareFileAccess, this.aeroportFileAccess, this.communeFileAccess);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -642,6 +660,8 @@ public class AppController implements EventHandler<ActionEvent> {
 
     public void boutonDonneesNavBarreClick() {
         this.donnee.getSearchField().clear();
+        resetCommuneTable();
+        this.donnee.resetCheckBox();
         Pane root = this.donnee.creerRootDonnee(estConnecte, role);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -668,6 +688,20 @@ public class AppController implements EventHandler<ActionEvent> {
         this.gareFileAccess.setList();
         this.donneeDetailVue.setLaCommune(gare.getLaCommune(), this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
         boutonInfoClick(gare.getLaCommune());
+    }
+
+    public void updateAeroportNom(Aeroport rowValue, String newValue) {
+        this.aeroportDAO.updateNom(rowValue.getNom(), newValue);
+        this.aeroportFileAccess.setList();
+        this.donneeDetailVue.setLaCommune(this.donneeDetailVue.getCodeCommune().getText(), this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
+        boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
+    }
+
+    public void updateAeroportAdresse(Aeroport rowValue, String newValue) {
+        this.aeroportDAO.updateAdresse(rowValue.getNom(), newValue);
+        this.aeroportFileAccess.setList();
+        this.donneeDetailVue.setLaCommune(this.donneeDetailVue.getCodeCommune().getText(), this.communeFileAccess, this.departementFileAccess, this.annee, this.anneeCommuneFileAccess, this.anneeFileAccess, this, this.role, this.gareDAO);
+        boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
     }
     
 }

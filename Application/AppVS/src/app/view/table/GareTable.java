@@ -56,6 +56,7 @@ public class GareTable extends TableView<Gare> {
         if (isAdmin) departCol.setEditable(true);
         else departCol.setEditable(false);
         departCol.setMinWidth(140);
+        
         TableColumn<Gare, String> otherCol = new TableColumn<>("Actions");
         if(isAdmin) {
                 otherCol.setCellFactory(i -> new TableCell<Gare, String>() {

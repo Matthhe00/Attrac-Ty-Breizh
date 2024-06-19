@@ -10,6 +10,24 @@
     -fx-cursor: hand;
 }
 
+.my-button-add {
+    -fx-background-color: #b6a336;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 15px;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-cursor: hand;
+    -fx-margin: 10px 20px; /* Add horizontal margin */
+}
+
+.my-button-add:hover {
+    -fx-background-color: #837839;
+    -fx-text-fill: white;
+}
+
 .my-button:hover {
     -fx-background-color: #1f6892;
     -fx-text-fill: white;
@@ -69,7 +87,7 @@
 }
 
 .my-button-modif {
-    -fx-background-color: #36b64c;
+    -fx-background-color: #b6a336;
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -82,7 +100,7 @@
 }
 
 .my-button-modif:hover {
-    -fx-background-color: #1f8c3f;
+    -fx-background-color: #837839;
     -fx-text-fill: white;
 }
 
@@ -351,5 +369,3 @@
     -fx-background-: 15px;
     -fx-background-radius: 15px;
 }
-
-
