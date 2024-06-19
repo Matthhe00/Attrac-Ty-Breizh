@@ -139,6 +139,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.accueil.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.accueil.getNavBarre().getAccueilButton().setOnAction(this);
         this.accueil.getNotion().setOnAction(this);
+        this.accueil.getNavBarre().getStatistiqueButton().setOnAction(this)
 
         // gestion des événements de la classe Inscription
         this.inscription.getInscriptionButton().setOnAction(this);
