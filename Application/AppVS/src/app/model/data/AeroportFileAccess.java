@@ -72,4 +72,8 @@ public class AeroportFileAccess {
         }
         return null;
     }
+
+    public String getNbAeroport() {
+        return String.valueOf(this.Aeroports.size());
+    }
 }

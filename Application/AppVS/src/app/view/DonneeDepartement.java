@@ -1,4 +1,5 @@
 package app.view; 
+import app.model.data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import resource.utils.Constants;
     private NavBarre navBarre;
     private Stage primaryStage;
     private Button finistere, morbihan, illeEtVilaine, coteDArmor, exportButton;
+    private Label nbGare, nbAeroport, nbComune;
 
     public DonneeDepartement(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -28,6 +30,9 @@ import resource.utils.Constants;
 
     public void initUIComponents() {
         this.exportButton = new Button("Exporter les données");
+        this.nbAeroport = new Label();
+        this.nbGare = new Label();
+        this.nbComune = new Label();
 
         this.finistereImage = new Image(Constants.FINISTERE_PATH);
         this.morbihanImage = new Image(Constants.MORBIHAN_PATH);
@@ -85,7 +90,7 @@ import resource.utils.Constants;
     
 
     public Scene creerSceneDonnee() {
-        Pane root = creerRootDonnee(false, false);
+        Pane root = creerRootDonnee(false, false, null, null, null);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
@@ -96,24 +101,40 @@ import resource.utils.Constants;
         return scene;
     }
 
-    public Pane creerRootDonnee(boolean estConnecte, boolean estAdmin) {
+    public Pane creerRootDonnee(boolean estConnecte, boolean estAdmin, AeroportFileAccess aeroportFileAccess, GareFileAccess gareFileAccess, CommuneFileAccess communeFileAccess) {
         this.navBarre = this.navBarre.refresh(estConnecte, false);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
         configurerComposants(root);
+        init(aeroportFileAccess, gareFileAccess, communeFileAccess);
         return root;
+    }
+
+    public void init(AeroportFileAccess aeroportFileAccess, GareFileAccess gareFileAccess, CommuneFileAccess communeFileAccess) {
+        if (aeroportFileAccess != null && gareFileAccess != null && communeFileAccess != null) {
+            this.nbAeroport.setText(aeroportFileAccess.getNbAeroport());
+            this.nbGare.setText(gareFileAccess.getNbGare());
+            this.nbComune.setText(communeFileAccess.getNbCommune());
+        }
     }
 
     public void configurerComposants(Pane root) {
         root.getChildren().add(this.navBarre);
         configurerButton(this.exportButton, 950, 150, "my-button", root);
         configurerBouton(this.finistere, 15, 180 + 80, 60, 60, "my-button-dep-fini", root);
-        // Côtes-d'Armor au nord
         configurerBouton(this.coteDArmor, 290, 80 + 80, 60, 60, "my-button-dep-cote", root);
-        // Ille-et-Vilaine à l'est
         configurerBouton(this.illeEtVilaine, 540, 180 + 80, 60, 60, "my-button-dep-ille", root);
-        // Morbihan au sud
         configurerBouton(this.morbihan, 290, 290 + 80, 60, 60, "my-button-dep-morb", root);
+        configurerLabel(this.nbAeroport, 1040, 515, "my-label-data", root);
+        configurerLabel(this.nbGare, 1015, 400, "my-label-data", root);
+        configurerLabel(this.nbComune, 1000, 265, "my-label-data", root);
+    }
+
+    private void configurerLabel(Label label, int x, int y, String styleClass, Pane root) {
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+        label.getStyleClass().add(styleClass);
+        root.getChildren().add(label);
     }
 
     private void configurerBouton(Button bouton, int x, int y, int l, int h, String styleClass, Pane root) {

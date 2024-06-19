@@ -43,4 +43,8 @@ public class CommuneFileAccess {
         return null;
     }
 
+    public String getNbCommune() {
+        return String.valueOf(this.communes.size());
+    }
+
 }

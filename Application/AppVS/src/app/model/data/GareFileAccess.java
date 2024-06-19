@@ -77,4 +77,8 @@ public class GareFileAccess{
         u.updateVoyageur(codeGare, voyageur);
     }
 
+    public String getNbGare() {
+        return String.valueOf(Gares.size());
+    }
+
 }

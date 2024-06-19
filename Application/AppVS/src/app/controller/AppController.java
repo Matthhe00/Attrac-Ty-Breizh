@@ -423,7 +423,7 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void boutonDepartementNavBarreClick() {
-        Pane root = this.donneeDepartement.creerRootDonnee(estConnecte, role);
+        Pane root = this.donneeDepartement.creerRootDonnee(estConnecte, role,  this.aeroportFileAccess, this.gareFileAccess, this.communeFileAccess);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
@@ -444,6 +444,8 @@ public class AppController implements EventHandler<ActionEvent> {
     }
 
     public void boutonInfoClick(String sourceId) {
+        this.aeroportFileAccess.setList();
+        this.gareFileAccess.setList();
         this.donneeDetailVue.setLaCommune(sourceId, this.communeFileAccess, this.departementFileAccess, this, this.role);
         this.donneeDetailVue.init(this, this.role, sourceId, this.gareFileAccess, this.aeroportFileAccess, this.communeFileAccess);
         Pane root = this.donneeDetailVue.creerRootDonnee(estConnecte, role);
