@@ -4,8 +4,22 @@ import java.sql.*;
 import java.util .*;
 import app.model.data.User;
 
+/**
+ * Classe UserDAO
+ */
 public class UserDAO extends DAO <User> {
 
+    /**
+     * Constructeur
+     */
+    public UserDAO() {
+    }
+
+    /**
+     * Crée un utilisateur
+     * @param user Utilisateur à créer
+     * @return Nombre de lignes créées
+     */
     @Override
     public int create(User user) {
         String query = "INSERT INTO USER(LOGIN , PWD , ROLE) VALUES ('" + user.getLogin () + "','" + user.getPwd() + "','" + user.getRole() + "')";
@@ -17,6 +31,13 @@ public class UserDAO extends DAO <User> {
         }
     }
     
+    /**
+     * Met à jour un utilisateur
+     * @param user Utilisateur à mettre à jour
+     * @param login Login de l'utilisateur
+     * @param role Role de l'utilisateur
+     * @return Nombre de lignes mises à jour
+     */
     @Override
     public int update(User user, String login, String role) {
         String query = "UPDATE User SET login ='" + user.getLogin() + "', pwd ='" + user.getPwd() + "', role ='" + user.getRole() + "' WHERE login ='" + login + "'";
@@ -28,6 +49,12 @@ public class UserDAO extends DAO <User> {
         }
     }
 
+    /**
+     * Supprime un utilisateur
+     * @param user Utilisateur à supprimer
+     * @param login Login de l'utilisateur
+     * @return Nombre de lignes supprimées
+     */
     @Override
     public int delete(User user, String login) {
         String query = "DELETE FROM User WHERE LOGIN='" + login + "'";
@@ -39,6 +66,10 @@ public class UserDAO extends DAO <User> {
         }
     }
 
+    /**
+     * retourne la liste des utilisateurs
+     * @return Liste des utilisateurs
+     */
     public ArrayList <User> findAll () {
         ArrayList <User > users = new ArrayList <>();
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
@@ -56,6 +87,12 @@ public class UserDAO extends DAO <User> {
         return users;
     }
 
+    /**
+     * retourne un utilisateur
+     * @param login Login de l'utilisateur
+     * @param pwd Mot de passe de l'utilisateur
+     * @return Utilisateur
+     */
     @Override
     public User findByLoginPwd(String login , String pwd) {
         try (Connection con = getConnection ();
@@ -74,6 +111,11 @@ public class UserDAO extends DAO <User> {
         return null;
     }
 
+    /**
+     * retourne un utilisateur
+     * @param login Login de l'utilisateur
+     * @return Utilisateur
+     */
     public User findByLogin(String login) {
         try (Connection con = getConnection ();
             PreparedStatement st = con.prepareStatement("SELECT * FROM USER WHERE LOGIN= ?")) {
@@ -91,6 +133,11 @@ public class UserDAO extends DAO <User> {
         return null;
     }
 
+    /**
+     * Vérifie si un utilisateur existe
+     * @param login Login de l'utilisateur
+     * @return true si l'utilisateur existe, false sinon
+     */
     public boolean exists(String login) {
         try (Connection con = getConnection ();
             PreparedStatement st = con.prepareStatement("SELECT * FROM USER WHERE LOGIN= ?")) {
@@ -103,6 +150,12 @@ public class UserDAO extends DAO <User> {
         }
     }
 
+    /**
+     * Met à jour le login d'un utilisateur
+     * @param oldLogin Ancien login
+     * @param newLogin Nouveau login
+     * @return Nombre de lignes mises à jour
+     */
     public int updateLogin(String oldLogin, String newLogin) {
         String query = "UPDATE User SET login ='" + newLogin + "' WHERE login ='" + oldLogin + "'";
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
@@ -113,6 +166,12 @@ public class UserDAO extends DAO <User> {
         }
     }
 
+    /**
+     * Met à jour le mot de passe d'un utilisateur
+     * @param login Login de l'utilisateur
+     * @param pwd Nouveau mot de passe
+     * @return  Nombre de lignes mises à jour
+     */
     public int updatePwd(String login, String pwd) {
         String query = "UPDATE User SET pwd ='" + pwd + "' WHERE login ='" + login + "'";
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {
@@ -123,6 +182,12 @@ public class UserDAO extends DAO <User> {
         }
     }
 
+    /**
+     * Met à jour le role d'un utilisateur
+     * @param login Login de l'utilisateur
+     * @param role Nouveau role
+     * @return Nombre de lignes mises à jour
+     */
     public int updateRole(String login, String role) {
         String query = "UPDATE User SET role ='" + role + "' WHERE login ='" + login + "'";
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {

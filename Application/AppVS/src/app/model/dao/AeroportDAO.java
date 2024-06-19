@@ -5,8 +5,21 @@ import java.util .*;
 import app.model.data.Aeroport;
 import app.model.data.Gare;
 
+/**
+ * Classe AeroportDAO
+ */
 public class AeroportDAO extends DAO <Aeroport> {
-    
+
+    /**
+     * Constructeur
+     */
+    public AeroportDAO() {
+    }
+
+    /**
+     * Recherche la liste d'un aéroport
+     * @return Liste d'aéroports
+     */
     @Override
     public ArrayList <Aeroport> findAll() {
         ArrayList <Aeroport> Aeroports = new ArrayList <>();
@@ -24,12 +37,25 @@ public class AeroportDAO extends DAO <Aeroport> {
         return Aeroports;
     }
 
+    /**
+     * 
+     * @param element 
+     * @param login
+     * @param role
+     * @return
+     */
     @Override
     public int update(Aeroport element, String login, String role) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
+    /**
+     * Supprime un aéroport de la base de donnée
+     * @param element Aéroport à supprimer
+     * @param login Login de l'utilisateur
+     * @return Nombre de lignes supprimées
+     */
     @Override
     public int delete(Aeroport element, String login) {
         String query = "DELETE FROM Aeroport WHERE NOM = '" + element.getNom() + "'";
@@ -41,6 +67,11 @@ public class AeroportDAO extends DAO <Aeroport> {
         }
     }
 
+    /**
+     * Crée un aéroport dans la base de donnée
+     * @param element Aéroport à créer
+     * @return Nombre de lignes créées
+     */
     @Override
     public int create(Aeroport element) {
         System.out.println(element.getNom() + " " + element.getAdresse() + " " + element.getLeDepartement());
@@ -53,12 +84,23 @@ public class AeroportDAO extends DAO <Aeroport> {
         }
     }
 
+    /**
+     * 
+     * @param login
+     * @param pwd
+     * @return
+     */
     @Override
     public Aeroport findByLoginPwd(String login, String pwd) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findByLoginPwd'");
     }
 
+    /**
+     * Recherche une liste d'aéroports avec une requête
+     * @param query Requête SQL à exécuter
+     * @return Liste d'aéroports
+     */
     public ArrayList<Aeroport> findWithQuerry(String query) {
         ArrayList<Aeroport> Aeroports = new ArrayList<>();
         try (Connection con = getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(query)) {
@@ -74,6 +116,11 @@ public class AeroportDAO extends DAO <Aeroport> {
         return Aeroports;
     }
 
+    /**
+     * Verifie si un aéroport existe
+     * @param nom Nom de l'aéroport
+     * @return Vrai si l'aéroport existe, faux sinon
+     */
     public boolean exist(String nom) {
         String query = "SELECT * FROM Aeroport WHERE NOM = '" + nom + "'";
         try (Connection con = getConnection(); Statement st = con.createStatement (); ResultSet rs = st.executeQuery(query)) {
@@ -84,6 +131,11 @@ public class AeroportDAO extends DAO <Aeroport> {
         }
     }
 
+    /**
+     * Met à jour le nom d'un aéroport
+     * @param nomAeroport Nom de l'aéroport
+     * @param newValue Nouveau nom
+     */
     public void updateNom(String nomAeroport, String newValue) {
         if (exist(newValue)) return;
         else {        
@@ -96,6 +148,11 @@ public class AeroportDAO extends DAO <Aeroport> {
         }
     }
 
+    /**
+     * Met à jour l'adresse d'un aéroport
+     * @param nomAeroport Nom de l'aéroport
+     * @param newValue Nouvelle adresse
+     */
     public void updateAdresse(String nomAeroport, String newValue) {
         String query = "UPDATE Aeroport SET ADRESSE = '" + newValue + "' WHERE NOM = '" + nomAeroport + "'";
         try (Connection con = getConnection(); Statement st = con.createStatement ()) {

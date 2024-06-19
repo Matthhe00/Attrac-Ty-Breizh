@@ -23,8 +23,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe DAO pour la connexion a la base de donnees
+ */
 public abstract class DAO <T> {
 
+    /**
+     * Constructeur
+     */
+    public DAO () {
+    }
+    /**
+     * Obtenir la connection
+     * @return Connection
+     * @throws SQLException Exception SQL
+     */
     protected Connection getConnection () throws SQLException {
         // Charger la classe du pilote
     try {

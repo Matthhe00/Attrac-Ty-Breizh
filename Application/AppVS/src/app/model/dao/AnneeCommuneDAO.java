@@ -7,8 +7,21 @@ import app.model.data.Annee;
 import app.model.data.AnneeCommune;
 import app.model.data.Commune;
 
+/**
+ * Classe AnneeCommuneDAO
+ */
 public class AnneeCommuneDAO extends DAO<AnneeCommune> {
 
+    /**
+     * Constructeur
+     */
+    public AnneeCommuneDAO() {
+    }
+
+    /**
+     * retourne la liste des données annuelles de chaque commune
+     * @return Liste des données annuelles de chaque commune
+     */
     @Override
     public ArrayList<AnneeCommune> findAll() {
         ArrayList <AnneeCommune> Annees = new ArrayList <>();
@@ -36,30 +49,60 @@ public class AnneeCommuneDAO extends DAO<AnneeCommune> {
         return Annees;
     }
 
+    /**
+     * 
+     * @param element
+     * @param login
+     * @param role
+     * @return
+     */
     @Override
     public int update(AnneeCommune element, String login, String role) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
+    /**
+     * Supprime une donnée annuelle de la base de donnée
+     * @param element Donnée annuelle à supprimer
+     * @param login Login de l'utilisateur
+     * @return Nombre de lignes supprimées
+     */
     @Override
     public int delete(AnneeCommune element, String login) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
+    /**
+     * Crée une donnée annuelle dans la base de donnée
+     * @param element Donnée annuelle à créer
+     * @return Identifiant de la donnée annuelle créée
+     */
     @Override
     public int create(AnneeCommune element) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
 
+    /**
+     * Recherche une donnée annuelle par son identifiant
+     * @param login Identifiant de la donnée annuelle
+     * @param pwd Mot de passe de la donnée annuelle
+     * @return Donnée annuelle
+     */
     @Override
     public AnneeCommune findByLoginPwd(String login, String pwd) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findByLoginPwd'");
     }
 
+    /**
+     * Recherche une donnée annuelle par son année et sa commune
+     * @param annee Année de la donnée annuelle
+     * @param commune Commune de la donnée annuelle
+     * @return Donnée annuelle
+     */
     public AnneeCommune findAnneeCommune(String annee, String commune) {
         AnneeCommune an = null;
         try (Connection con = getConnection (); Statement st = con.createStatement ()) {

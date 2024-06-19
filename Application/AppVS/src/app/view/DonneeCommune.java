@@ -43,7 +43,7 @@ public class DonneeCommune extends Pane {
     }
 
     public void initUIComponents() {
-        this.tri1 = new CheckBox("Ile et Vilaine");
+        this.tri1 = new CheckBox("Ille et Vilaine");
         this.tri1.setId("35");
 
         this.tri2 = new CheckBox("Morbihan");
