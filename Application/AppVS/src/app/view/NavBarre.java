@@ -9,6 +9,7 @@ public class NavBarre extends GridPane{
     private Button donneesButton;
     private Button deconnexion;
     private Button accueilButton;
+    private Button statistiqueButton;
 
     public NavBarre() {
         initNavBarre(false, false);
@@ -38,26 +39,23 @@ public class NavBarre extends GridPane{
         this.donneesButton = new Button("Communes");
         this.deconnexion = new Button("Déconnexion");
         this.accueilButton = new Button("Accueil");
+        this.statistiqueButton = new Button("Statistiques");
 
-        if (!estConnecte) {
-            this.add(accueilButton, 0, 0);
-            this.add(compteButton, 1, 0);
-            this.add(departementButton, 2, 0);
-            this.add(donneesButton, 3, 0);
-            this.add(deconnexion, 18, 0);
-        } else {
-            this.add(accueilButton, 0, 0);
-            this.add(compteButton, 1, 0);
-            this.add(departementButton, 2, 0);
-            this.add(donneesButton, 3, 0);
-            this.add(deconnexion, 18, 0);
-        }
+
+        this.add(accueilButton, 0, 0);
+        this.add(compteButton, 1, 0);
+        this.add(departementButton, 2, 0);
+        this.add(donneesButton, 3, 0);
+        this.add(statistiqueButton, 4, 0);
+        this.add(deconnexion, 14, 0);
+        
 
         this.getStyleClass().add("nav-barre"); // Ajouter une classe CSS
         this.accueilButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.departementButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.compteButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.donneesButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
+        this.statistiqueButton.getStyleClass().add("my-button-nav-barre"); // Ajouter une classe CSS
         this.deconnexion.getStyleClass().add("my-button-nav-barre-deco"); // Ajouter une classe CSS
 
         this.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm()); // Ajouter le fichier CSS
@@ -98,4 +96,7 @@ public class NavBarre extends GridPane{
         return this.accueilButton;
     }
     
+    public Button getStatistiqueButton() {
+        return this.statistiqueButton;
+    }
 }

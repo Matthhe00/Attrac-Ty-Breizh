@@ -20,6 +20,7 @@ public abstract class Constants {
 	public static final String BACKGROUND_DONNEE_DETAIL_PATH = "resource/image/BackgroundDonneeCommune.png";
 	public static final String BACKGROUND_DONNEE_DEPARTEMENT_PATH = "resource/image/BackgroundDonneeDepartement.png";
 	public static final String BACKGROUND_DONNEE_DEPARTEMENT_DETAIL_PATH = "resource/image/BackgroundDonneeDepartementDetail.png";
+	public static final String BACKGROUND_STATISTIQUE_PATH = "resource/image/BackgroundStatistique.png";
 
 	public static final String FINISTERE_PATH = "resource/image/Departement/departement-finistere.png";
 	public static final String MORBIHAN_PATH = "resource/image/Departement/departement-morbihan.png";
