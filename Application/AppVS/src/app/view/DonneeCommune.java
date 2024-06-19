@@ -18,7 +18,7 @@ public class DonneeCommune extends Pane {
     private BackgroundImage background;
     private NavBarre navBarre;
     private Stage primaryStage;
-    private CheckBox tri1, tri2, tri3, tri4, tri5, tri6, tri7, tri8;
+    private CheckBox tri1, tri2, tri3, tri4, tri5, tri6;
     private Label donneLabel, errorLabel;
     private TextField searchField, prixField;
     private CommuneTable donneTable;
@@ -61,8 +61,6 @@ public class DonneeCommune extends Pane {
         this.tri6 = new CheckBox("prix du m² < ");
         this.tri6.setId("prix");
 
-        this.tri7 = new CheckBox("Tri 7");
-        this.tri8 = new CheckBox("Tri 8");
         this.donneLabel = new Label("Communes");
         this.errorLabel = new Label("");
         this.exportDataButton = new Button("Exporter les données");
@@ -98,7 +96,7 @@ public class DonneeCommune extends Pane {
         configurerLabel(this.errorLabel, 150, 220, 200, 50, "my-label-error", root);
         configurerTextField(this.searchField, 135, 180, 350, 50, "Rechercher", "my-field-user-con", root);
         configurerTextField(this.prixField, 390, 395, 80, 20, "Prix", "my-field-user-con", root);
-        configurerBouton(this.exportDataButton, 170, 550, "my-button", root);
+        configurerBouton(this.exportDataButton, 160, 500, "my-button", root);
 
         configurerTable(this.donneTable, 595, 195, "my-table", root, 522, 430);
         
@@ -109,8 +107,7 @@ public class DonneeCommune extends Pane {
         checkBoxes.add(this.tri4);
         checkBoxes.add(this.tri5);
         checkBoxes.add(this.tri6);
-        checkBoxes.add(this.tri7);
-        checkBoxes.add(this.tri8);
+
     
         // Groupe 1 : Les 4 premiers CheckBox
         for (CheckBox checkBox : checkBoxes) {
@@ -221,14 +218,6 @@ public class DonneeCommune extends Pane {
         return this.tri6;
     }
 
-    public CheckBox getTri7() {
-        return this.tri7;
-    }
-
-    public CheckBox getTri8() {
-        return this.tri8;
-    }
-
     public Label getDonneLabel() {
         return this.donneLabel;
     }
@@ -256,8 +245,6 @@ public class DonneeCommune extends Pane {
         this.tri4.setSelected(false);
         this.tri5.setSelected(false);
         this.tri6.setSelected(false);
-        this.tri7.setSelected(false);
-        this.tri8.setSelected(false);
     }
 
 }

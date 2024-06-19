@@ -184,8 +184,6 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donnee.getTri4().setOnAction(this);
         this.donnee.getTri5().setOnAction(this);
         this.donnee.getTri6().setOnAction(this);
-        this.donnee.getTri7().setOnAction(this);
-        this.donnee.getTri8().setOnAction(this);
 
         // gestion des événements de la classe DonneeDetailVue
         this.donneeDetailVue.getNavBarre().getcompteButton().setOnAction(this);
@@ -317,7 +315,7 @@ public class AppController implements EventHandler<ActionEvent> {
                 if (sources.getId().equals("searchField")) {
                     if(sources.getText().isEmpty()){
                         this.donnee.setCommuneTable(communes);
-                    } else if (!sources.getText().matches(".*\\d.*") && sources.getText().length() > 1) {
+                    } else if (!sources.getText().matches(".*\\d.*")) {
                         this.donnee.getErrorLabel().setText("");
                         if (this.communeDAO.findByNomCommune(sources.getText()).size() > 0) {
                             this.donnee.setCommuneTable(this.communeDAO.findByNomCommune(sources.getText()));
@@ -339,22 +337,22 @@ public class AppController implements EventHandler<ActionEvent> {
                 }
             } else if (source instanceof CheckBox) {
                 CheckBox sources = (CheckBox) event.getSource();
-                if (sources.getId().equals("35") && sources.isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri1().isSelected()) {
+                if (sources.getId().equals("35") && sources.isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() || this.donnee.getTri1().isSelected()) {
                     this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '35'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-                } else if (sources.getId().equals("56") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri2().isSelected()){
+                } else if (sources.getId().equals("56") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() || this.donnee.getTri2().isSelected()){
                     this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '56'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-                } else if (sources.getId().equals("29") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri3().isSelected()){
+                } else if (sources.getId().equals("29") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() || this.donnee.getTri3().isSelected()){
                     this.querry = "SELECT * FROM COMMUNE WHERE leDepartement = '29'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-                } else if (sources.getId().equals("22") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri4().isSelected()){
+                } else if (sources.getId().equals("22") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() || this.donnee.getTri4().isSelected()){
                     this.querry = "SELECT DISTINCT * FROM COMMUNE WHERE leDepartement = '22'";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-                } else if (sources.getId().equals("Gare") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri5().isSelected()){
+                } else if (sources.getId().equals("Gare") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri6().isSelected() || this.donnee.getTri5().isSelected()){
                     this.querry = "SELECT * FROM Commune JOIN Gare ON Commune.idCommune = Gare.laCommune ORDER BY Commune.idCommune";
                     this.donnee.setCommuneTable(this.communeDAO.findWithQuerry(this.querry));
-                } else if (sources.getId().equals("prix") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected() || this.donnee.getTri6().isSelected()){
+                } else if (sources.getId().equals("prix") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() || this.donnee.getTri6().isSelected()){
                     if(this.donnee.getPrixField().getText().isEmpty()){
                         this.donnee.getErrorLabel().setText("Champ vide");
                     } else if (this.donnee.getPrixField().getText().matches(".*\\d.*")) {
@@ -365,11 +363,7 @@ public class AppController implements EventHandler<ActionEvent> {
                     } else {
                         this.donnee.getErrorLabel().setText("Erreur de syntaxe");
                     }
-                } else if (sources.getId().equals("tri7") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri8().isSelected()) {
-                    System.out.println("tri7");
-                } else if (sources.getId().equals("tri8") && sources.isSelected() && !this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected()){
-                    System.out.println("tri8");
-                } else if (!this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected() && !this.donnee.getTri7().isSelected() && !this.donnee.getTri8().isSelected()) {
+                } else if (!this.donnee.getTri1().isSelected() && !this.donnee.getTri2().isSelected() && !this.donnee.getTri3().isSelected() && !this.donnee.getTri4().isSelected() && !this.donnee.getTri5().isSelected() && !this.donnee.getTri6().isSelected()) {
                     this.donnee.setCommuneTable(communes);
                     this.donnee.getErrorLabel().setText("");
                 }
