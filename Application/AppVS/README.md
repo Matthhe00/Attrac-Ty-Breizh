@@ -1,24 +1,52 @@
-## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+```markdown
+# Projet : Attractivité des communes bretonnes
 
-## Folder Structure
+## Description
+Développement d’une application de valorisation de données publiques pour analyser et améliorer l'attractivité des communes bretonnes. Ce projet inclut la conception d'une base de données, l'analyse statistique, la création d'une interface graphique et la modélisation du réseau des communes sous forme de graphe.
+```
 
-The workspace contains two folders by default, where:
+## Utilisation
+Instructions pour utiliser le projet :
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+1. Lancer l'application :
+```bash
+# Pour compiler l'application Java il faut utiliser la commande suivante :
+javac -d ./classes --module-path C:\Users\User\Documents\Ressources\R2.02\lib\javafx-sdk-22.0.1\lib --add-modules javafx.controls .\src\app\controller\*.java .\src\app\model\dao\*.java .\src\app\model\data\*.java .\src\resource\utils\Constants.java .\src\app\Main.java .\src\app\view\*.java .\src\app\view\admin\*.java .\src\app\view\table\*.java
 
-Meanwhile, the compiled output files will be generated in the `class` folder by default.
+#Pour exécuter l'application Java il faut utiliser la commande suivante  : 
+java --module-path C:\Users\User\Documents\javafx-sdk-21.0.3\lib --add-modules javafx.controls .\src\app\Main
+```
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+2. Accéder à l'application via l'interface utilisateur fournie.
 
-## Dependency Management
+## Données
+Le projet utilise plusieurs jeux de données disponibles sur [data.gouv.fr](https://www.data.gouv.fr/fr/). Les fichiers de données inclus sont :
+- `departement.csv` : Liste des départements en Bretagne.
+- `communesBretonnes.csv` : Liste des communes bretonnes.
+- `voisinageCommunesBretonnes.csv` : Liste des communes adjacentes.
+- `prixParCommune.csv` : Données sur les prix des logements par commune.
+- `investissementCulturelParDep.csv` : Montants des allocations culturelles par département.
+- `gare.csv` : Présence des gares par commune.
+- `depensesCulturellesParCommune.csv` : Dépenses culturelles par commune.
+- `aeroport.csv` : Localisation des aéroports bretons.
+- `tauxInflationParAn.csv` : Taux d'inflation par an.
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Auteurs et crédits
+- Matthéo Jules-Vachet
+- Paul Gauffeny
+- Yanis Schell
 
-## How to Run
+## Technologies utilisées
+- Java
+- JavaFX
+- MySQL
 
-Dans le dossier App dans le terminal use : javac --module-path lib --add-modules javafx.controls -d bin src/*.java src/controller/*.java src/model/*.java src/view/*.java
+## Liens utiles
+- [Documentation](https://moodle.univ-ubs.fr/course/view.php?id=7564)
+- [Rapports de bugs](https://www.data.gouv.fr/fr/)
+- [Discussions](https://www.data.gouv.fr/fr/)
 
-Dans le dossier App dans le terminal use : java --module-path lib --add-modules javafx.controls -cp bin App
+## Lien Vers la vidéo de démonstration d'application
+
+- [Lien de la vidéo](https://we.tl/t-i6hOrAHgN8)
