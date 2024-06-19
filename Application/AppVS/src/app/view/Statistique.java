@@ -34,11 +34,11 @@ public class Statistique  {
     public void initUIComponents() {
         this.barChart1 = new BarChart<>(new CategoryAxis(), new NumberAxis());
         this.barChart2 = new BarChart<>(new CategoryAxis(), new NumberAxis());
-        this.label = new Label("Statistiques des Communes par Département");
+        this.label = new Label("Statistiques des Communes et des Départements");
         this.button1 = new ToggleButton("L'influence du nombre \nde commune sur \nl'investissement culturelle");
         this.button1.setId("1");
 
-        this.button2 = new ToggleButton("L'influence de l'investissement culturelle sur le nombre de commune");
+        this.button2 = new ToggleButton("Comparaison des \ndépenses culturelles \net des budgets totaux \ndes communes");
         this.button2.setId("2");
     }
 
@@ -62,17 +62,18 @@ public class Statistique  {
 
     public void configurerComposants(Pane root, String val) {
         root.getChildren().add(this.navBarre);
-        configurerToggleButton(button1, 50, 200, "my-button-toggle", root, 300, 200);
-        configurerToggleButton(button2, 50, 400, "my-button-toggle", root, 200, 200);
+        configurerToggleButton(button1, 50, 280, "my-button-toggle", root, 240, 100);
+        configurerToggleButton(button2, 50, 420, "my-button-toggle", root, 240, 100);
         if(val.equals("1")) {
             this.barChart1 = nbCommuneInvesti1();
             this.barChart2 = nbCommuneInvesti2();
-            configurerBarChart(this.barChart1, 350, 150, 400, 350, "bar-chart", root);
-            configurerBarChart(this.barChart2, 800, 150, 400, 350, "bar-chart", root);
+            configurerBarChart(this.barChart1, 350, 250, 400, 350, "bar-chart", root);
+            configurerBarChart(this.barChart2, 800, 250, 400, 350, "bar-chart", root);
         } else if (val.equals("2")) {
-            // this.barChart = nbCommuneInvesti(root);
+            this.barChart1 = communeBudgetInvesti1();
+            configurerBarChart(barChart1, 380, 210, 740, 430, "bar-chart", root);
         } else {
-            configurerLabel(this.label, 300, 50, "my-label", root);
+            configurerLabel(this.label, 400, 350, "my-label-titre", root);
         }
     }
 
@@ -99,6 +100,55 @@ public class Statistique  {
         root.getChildren().add(barChart);
     }
 
+    public BarChart<String, Number> communeBudgetInvesti1() {
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Nom Commune");
+        yAxis.setLabel("Somme (K€)");
+    
+        final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Comparaison des Dépenses Culturelles et Budgets Totals des Communes");
+    
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series1.setName("Dépenses Culturelles Totales");
+        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+        series2.setName("Budget Total Commune");
+    
+        series1.getData().add(new XYChart.Data<>("RENNES", 86100));
+        series2.getData().add(new XYChart.Data<>("RENNES", 344670));
+        
+        series1.getData().add(new XYChart.Data<>("BREST", 27220));
+        series2.getData().add(new XYChart.Data<>("BREST", 131386));
+        
+        series1.getData().add(new XYChart.Data<>("LORIENT", 25637));
+        series2.getData().add(new XYChart.Data<>("LORIENT", 87084));
+        
+        series1.getData().add(new XYChart.Data<>("VANNES", 19297));
+        series2.getData().add(new XYChart.Data<>("VANNES", 83730));
+        
+        series1.getData().add(new XYChart.Data<>("SAINT-MALO", 24286));
+        series2.getData().add(new XYChart.Data<>("SAINT-MALO", 81905));
+        
+        series1.getData().add(new XYChart.Data<>("SAINT-BRIEUC", 15226));
+        series2.getData().add(new XYChart.Data<>("SAINT-BRIEUC", 78109));
+        
+        series1.getData().add(new XYChart.Data<>("QUIMPER", 19585));
+        series2.getData().add(new XYChart.Data<>("QUIMPER", 70860));
+        
+        series1.getData().add(new XYChart.Data<>("DINARD", 7529));
+        series2.getData().add(new XYChart.Data<>("DINARD", 27743));
+        
+        series1.getData().add(new XYChart.Data<>("VITRE", 7514));
+        series2.getData().add(new XYChart.Data<>("VITRE", 25981));
+        
+        series1.getData().add(new XYChart.Data<>("MORLAIX", 9000));
+        series2.getData().add(new XYChart.Data<>("MORLAIX", 25974));
+
+        barChart.getData().addAll(series1, series2);
+    
+        return barChart;
+    }
+
     public BarChart<String, Number> nbCommuneInvesti1() {
         BarChart<String, Number> barChartRet;
         // Définir les axes
@@ -117,7 +167,7 @@ public class Statistique  {
         series.getData().add(new XYChart.Data<>("29", 277));
         series.getData().add(new XYChart.Data<>("35", 333));
         series.getData().add(new XYChart.Data<>("56", 249));
-
+  
         barChartRet.getData().add(series);
 
         return barChartRet;
