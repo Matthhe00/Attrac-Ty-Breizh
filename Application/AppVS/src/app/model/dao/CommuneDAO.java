@@ -98,7 +98,7 @@ public class CommuneDAO extends DAO<Commune> {
         String sql = "SELECT * FROM Commune WHERE NOMCOMMUNE LIKE ?";
         try (Connection con = getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
-            st.setString(1, "%" + nomRecherche + "%");
+            st.setString(1, nomRecherche + "%"); // Modification ici
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String idCommune = rs.getString("IDCOMMUNE");

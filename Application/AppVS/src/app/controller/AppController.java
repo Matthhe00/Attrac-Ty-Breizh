@@ -32,8 +32,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private AnneeDAO anneeDAO;
     private AnneeCommuneDAO anneeCommuneDAO;
     private User user;
-    private boolean role = false;
-    private boolean estConnecte = false;
+    private boolean estConnecte = false, role = false, estdepartement = false;
     private String annee, idCommune, querry;
     private Main main;
     private UserFileAccess userFileAccess;
@@ -50,6 +49,7 @@ public class AppController implements EventHandler<ActionEvent> {
     private ArrayList<Commune> communes;
     private DonneeDepartement donneeDepartement;
     private DonneeDepartementDetail donneeDepartementDetail;
+    
 
     // private AnneeFileAccess anneeFileAccess;
 
@@ -216,6 +216,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.donneeDepartementDetail.getNavBarre().getDonneesButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.donneeDepartementDetail.getNavBarre().getAccueilButton().setOnAction(this);
+        this.donneeDepartementDetail.getAjouterAeroport().setOnAction(this);
     }
 
     @Override
@@ -235,8 +236,10 @@ public class AppController implements EventHandler<ActionEvent> {
             boutonCompteNavBarreClick();
         } else if (source == this.accueil.getNavBarre().getdepartementButton() && this.estConnecte || source == this.compte.getNavBarre().getdepartementButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getdepartementButton() && this.estConnecte || source == this.modifierCommuneScene.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donnee.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getdepartementButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getdepartementButton() && this.estConnecte){
             boutonDepartementNavBarreClick();
+            this.estdepartement = true;
         } else if (source == this.accueil.getNavBarre().getDonneesButton() && this.estConnecte || source == this.compte.getNavBarre().getDonneesButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donnee.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getDonneesButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getDonneesButton() && this.estConnecte){
             boutonDonneesNavBarreClick();
+            this.estdepartement = false;
         } else if (source == this.accueil.getNotion()) {
             boutonNotionClick();
         } else if (source == this.accueil.getNavBarre().getAccueilButton() && this.estConnecte || source == this.compte.getNavBarre().getAccueilButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.modifierCommuneScene.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donnee.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getAccueilButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getAccueilButton() && this.estConnecte){
@@ -260,8 +263,9 @@ public class AppController implements EventHandler<ActionEvent> {
         } else if (source == this.donneeDetailVue.getAjouterGare()) {
             System.out.println("Ajouter Gare");
             ajouterGare(this.donneeDetailVue.getCodeCommune().getText());
-        } else if (source == this.donneeDetailVue.getAjouterAeroport()) {
-            ajouterAeroport(this.donneeDetailVue.getCodeCommune().getText());
+        } else if (source == this.donneeDetailVue.getAjouterAeroport() || source == this.donneeDepartementDetail.getAjouterAeroport()) {
+            if (source == this.donneeDetailVue.getAjouterAeroport()) ajouterAeroport(this.donneeDetailVue.getCodeCommune().getText(), false);
+            else if (source == this.donneeDepartementDetail.getAjouterAeroport()) ajouterAeroport(this.donneeDepartementDetail.getDepartement().getIdDep(), true);
         } else if (source == this.donneeDepartement.getCoteDArmor()) {
             boutonDepartementClick("22");
         } else if (source == this.donneeDepartement.getIlleEtVilaine()) {
@@ -287,11 +291,16 @@ public class AppController implements EventHandler<ActionEvent> {
                     boutonSupprimerGareClick(sourceId);
                     boutonInfoClick(codeCommune);
                     boutonInfoClick(codeCommune);
+                    this.estdepartement = false;
                     updateAppController();
                 } else if (this.aeroportDAO.exist(sourceId)) {
                     boutonSupprimerAeroportClick(sourceId);
-                    boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
-                    boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
+                    if (this.estdepartement) {
+                        boutonDepartementClick(this.donneeDepartementDetail.getDepartement().getIdDep());
+                    } else {
+                        boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
+                        boutonInfoClick(this.donneeDetailVue.getCodeCommune().getText());
+                    }
                     updateAppController();
                 }
             } else if (source instanceof ComboBox) {
@@ -383,12 +392,23 @@ public class AppController implements EventHandler<ActionEvent> {
         updateAppController();
     }
 
-    public void ajouterAeroport(String codeCommune) {
-        Aeroport aeroport = new Aeroport(this.communeFileAccess.getCommuneById(codeCommune).getLeDepartement(), "nom","adresse" );
-        this.aeroportDAO.create(aeroport);
-        this.aeroportFileAccess.setList();
-        this.donneeDetailVue.setAeroportTable(this.aeroportDAO.findWithQuerry("SELECT * FROM Aeroport WHERE leDepartement = '" + this.communeFileAccess.getCommuneById(codeCommune).getLeDepartement() + "'"));
-        updateAppController();
+    public void ajouterAeroport(String codeCommune, boolean isDepartement) {
+        if (isDepartement) {
+            Aeroport aeroport = new Aeroport(codeCommune, "nom","adresse" );
+            this.aeroportDAO.create(aeroport);
+            this.aeroportFileAccess.setList();
+            ArrayList<Aeroport> aeroports = this.aeroportDAO.findWithQuerry("SELECT * FROM Aeroport WHERE leDepartement = '" + codeCommune + "'");
+            this.donneeDepartementDetail.setAeroportTable(aeroports);
+            updateAppController();
+
+        } else {
+            Aeroport aeroport = new Aeroport(this.communeFileAccess.getCommuneById(codeCommune).getLeDepartement(), "nom","adresse" );
+            this.aeroportDAO.create(aeroport);
+            this.aeroportFileAccess.setList();
+            ArrayList<Aeroport> aeroports = this.aeroportDAO.findWithQuerry("SELECT * FROM Aeroport WHERE leDepartement = '" + this.communeFileAccess.getCommuneById(codeCommune).getLeDepartement() + "'");
+            this.donneeDetailVue.setAeroportTable(aeroports);
+            updateAppController();
+        }
     }
 
     public void boutonDepartementClick(String id) {

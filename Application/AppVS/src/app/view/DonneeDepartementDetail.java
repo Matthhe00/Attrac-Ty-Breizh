@@ -19,10 +19,11 @@ public class DonneeDepartementDetail {
     private Image icon, backgroundImage, imageDep, image35, image22, image29, image56;
     private BackgroundImage background;
     private NavBarre navBarre;
-    private Label nomDep, invesCulturel, nbCommune, nbGare, nbAeroport;
+    private Label nomDep, invesCulturel, nbCommune, codeDepartement;
     private CommuneTable donneTable;
     private AeroportTable aeroportTable;
     private Departement departement;
+    private Button ajouterAeroport;
     
 
     public DonneeDepartementDetail(Stage primaryStage) {
@@ -43,6 +44,7 @@ public class DonneeDepartementDetail {
 
     public void init(Departement dep, AeroportFileAccess aeroportFileAccess, AppController appController, Boolean isAdmin) {
         this.nomDep.setText(dep.getNomDep());
+        this.codeDepartement.setText(dep.getIdDep());
         this.invesCulturel.setText(dep.getInvesCulturel2019());
         this.aeroportTable = new AeroportTable(aeroportFileAccess.getAeroports(dep.getIdDep()), appController, isAdmin);
         if (dep.getIdDep().equals("35")) {
@@ -56,6 +58,10 @@ public class DonneeDepartementDetail {
         }
     }
 
+    public void init(AppController appController, Boolean isAdmin, String idCommune, AeroportFileAccess aeroportFileAccess) {
+        this.aeroportTable = new AeroportTable(aeroportFileAccess.getAeroportByDepartement(this.departement.getIdDep()), appController, isAdmin);
+    }
+
     public void setCommuneTable(ArrayList<Commune> communes) {
         this.donneTable.setCommunes(communes);
         this.nbCommune.setText(communes.size() + "");
@@ -65,9 +71,8 @@ public class DonneeDepartementDetail {
         this.nomDep = new Label();
         this.invesCulturel = new Label();
         this.nbCommune = new Label();
-        this.nbGare = new Label();
-        this.nbAeroport = new Label();
-
+        this.ajouterAeroport = new Button("+");
+        this.codeDepartement = new Label();
     }
 
     public Scene creerSceneDonnee() {
@@ -87,7 +92,7 @@ public class DonneeDepartementDetail {
         init(dep, aeroportFile, appcontroller, estAdmin);
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        configurerComposants(root);
+        configurerComposants(root, estAdmin);
         return root;
     }
 
@@ -97,7 +102,7 @@ public class DonneeDepartementDetail {
 
     }
 
-    public void configurerComposants(Pane root) {
+    public void configurerComposants(Pane root, boolean estAdmin) {
         root.getChildren().add(this.navBarre);
         configurerTable(this.donneTable, 630, 205, "my-table", root, 522, 180);
         configurerLabel(this.nomDep, 200, 150, "my-label-titre", root);
@@ -105,7 +110,16 @@ public class DonneeDepartementDetail {
         configurerLabel(this.nbCommune, 360, 575, "my-label-commune-bt", root);
         configurerTable(this.aeroportTable, 650, 485, "my-table", root, 482, 105);
         configurerImage(this.imageDep, 178, 205, 250, 250, root);
+        configurerLabel(this.codeDepartement, 450, 420, "my-label-commune-bt", root);
 
+        if (estAdmin) configurerBouton(this.ajouterAeroport, 925, 415, "my-button-add", root);
+    }
+
+    private void configurerBouton(Button bouton, int x, int y, String styleClass, Pane root) {
+        bouton.setLayoutX(x);
+        bouton.setLayoutY(y);
+        bouton.getStyleClass().add(styleClass);
+        root.getChildren().add(bouton);
     }
 
     private void configurerImage(Image image, int x, int y, int width, int height, Pane root) {
@@ -157,5 +171,13 @@ public class DonneeDepartementDetail {
 
     public Departement getDepartement() {
         return this.departement;
+    }
+
+    public Button getAjouterAeroport() {
+        return this.ajouterAeroport;
+    }
+
+    public void setAeroportTable(ArrayList<Aeroport> withQuerry) {
+        this.aeroportTable.setAeroports(withQuerry);
     }
 }
