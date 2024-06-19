@@ -376,19 +376,19 @@
     -fx-text-fill: #38B6FF;
 }
 
-.bar-chart {
+/* .bar-chart {
     -fx-background-color: #8f8e8e00;
     -fx-background-radius: 15px;
 }
 
 .bar-chart .chart-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
 .bar-chart .axis-label {
-    -fx-font-size: 16px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
@@ -401,122 +401,78 @@
 
 .bar-chart .bar {
     -fx-background-color: #38B6FF;
+    -fx-bar-fill: #38B6FF;
 }
 
 .bar-chart .bar:hover {
     -fx-background-color: #1f6892;
 }
 
+.custom-bar-chart .chart-bar {
+    -fx-bar-fill: #38B6FF; /* Bleu, par exemple */
 
-/* Style for PieChart */
-.pie-chart {
-    -fx-background-color: #8f8e8e00;
-    -fx-background-radius: 15px;
-}
 
-.pie-chart .chart-title {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
+
+
+.my-button-toggle {
+    -fx-background-color: #8f8e8e48;
     -fx-text-fill: #ffffff;
-}
-
-.pie-chart .label {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
-}
-
-.pie-chart .legend {
-    -fx-background-color: #8f8e8e00;
+    -fx-padding: 10px 20px;
     -fx-background-radius: 15px;
-}   
-
-.pie-chart .legend-item {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
 }
 
-.pie-chart .legend-item-symbol {
-    -fx-background-color: #38B6FF;
-}
-
-.pie-chart .legend-item-symbol:hover {
+.my-button-toggle:hover {
     -fx-background-color: #1f6892;
+    -fx-text-fill: white;
 }
 
-/* Style for LineChart */
-.line-chart {
+.my-button-toggle-selected {
+    -fx-background-color: #38B6FF;
+    -fx-text-fill: white;
+}
+
+
+
+
+
+.bar-chart {
     -fx-background-color: #8f8e8e00;
     -fx-background-radius: 15px;
 }
 
-.line-chart .chart-title {
-    -fx-font-size: 24px;
+.bar-chart .chart-title {
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
-.line-chart .axis-label {
-    -fx-font-size: 16px;
+.bar-chart .axis-label {
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
-.line-chart .axis-tick-label {
+.bar-chart .axis-tick-label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
-.line-chart .line {
-    -fx-stroke: #38B6FF;
-}
-
-.line-chart .line:hover {
-    -fx-stroke: #1f6892;
-}
-
-.line-chart .data-point {
+.bar-chart .bar {
     -fx-background-color: #38B6FF;
-    -fx-background-radius: 5px;
+    -fx-bar-fill: #38B6FF;
+    -fx-bar-radius: 15px;
 }
 
-.line-chart .data-point:hover {
+.bar-chart .bar:hover {
     -fx-background-color: #1f6892;
-    -fx-background-radius: 5px;
 }
 
-/* Style for AreaChart */ 
-.area-chart {
-    -fx-background-color: #8f8e8e00;
-    -fx-background-radius: 15px;
+.custom-bar-chart .chart-bar {
+    -fx-bar-fill: #38B6FF; /* Bleu, par exemple */
 }
 
-.area-chart .chart-title {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
-}
 
-.area-chart .axis-label {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
-}
-
-.area-chart .axis-tick-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
-}   
-
-.area-chart .area {
-    -fx-fill: #38B6FF;
-}
-
-.area-chart .area:hover {
-    -fx-fill: #1f6892;
-}
-
-/* Style for ScatterChart */

@@ -138,6 +138,7 @@ public class AppController implements EventHandler<ActionEvent> {
         this.accueil.getNavBarre().getDonneesButton().setOnAction(this);
         this.accueil.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.accueil.getNavBarre().getAccueilButton().setOnAction(this);
+        this.accueil.getNavBarre().getStatistiqueButton().setOnAction(this);
         this.accueil.getNotion().setOnAction(this);
 
         // gestion des événements de la classe Inscription
@@ -222,6 +223,8 @@ public class AppController implements EventHandler<ActionEvent> {
         this.statistique.getNavBarre().getDeconnexionButton().setOnAction(this);
         this.statistique.getNavBarre().getAccueilButton().setOnAction(this);
         this.statistique.getNavBarre().getStatistiqueButton().setOnAction(this);
+        this.statistique.getButton1().setOnAction(this);
+        this.statistique.getButton2().setOnAction(this);
     }
 
     @Override
@@ -278,7 +281,14 @@ public class AppController implements EventHandler<ActionEvent> {
         } else if (source == this.donneeDepartement.getMorbihan()) {
             boutonDepartementClick("56");
         } else if (source == this.accueil.getNavBarre().getStatistiqueButton() && this.estConnecte || source == this.compte.getNavBarre().getStatistiqueButton() && this.estConnecte || source == this.CompteAdminScene.getNavBarre().getStatistiqueButton() && this.estConnecte ||  source == this.donnee.getNavBarre().getStatistiqueButton() && this.estConnecte || source == this.donneeDetailVue.getNavBarre().getStatistiqueButton() && this.estConnecte || source == this.donneeDepartement.getNavBarre().getStatistiqueButton() && this.estConnecte || source == this.donneeDepartementDetail.getNavBarre().getStatistiqueButton() && this.estConnecte || source == this.statistique.getNavBarre().getStatistiqueButton() && this.estConnecte){
-            boutonStatistiqueNavBarreClick();
+            boutonStatistiqueNavBarreClick("0");
+            this.statistique.resetToggle();
+        } else if (source == this.statistique.getButton1() || source == this.statistique.getButton2()) {
+            if (source == this.statistique.getButton1()) {
+                boutonStatistiqueNavBarreClick(this.statistique.getButton1().getId());
+            } else if (source == this.statistique.getButton2()) {
+                boutonStatistiqueNavBarreClick(this.statistique.getButton2().getId());
+            }
         } else {
             if (source instanceof Button) {
                 Button sources = (Button) event.getSource();
@@ -380,13 +390,17 @@ public class AppController implements EventHandler<ActionEvent> {
         }
     } 
 
-    private void boutonStatistiqueNavBarreClick() {
-        Pane root = this.statistique.creerRootStatistique(1);
+    public void boutonStatistiqueNavBarreClick(String id) {
+        Pane root = this.statistique.creerRootStatistique(id);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         updateAppController();
+    }
+
+    public void changeStatistique(String source) {
+        boutonStatistiqueNavBarreClick(source);
     }
 
     public void boutonSupprimerAeroportClick(String sourceId) {

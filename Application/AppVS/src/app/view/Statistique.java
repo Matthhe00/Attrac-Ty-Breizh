@@ -19,6 +19,7 @@ public class Statistique  {
     private BarChart<String, Number> barChart1, barChart2;
     private Label label;
     private NavBarre navBarre;
+    private ToggleButton button1, button2;
 
     public Statistique(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -34,10 +35,15 @@ public class Statistique  {
         this.barChart1 = new BarChart<>(new CategoryAxis(), new NumberAxis());
         this.barChart2 = new BarChart<>(new CategoryAxis(), new NumberAxis());
         this.label = new Label("Statistiques des Communes par Département");
+        this.button1 = new ToggleButton("L'influence du nombre \nde commune sur \nl'investissement culturelle");
+        this.button1.setId("1");
+
+        this.button2 = new ToggleButton("L'influence de l'investissement culturelle sur le nombre de commune");
+        this.button2.setId("2");
     }
 
     public Scene creerSceneStatistique() {
-        Pane root = creerRootStatistique(0);
+        Pane root = creerRootStatistique("0");
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
         scene.getStylesheets().add(getClass().getResource("../../resource/app.css").toExternalForm());
         this.primaryStage.getIcons().add(this.icon);
@@ -47,27 +53,36 @@ public class Statistique  {
         return scene;
     }
 
-    public Pane creerRootStatistique(int checkBox) {
+    public Pane creerRootStatistique(String val) {
         Pane root = new Pane();
         root.setBackground(new Background(this.background));
-        configurerComposants(root, checkBox);
+        configurerComposants(root, val);
         return root;
     }
 
-    public void configurerComposants(Pane root, int checkBox) {
+    public void configurerComposants(Pane root, String val) {
         root.getChildren().add(this.navBarre);
-        if(checkBox == 1) {
+        configurerToggleButton(button1, 50, 200, "my-button-toggle", root, 300, 200);
+        configurerToggleButton(button2, 50, 400, "my-button-toggle", root, 200, 200);
+        if(val.equals("1")) {
             this.barChart1 = nbCommuneInvesti1();
             this.barChart2 = nbCommuneInvesti2();
-            configurerBarChart(this.barChart1, 300, 150, 500, 350, "bar-chart", root);
-            configurerBarChart(this.barChart2, 300, 450, 500, 350, "bar-chart", root);
-        } else if (checkBox == 2) {
+            configurerBarChart(this.barChart1, 350, 150, 400, 350, "bar-chart", root);
+            configurerBarChart(this.barChart2, 800, 150, 400, 350, "bar-chart", root);
+        } else if (val.equals("2")) {
             // this.barChart = nbCommuneInvesti(root);
         } else {
             configurerLabel(this.label, 300, 50, "my-label", root);
         }
     }
 
+    private void configurerToggleButton(ToggleButton button, int x, int y, String styleClass, Pane root, int width, int height) {
+        button.setLayoutX(x);
+        button.setLayoutY(y);
+        button.setPrefSize(width, height);
+        button.getStyleClass().add(styleClass);
+        root.getChildren().add(button);
+    }
 
     private void configurerLabel(Label label, int x, int y, String styleClass, Pane root) {
         label.setLayoutX(x);
@@ -85,6 +100,7 @@ public class Statistique  {
     }
 
     public BarChart<String, Number> nbCommuneInvesti1() {
+        BarChart<String, Number> barChartRet;
         // Définir les axes
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -92,8 +108,8 @@ public class Statistique  {
         yAxis.setLabel("Nombre de Communes");
 
         // Créer le BarChart
-        this.barChart1 = new BarChart<>(xAxis, yAxis);
-        this.barChart1.setTitle("Nombre de Communes par Département");
+        barChartRet = new BarChart<>(xAxis, yAxis);
+        barChartRet.setTitle("Nombre de Communes par Département");
 
         // Ajouter les données
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -102,12 +118,14 @@ public class Statistique  {
         series.getData().add(new XYChart.Data<>("35", 333));
         series.getData().add(new XYChart.Data<>("56", 249));
 
-        this.barChart1.getData().add(series);
+        barChartRet.getData().add(series);
 
-        return this.barChart1;
+        return barChartRet;
     }
 
     public BarChart<String, Number> nbCommuneInvesti2() {
+        BarChart<String, Number> barChartRet;
+
         // Définir les axes
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -115,8 +133,8 @@ public class Statistique  {
         yAxis.setLabel("Investissement Culturelle");
     
         // Créer le BarChart
-        this.barChart2 = new BarChart<>(xAxis, yAxis);
-        this.barChart2.setTitle("Investissement Culturelle par Département");
+        barChartRet = new BarChart<>(xAxis, yAxis);
+        barChartRet.setTitle("Investissement Culturelle par Département");
     
         // Ajouter les données
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -125,11 +143,25 @@ public class Statistique  {
         series.getData().add(new XYChart.Data<>("35", 26901579));
         series.getData().add(new XYChart.Data<>("56", 7107993));
     
-        this.barChart2.getData().add(series);
+        barChartRet.getData().add(series);
     
-        return this.barChart2;
+        return barChartRet;
     }
+
     public NavBarre getNavBarre() {
         return this.navBarre;
+    }
+
+    public ToggleButton getButton1() {
+        return this.button1;
+    }
+
+    public ToggleButton getButton2() {
+        return this.button2;
+    }
+
+    public void resetToggle() {
+        this.button1.setSelected(false);
+        this.button2.setSelected(false);
     }
 }
