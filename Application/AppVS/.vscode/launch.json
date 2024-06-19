@@ -9,7 +9,7 @@
             "name": "Attract'y Breizh - App",
             "request": "launch",
             "mainClass": "app.Main",
-            "vmArgs": "--module-path lib --add-modules javafx.controls,javafx.fxml,javafx.web"
+            "vmArgs": "--module-path C:/LocalApps/JavaFX/lib --add-modules javafx.controls"
         }
     ]
 }

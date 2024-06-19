@@ -17,7 +17,9 @@ javac -d ./classes --module-path C:\Users\User\Documents\Ressources\R2.02\lib\ja
 #Pour exécuter l'application Java il faut utiliser la commande suivante  : 
 java --module-path C:\Users\User\Documents\javafx-sdk-21.0.3\lib --add-modules javafx.controls .\src\app\Main
 
-#Autre possibilié simplement lancer "Attract'y Breizh - App" avec le Debug VsCode (si Sur VsCode)
+#Autre possibilié simplement lancer "Attract'y Breizh - App" avec le Debug VsCode (si Sur VsCode) en modifiant dans "lauch.json"
+Modifié : "vmArgs": "--module-path <Chemin vers la librairie JavaFX - /lib> --add-modules javafx.controls"
+
 ```
 
 
@@ -53,4 +55,4 @@ Le projet utilise plusieurs jeux de données disponibles sur [data.gouv.fr](http
 
 ## Lien Vers la vidéo de démonstration d'application
 
-- [Lien de la vidéo](https://we.tl/t-i6hOrAHgN8)
+- [Lien de la vidéo](https://www.youtube.com/watch?v=slz8_Z3xK80)
