@@ -833,7 +833,7 @@ public class AppController implements EventHandler<ActionEvent> {
      * methode pour l'inscription d'un utilisateur
      */
     public void inscrireUtilisateur() {
-        user = new User(this.inscription.getIndentField().getText(), this.inscription.getPasswordField().getText());
+        User user = new User(this.inscription.getIndentField().getText(), this.inscription.getPasswordField().getText());
         userDAO.create(user);
     }
 
@@ -842,7 +842,7 @@ public class AppController implements EventHandler<ActionEvent> {
      */
     public void inscrireUtilisateurAdmin() {
         if (!this.userDAO.exists(this.CompteAdminScene.getLoginField().getText()) && !this.CompteAdminScene.getLoginField().getText().isEmpty() && !this.CompteAdminScene.getPasswordField().getText().isEmpty()){
-            user = new User(this.CompteAdminScene.getLoginField().getText(), this.CompteAdminScene.getPasswordField().getText());
+            User user = new User(this.CompteAdminScene.getLoginField().getText(), this.CompteAdminScene.getPasswordField().getText());
             this.userDAO.create(user);
             this.userFileAccess.setList();
             boutonListeCompteClick();
@@ -868,9 +868,10 @@ public class AppController implements EventHandler<ActionEvent> {
      * methode pour modifier un utilisateur
      */
     public void modifierUtilisateur() {
-        this.user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText(), this.compte.getRoleLabel().getText());
         if(!this.userDAO.exists(this.compte.getidentField().getText()) && !this.compte.getidentField().getText().isEmpty() && !this.compte.getPasswordField().getText().isEmpty()){
+            User user = new User(this.compte.getidentField().getText(), this.compte.getPasswordField().getText());
             this.userDAO.update(user, this.compte.getidentLabel().getText(), this.compte.getRoleLabel().getText());
+            this.userFileAccess.setList();
             boutonCompteNavBarreClick();
         } else {
             this.compte.getErrorLabel().setText("Identifiant déjà utilisé");
@@ -921,6 +922,7 @@ public class AppController implements EventHandler<ActionEvent> {
      */
     public void boutonListeCompteClick() {
         // this.user = userDAO.findByLoginPwd(this.user.getLogin(), this.user.getPwd());
+        this.userFileAccess.setList();
         Pane root = this.CompteAdminScene.creerRootCompte();
         this.CompteAdminScene.init(this, userFileAccess);
         Scene scene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT); 
