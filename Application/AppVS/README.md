@@ -1,10 +1,7 @@
-
-```markdown
 # Projet : Attractivité des communes bretonnes
 
 ## Description
 Développement d’une application de valorisation de données publiques pour analyser et améliorer l'attractivité des communes bretonnes. Ce projet inclut la conception d'une base de données, l'analyse statistique, la création d'une interface graphique et la modélisation du réseau des communes sous forme de graphe.
-```
 
 ## Utilisation
 Instructions pour utiliser le projet :
